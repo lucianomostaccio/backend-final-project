@@ -6,8 +6,14 @@ const productsDao = getDaoProducts();
 
 class ProductsService {
   async addProduct(data) {
+    console.log("data add product products service", data);
     const product = new Product(data);
+    console.log("new product(data)", product);
     const savedProduct = await productsDao.create(product.toPOJO());
+    console.log(
+      "saved product created with toPOJO, products service",
+      savedProduct
+    );
     return savedProduct;
   }
 
@@ -45,10 +51,10 @@ class ProductsService {
     }
   }
 
-  // Delete product by ID
-  async deleteProduct(_id) {
+  // Delete a product
+  async deleteProduct(criteria) {
     try {
-      const deletedProduct = await productsDao.deleteOne({ _id });
+      const deletedProduct = await productsDao.deleteOne(criteria);
 
       if (deletedProduct) {
         Logger.info("Product deleted:", deletedProduct);

@@ -11,12 +11,13 @@ import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const productsRouter = Router();
 
-productsRouter.get("/", getController);
-productsRouter.post("/", postController);
-productsRouter.put("/:pid", putController);
-productsRouter.delete("/:pid", deleteController);
+productsRouter.get("/", getController); //ok
+productsRouter.get("/:pcode", getController); //ok
+productsRouter.post("/", postController); //ok
+productsRouter.put("/:pcode", putController);
+productsRouter.delete("/:pcode", deleteController); //ok
 productsRouter.post(
-  "/:pid/add-to-cart",
+  "/:pcode/add-to-cart",
   authenticateWithJwt, //needed to get user data using req.user
   addToCartController
 );

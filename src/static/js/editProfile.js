@@ -2,12 +2,14 @@
 const formEditProfile = document.querySelector("#form-edit-profile");
 const inputs = document.querySelectorAll("input");
 
+//first, we load current profile data
 window.addEventListener("load", async (event) => {
   const response = await fetch("/api/users/current");
-  if (response.status === 403) {
-    alert("You need to be logged in to modify your profile");
-    return (window.location.href = "/login");
-  }
+  // if (response.status === 403) {
+  //   alert("You need to be logged in to modify your profile");
+  //   return (window.location.href = "/login");
+  // } 
+  //NEEDED??
 
   const result = await response.json();
   const user = result.payload;
@@ -18,6 +20,7 @@ window.addEventListener("load", async (event) => {
   inputs[3].value = user.age;
 });
 
+//secondly, we handle edit submitting
 formEditProfile?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -28,13 +31,14 @@ formEditProfile?.addEventListener("submit", async (event) => {
 
     // @ts-ignore
     const body = formData;
+    console.log("body submitted for edit:", body)
 
     const response = await fetch("/api/users/edit", {
       method: "PUT",
       body,
     });
 
-    if (response.status === 200) {
+    if (response.status === 204) {
       alert("Profile updated successfully");
       window.location.href = "/profile";
     } else {

@@ -47,13 +47,15 @@ usersRouter.post(
 );
 
 usersRouter.get("/current", authenticateWithJwt, async (req, res, next) => {
+  //OK
   res["result"](req.user);
 });
 
 usersRouter.get(
+  //OK
   "/",
   authenticateWithJwt,
-  rolesOnly(["admin"]),
+  // rolesOnly(["admin"]),
   getAllController
 );
 
@@ -77,6 +79,11 @@ usersRouter.put("/resetpass", authenticateWithJwt, async function (req, res) {
 });
 
 // Update user profile information (PUT /api/users/edit)
-usersRouter.put("/edit", extractFile("profile_picture"), putController);
+usersRouter.put(
+  "/edit",
+  authenticateWithJwt,
+  extractFile("profile_picture"),
+  putController
+);
 
-usersRouter.delete("/:id", deleteController);
+usersRouter.delete("/:id", deleteController); //OK

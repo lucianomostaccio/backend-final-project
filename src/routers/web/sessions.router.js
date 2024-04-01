@@ -8,7 +8,7 @@ export const sessionsRouter = Router();
 
 sessionsRouter.get("/login", authenticateWithJwt, (req, res) => {
   if (!req.user) {
-    console.log("req.user does not exist, redirect");
+    console.log("req.user does not exist in sessions router, redirect");
     res.render("login.handlebars", { pageTitle: "Login", style: "login.css" });
   } else {
     console.log("req.user exists in sessions router", req.user);

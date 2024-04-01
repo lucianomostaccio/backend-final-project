@@ -10,7 +10,6 @@ export const webUsersRouter = Router();
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 webUsersRouter.get("/register", authenticateWithJwt, (req, res) => {
-  console.log("req user obtained in register page", req.user);
   if (!req.user) {
     // Only show the registration view if the user is not logged in
     res.render("register.handlebars", {
@@ -20,6 +19,16 @@ webUsersRouter.get("/register", authenticateWithJwt, (req, res) => {
   } else {
     res.redirect("/products"); // Redirect the user to the products view if already logged in
   }
+});
+
+
+webUsersRouter.get("/edit", authenticateWithJwt, (req, res) => {
+  // webUsersRouter.get("/edit", rolesOnly, (req, res) => {
+  res.render("profileEdit.handlebars", {
+    pageTitle: "Edit your profile",
+    ...req.user,
+    style: "profile.css",
+  });
 });
 
 webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
@@ -52,7 +61,6 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
 
       console.log("Updated user:", updatedUser);
       Logger.debug("Session updated with new user data", updatedUser); // Log session update
-
       res.render("profile.handlebars", {
         pageTitle: "Profile",
         ...updatedUser,
@@ -65,14 +73,6 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
   }
 });
 
-webUsersRouter.get("/edit", authenticateWithJwt, (req, res) => {
-  // webUsersRouter.get("/edit", rolesOnly, (req, res) => {
-  res.render("profileEdit.handlebars", {
-    pageTitle: "Edit your profile",
-    ...req.user,
-    style: "profile.css",
-  });
-});
 
 webUsersRouter.get("/resetpass", authenticateWithJwt, (req, res) => {
   if (!req.user) {

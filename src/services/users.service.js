@@ -35,8 +35,8 @@ export class UsersService {
   async addUser(userData) {
     Logger.debug("entered addUser in users.service");
     try {
-      if(userData.password) {
-        userData.password = await this.hashing.createHash(userData.password)
+      if (userData.password) {
+        userData.password = await this.hashing.createHash(userData.password);
       }
       delete userData.role;
       const user = new User(userData);
@@ -99,8 +99,10 @@ export class UsersService {
   }
   // Update user by ID
   async updateUser(_id, updateFields) {
+    console.log("user id obtained in updateUser in users.service", _id);
     try {
       const userToUpdate = await this.usersDao.readOne({ _id });
+      console.log("user found to be updated:", userToUpdate);
 
       if (!userToUpdate) {
         Logger.warning("User not found for update");
@@ -114,7 +116,11 @@ export class UsersService {
         { $set: updateFields },
         { new: true }
       );
+      console.log("updated user fields in users.service:", updatedUser);
       Logger.info("User information updated:", { userId: updatedUser._id });
+      console.log("User information updated for user id:", {
+        userId: updatedUser._id,
+      });
       return updatedUser;
     } catch (error) {
       Logger.error("Error updating user:", error);

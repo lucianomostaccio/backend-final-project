@@ -1,3 +1,4 @@
+import { tokenizeUserInCookie } from "../middlewares/tokens.js";
 import { usersService } from "../services/index.js";
 import Logger from "../utils/logger.js";
 
@@ -17,7 +18,7 @@ export async function getController(req, res, next) {
 export async function getAllController(req, res, next) {
   try {
     const users = await usersService.getAllUsers();
-    console.log("user found by user get controller:", users);
+    console.log("users found by user get controller:", users);
     res.result(users);
   } catch (error) {
     Logger.error("Error in getController:", error);
@@ -43,18 +44,32 @@ export async function postController(req, res, next) {
 //update
 export async function putController(req, res, next) {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
+    console.log("userId obtained in putController:", userId);
     const updateFields = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       age: req.body.age,
     };
 
+    console.log("updateFields obtained in putController:", updateFields);
+
     if (req.file) {
       updateFields.profile_picture = req.file.path;
     }
 
     const updatedUser = await usersService.updateUser(userId, updateFields);
+    console.log(
+      "user fields to update in put controller after using usersService.update:",
+      updatedUser
+    );
+
+
+    // Update cookie with new user data
+    tokenizeUserInCookie(req, res, () => {}); // will get the signed cookie token, decode it, update data and code it again with its token
+
+    req.user = updatedUser;
+
     res.updated(updatedUser);
   } catch (error) {
     Logger.error("Error updating user information:", error);
@@ -64,7 +79,8 @@ export async function putController(req, res, next) {
 
 export async function deleteController(req, res, next) {
   try {
-    await usersService.deleteUser(req.params.id);
+    const deletedUser = await usersService.deleteUser(req.params.id);
+    console.log("user detected to be deleted:",deletedUser)
     res.deleted();
   } catch (error) {
     next(error);

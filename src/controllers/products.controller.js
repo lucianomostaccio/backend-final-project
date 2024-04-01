@@ -4,19 +4,33 @@ import { productsService } from "../services/products.service.js";
 
 export async function getController(req, res, next) {
   try {
-    console.log("accesed get products controller");
-    // const product = await productsService.getProducts()
-    const products = await productsService.readMany({});
-    res.result(products);
+    console.log("Accessed get products controller");
+    if (req.params.pcode) {
+      // If a pcode is provided in the parameters, search for a specific product
+      const product = await productsService.readOne({ code: req.params.pcode });
+      if (!product) {
+        // If the product is not found, return a 404 error
+        return res.status(404).json({ error: "Product not found" });
+      }
+      // If the product is found, return it in the response
+      return res.result(product);
+    } else {
+      // If no pcode is provided in the parameters, get all products
+      const products = await productsService.readMany({});
+      return res.result(products);
+    }
   } catch (error) {
+    // Handle errors
     next(error);
   }
 }
 
 export async function postController(req, res, next) {
   try {
+    console.log("req.body to create product:", req.body);
     const product = await productsService.addProduct(req.body);
     res.created(product);
+    console.log("product created:", product);
   } catch (error) {
     next(error);
   }
@@ -41,9 +55,9 @@ export async function addToCartController(req, res, next) {
 
 export async function putController(req, res, next) {
   try {
-    const productId = req.params.productId;
+    const productCode = req.params.pcode;
     const updatedProduct = await productsService.updateProduct(
-      productId,
+      productCode,
       req.body
     );
     res.result(updatedProduct);
@@ -54,9 +68,11 @@ export async function putController(req, res, next) {
 
 export async function deleteController(req, res, next) {
   try {
-    const product = await productsService.deleteProduct(req.body);
+    const product = await productsService.deleteProduct({
+      code: req.params.pcode,
+    });
     console.log("product to delete:", product);
-    res.delete(product);
+    res.deleted(product);
   } catch (error) {
     next(error);
   }

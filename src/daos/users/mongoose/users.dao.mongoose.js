@@ -22,7 +22,7 @@ export class UsersDaoMongoose {
   
 
   async readMany(query) {
-    return toPOJO(await this.usersModel.findMany(query).lean());
+    return toPOJO(await this.usersModel.find(query).lean());
   }
 
   async updateOne(query, data) {
@@ -32,7 +32,7 @@ export class UsersDaoMongoose {
 
   async updateMany(query, data) {
     await this.usersModel.updateMany(query, data);
-    return toPOJO(await this.usersModel.findMany(query).lean());
+    return toPOJO(await this.usersModel.find(query).lean());
   }
 
   async deleteOne(query) {

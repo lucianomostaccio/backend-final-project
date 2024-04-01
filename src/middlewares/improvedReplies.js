@@ -6,10 +6,10 @@ export function improvedReplies(req, res, next) {
     res.status(200).json({ status: 'success', payload })
   }
   res['deleted'] = () => {
-    res.status(204).json({ status: 'success' })
+    res.status(204).json({ status: 'success', message: "user deleted successfully" })
   }
-  res['updated'] = () => {
-    res.status(204).json({ status: 'success' })
+  res['updated'] = (payload) => {
+    res.status(204).json({ status: 'success', message: "user updated successfully" , payload })
   }
   next()
 }
