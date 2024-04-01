@@ -1,0 +1,30 @@
+import {
+  EXECUTION_MODE,
+  NODEMAILER_GMAIL_OPTIONS,
+  NODE_ENV,
+} from "../../config/config.js";
+import { EmailServiceConsole } from "./email.service.console.js";
+import { EmailServiceNodemailer } from "./email.service.nodemailer.js";
+import { fakeEmailService } from "./email.service.fake.js";
+
+let emailService;
+
+// @ts-ignore
+if (EXECUTION_MODE === "online" && NODE_ENV === "prod") {
+  if (!emailService) {
+    emailService = new EmailServiceNodemailer(NODEMAILER_GMAIL_OPTIONS);
+    console.log("sending emails using gmail");
+  }
+// @ts-ignore
+} else if (EXECUTION_MODE === "offline" && NODE_ENV === "dev") {
+  emailService = new EmailServiceConsole();
+  console.log("sending emails using console");
+// @ts-ignore
+} else {
+  emailService = fakeEmailService;
+  console.log("Sending EMAIL using fake service");
+}
+
+export function getEmailService() {
+  return emailService;
+}

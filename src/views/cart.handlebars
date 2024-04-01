@@ -1,0 +1,36 @@
+<!-- cart.handlebars -->
+
+<section class="profileSection">
+  <ul class="userProfile" id="products-home">
+    <li class="profileItem">{{user.first_name}}</li>
+  </ul>
+</section>
+
+<h1 class="pageTitle">Products in cart</h1>
+
+<ul class="productList">
+  {{#each products}}
+    <li class="productTitle">
+      {{productId.title}}
+      -
+      {{formatPrice productId.price}}
+      -
+      {{productId.description}}
+      - quantity:{{quantity}}
+      units
+      <form
+        onsubmit="removeProductFromCart(event, '{{../cartId}}', '{{this.productId._id}}')"
+      >
+        <button type="submit">Remove from Cart</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
+
+<h2>Total: {{formatPrice total}}</h2>
+
+<button id="clearCart" onclick="removeCart(event, '{{cartId}}')">Clear cart</button>
+
+<button type="submit">Buy cart</button>
+
+<script src="/js/cart.js"></script>

@@ -1,0 +1,28 @@
+<!-- products.handlebars -->
+
+<section class="profileSection">
+  <ul class="userProfile" id="products-home">
+    <li class="profileItem">{{first_name}}</li>
+  </ul>
+</section>
+
+<h1 class="pageTitle">Products</h1>
+
+<ul class="productList">
+  {{#each products}}
+    <li class="productTitle">
+      {{title}}
+      -
+      {{formatPrice price}}
+      <form
+        class="addToCartButton"
+        action="/products/{{_id}}/add-to-cart"
+        method="POST"
+      >
+        <button type="submit">Add to Cart</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
+
+<script src="/js/products.js"></script>
