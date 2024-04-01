@@ -29,11 +29,11 @@ export async function getAllController(req, res, next) {
 export async function postController(req, res, next) {
   try {
     Logger.debug("Entered postController");
-    console.log("req.body obtained in post controller",req.body)
+    console.log("req.body obtained in post controller", req.body);
     const user = await usersService.addUser(req.body);
     Logger.debug("User created/posted by postController:", user);
     req.user = user;
-    next()
+    res["created"](user);
   } catch (error) {
     Logger.error("Error in postController:", error);
     next(error);

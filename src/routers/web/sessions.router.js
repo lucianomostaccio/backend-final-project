@@ -5,7 +5,7 @@ import { authenticateWithJwt } from "../../middlewares/authentication.js";
 export const sessionsRouter = Router();
 
 //if user is not logged in render login. Else redirect to products, when trying to get into /login.
-//NOTE: when token is destroyed, having authenticateWithJwt here will break the app with "unauthorized" error
+
 sessionsRouter.get("/login", authenticateWithJwt, (req, res) => {
   if (!req.user) {
     console.log("req.user does not exist, redirect");
@@ -15,3 +15,7 @@ sessionsRouter.get("/login", authenticateWithJwt, (req, res) => {
     res.redirect("/products");
   }
 });
+
+// sessionsRouter.get("/login", (req, res) => {
+//   res.render("login.handlebars", { pageTitle: "Login", style: "login.css" });
+// });

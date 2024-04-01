@@ -14,7 +14,8 @@ export async function tokenizeUserInCookie(req, res, next) {
     const token = await encrypt(req.user)
     console.log("token:",token)
     res.cookie('authorization', token, cookieOpts)
-    next()
+    // res.status(201).json({ payload: req.user });
+    res['created'](req.user);
   } catch (error) {
     next(error)
   }
