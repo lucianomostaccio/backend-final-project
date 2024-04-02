@@ -19,8 +19,8 @@ export const TWILIO_SMS_NUMBER = process.env.TWILIO_SMS_NUMBER;
 export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY || "";
 export const COOKIE_SECRET = process.env.COOKIE_SECRET || "";
 
-export const EXECUTION_MODE = "online";
-// export const EXECUTION_MODE = "offline;"
+// export const EXECUTION_MODE = "online";
+export const EXECUTION_MODE = "offline;"
 export const NODE_ENV = "prod";
 // export const NODE_ENV = "dev"
 
