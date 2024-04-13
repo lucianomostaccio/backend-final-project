@@ -5,7 +5,7 @@ import { OrdersDaoMongoose } from "./mongoose/orders.dao.mongoose.js";
 import { OrdersDaoFiles } from "./files/orders.dao.files.js";
 import { ordersSchema } from "./mongoose/orders.model.mongoose.js";
 import Logger from "../../utils/logger.js";
-const PATH_ORDERS_FILES = "../../../db/orders.json";
+const PATH_ORDERS_FILES = "./db/orders.json";
 
 let daoOrders;
 

@@ -6,7 +6,7 @@ import { CartDaoFiles } from "./files/cart.dao.files.js";
 
 import { cartSchema } from "./mongoose/cart.model.mongoose.js";
 import Logger from "../../utils/logger.js";
-const PATH_CARTS_FILES = "../../../db/carts.json";
+const PATH_CARTS_FILES = "./db/carts.json";
 
 let daoCarts;
 

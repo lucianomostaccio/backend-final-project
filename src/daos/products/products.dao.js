@@ -5,7 +5,7 @@ import { ProductsDaoMongoose } from "./mongoose/products.dao.mongoose.js";
 import { ProductsDaoFiles } from "./files/products.dao.files.js";
 import { productsSchema } from "./mongoose/products.model.mongoose.js";
 import Logger from "../../utils/logger.js";
-const PATH_PRODUCTS_FILES = "../../../db/products.json";
+const PATH_PRODUCTS_FILES = "./db/products.json";
 
 let daoProducts;
 
