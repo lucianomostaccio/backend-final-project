@@ -14,5 +14,13 @@
     "first_name": "nombre 2",
     "last_name": "apellido 2",
     "age": "24"
+  },
+  {
+    "_id": "2b0567e7-b107-4f7e-bc4d-85c10cad0af8",
+    "email": "33@gail.com",
+    "password": "$2b$10$jhtvzKtDtTmcHF26SEFIkOZYyi8uGVT0B7pcLOMp/r2OAbSpqa1sa",
+    "first_name": "test3",
+    "last_name": "test3lastname",
+    "age": ""
   }
 ]

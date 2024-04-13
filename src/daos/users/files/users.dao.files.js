@@ -61,7 +61,7 @@ export class UsersDaoFiles {
     });
 
     await this.#writeUsers(users);
-    return updatedCount; // Example: Return an updated record count.
+    return updatedCount;
   }
 
   async deleteOne(query) {
