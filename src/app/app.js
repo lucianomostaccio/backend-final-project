@@ -3,9 +3,6 @@ import { webRouter } from "../routers/web/web.router.js";
 import { apiRouter } from "../routers/api/api.router.js";
 import { engine } from "express-handlebars";
 import * as handlebarsHelpers from "../helpers/handlebarsHelpers.js";
-// import cors from 'cors';
-// import { sessions } from "../middlewares/sessions.js";
-// import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -39,13 +36,10 @@ app.use(cookies);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "static"))); //specify static folder
-// app.use(cookieParser());
-// app.use(sessions);
 app.use(authentication);
 // initializePassport();
 // initializeGithubPassport();
 app.use(errorMiddleware);
-// app.use(cors())
 
 // routers
 app.use("/", webRouter);
