@@ -21,14 +21,24 @@ webUsersRouter.get("/register", authenticateWithJwt, (req, res) => {
   }
 });
 
-
-webUsersRouter.get("/edit", authenticateWithJwt, (req, res) => {
+webUsersRouter.get("/edit", authenticateWithJwt, async (req, res) => {
   // webUsersRouter.get("/edit", rolesOnly, (req, res) => {
-  res.render("profileEdit.handlebars", {
-    pageTitle: "Edit your profile",
-    ...req.user,
-    style: "profile.css",
-  });
+  try {
+    const user = req.user;
+    console.log("req.user detected for edit profile page:", user);
+
+    const usersDao = getDaoUsers();
+    const email = user.email;
+    const updatedUser = await usersDao.readOne({ email }, { password: 0 });
+    res.render("profileEdit.handlebars", {
+      pageTitle: "Edit your profile",
+      ...updatedUser,
+      style: "profile.css",
+    });
+  } catch (error) {
+    Logger.error("Error fetching updated user data:", error); // Log any errors
+    res.status(500).render("error.handlebars", { pageTitle: "Error" });
+  }
 });
 
 webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
@@ -72,7 +82,6 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
     res.status(500).render("error.handlebars", { pageTitle: "Error" });
   }
 });
-
 
 webUsersRouter.get("/resetpass", authenticateWithJwt, (req, res) => {
   if (!req.user) {

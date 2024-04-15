@@ -6,7 +6,6 @@ import * as handlebarsHelpers from "../helpers/handlebarsHelpers.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import passport from "passport";
 // import initializePassport from "../config/passport.config.js";
 // import initializeGithubPassport from "../config/githubpassport.config.js";
 import errorMiddleware from "../middlewares/errorMiddleware.js";
@@ -16,7 +15,6 @@ import { authentication } from "../middlewares/authentication.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// @ts-ignore
 export const app = express();
 
 // handlebars engine & templates:
@@ -35,7 +33,7 @@ app.set("view engine", "handlebars");
 app.use(cookies);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "..", "static"))); //specify static folder
+app.use(express.static(path.join(__dirname, "..", "static"))); 
 app.use(authentication);
 // initializePassport();
 // initializeGithubPassport();

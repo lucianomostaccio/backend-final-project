@@ -47,12 +47,10 @@ usersRouter.post(
 );
 
 usersRouter.get("/current", authenticateWithJwt, async (req, res, next) => {
-  //OK
   res["result"](req.user);
 });
 
 usersRouter.get(
-  //OK
   "/",
   authenticateWithJwt,
   // rolesOnly(["admin"]),
@@ -86,4 +84,4 @@ usersRouter.put(
   putController
 );
 
-usersRouter.delete("/:id", deleteController); //OK
+usersRouter.delete("/:id", deleteController); 

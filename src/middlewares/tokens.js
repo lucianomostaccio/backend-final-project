@@ -8,6 +8,7 @@ const cookieOpts = {
 export async function tokenizeUserInCookie(req, res, next) {
   try {
     console.log("req.user obtained in tokenize user:", req.user)
+    
     req.user = toPOJO(req.user)
     console.log("req.user after toPOJO", req.user)
     

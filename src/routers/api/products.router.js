@@ -11,9 +11,9 @@ import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const productsRouter = Router();
 
-productsRouter.get("/", getController); //ok
+productsRouter.get("/", getController); 
 productsRouter.get("/:pid", getController); //pcode or pid?
-productsRouter.post("/", postController); //ok
+productsRouter.post("/", postController); 
 productsRouter.put("/:pid", putController); //pcode or pid?
 productsRouter.delete("/:pid", deleteController); //pcode or pid?
 productsRouter.post(

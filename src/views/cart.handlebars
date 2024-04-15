@@ -21,16 +21,17 @@
       <form
         onsubmit="removeProductFromCart(event, '{{../cartId}}', '{{this.productId._id}}')"
       >
-        <button type="submit">Remove from Cart</button>
+        <button class="smallRedButton" type="submit">Remove from Cart</button>
       </form>
     </li>
   {{/each}}
 </ul>
-
+<br>
 <h2>Total: {{formatPrice total}}</h2>
 
-<button id="clearCart" onclick="removeCart(event, '{{cartId}}')">Clear cart</button>
+<button class="redButton" id="clearCart" onclick="removeCart(event, '{{cartId}}')">Clear cart</button>
 
-<button type="submit">Buy cart</button>
+<button class="greenButton" type="submit" onclick="buyCart(event, '{{cartId}}')">Buy cart</button>
 
+<link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>

@@ -1,4 +1,3 @@
-import { tokenizeUserInCookie } from "../middlewares/tokens.js";
 import { usersService } from "../services/index.js";
 import Logger from "../utils/logger.js";
 
@@ -63,10 +62,6 @@ export async function putController(req, res, next) {
       "user fields to update in put controller after using usersService.update:",
       updatedUser
     );
-
-
-    // Update cookie with new user data
-    tokenizeUserInCookie(req, res, () => {}); // will get the signed cookie token, decode it, update data and code it again with its token
 
     req.user = updatedUser;
 

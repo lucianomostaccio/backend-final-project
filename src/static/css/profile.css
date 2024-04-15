@@ -1,12 +1,3 @@
-/* Estilos específicos para la página de perfil */
-#welcomeMessage {
-  color: #007bff;
-}
-
-form {
-  margin-top: 20px;
-}
-
 #edit-profile-link{
   display: flex;
   justify-content: center;
