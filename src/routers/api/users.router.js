@@ -36,7 +36,7 @@ usersRouter.post(
 
       console.log("user created");
       (req, res) => {
-        res["result"](req.user);
+        res["result"](req['user']);
       };
     } catch (error) {
       // Handle errors
@@ -47,13 +47,13 @@ usersRouter.post(
 );
 
 usersRouter.get("/current", authenticateWithJwt, async (req, res, next) => {
-  res["result"](req.user);
+  res['jsonOk'](req['user'])
 });
 
 usersRouter.get(
   "/",
   authenticateWithJwt,
-  // rolesOnly(["admin"]),
+  rolesOnly(["admin"]),
   getAllController
 );
 
@@ -68,7 +68,7 @@ usersRouter.put("/resetpass", authenticateWithJwt, async function (req, res) {
     Logger.info("User password updated");
 
     // Successful response
-    res["updated"](updatedUser);
+    res["jsonOk"](updatedUser);
   } catch (error) {
     // Handle errors
     Logger.error("Error updating user password:", error);

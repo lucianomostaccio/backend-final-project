@@ -6,7 +6,7 @@ const errorMiddleware = (err, req, res, next) => {
     const error = errorDictionary[err.code];
     res.status(error.statusCode).json({ error: error.message });
   } else {
-    // Si el código de error no está en el diccionario, envía un error genérico
+    //if error code is not in dictionary, send a generic error
     res.status(500).json({ error: "An unexpected error occurred." });
   }
   next();

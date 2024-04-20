@@ -5,12 +5,12 @@ import { usersRouter } from "./users.router.js";
 import { improvedReplies } from "../../middlewares/improvedReplies.js";
 import loggerRouter from "./logger.router.js";
 import { cartsRouter } from "./carts.router.js";
-// import { errorsHandler } from "../../middlewares/errorsHandler.js";
+import { errorsHandler } from "../../middlewares/errorsHandler.js";
 
 export const apiRouter = Router();
 
 apiRouter.use(improvedReplies);
-// apiRouter.use(errorsHandler);
+apiRouter.use(errorsHandler);
 
 apiRouter.use(json());
 apiRouter.use(urlencoded({ extended: true }));

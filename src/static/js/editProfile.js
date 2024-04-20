@@ -8,7 +8,7 @@ window.addEventListener("load", async (event) => {
   // if (response.status === 403) {
   //   alert("You need to be logged in to modify your profile");
   //   return (window.location.href = "/login");
-  // } 
+  // }
   //NEEDED??
 
   const result = await response.json();
@@ -31,14 +31,14 @@ formEditProfile?.addEventListener("submit", async (event) => {
 
     // @ts-ignore
     const body = formData;
-    console.log("body submitted for edit:", body)
+    console.log("body submitted for edit:", body);
 
     const response = await fetch("/api/users/edit", {
       method: "PUT",
       body,
     });
 
-    if (response.status === 204) {
+    if (response.status === 200) {
       alert("Profile updated successfully");
       window.location.href = "/profile";
     } else {

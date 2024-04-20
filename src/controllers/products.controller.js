@@ -73,7 +73,7 @@ export async function deleteController(req, res, next) {
       code: req.params.pid,
     });
     console.log("product to delete:", product);
-    res.deleted(product);
+    res.ok(product);
   } catch (error) {
     next(error);
   }

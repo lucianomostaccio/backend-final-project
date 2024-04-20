@@ -1,54 +1,43 @@
 import { hashSync, compareSync, genSaltSync } from "bcrypt";
-import jwt from "jsonwebtoken"
-import { JWT_PRIVATE_KEY } from '../config/config.js'
+import jwt from "jsonwebtoken";
+import { JWT_PRIVATE_KEY } from "../config/config.js";
 
 export const createHash = (password) => hashSync(password, genSaltSync(10));
 
 export const isValidPassword = (password, hashedPassword) =>
   compareSync(password, hashedPassword);
 
-//another way could be:
-// export function createHash(frase) {
-//     return hashSync(frase, genSaltSync(10));
-// }
-
-// export function isValidPassword(recibida, almacenada) {
-//     return compareSync(recibida, almacenada);
-// }
-
-
 // jwt
-
 export function encrypt(data) {
   return new Promise((resolve, reject) => {
     if (!data) {
-      const typedError = new Error('nothing to jwt encode!')
-      typedError['type'] = 'INTERNAL_ERROR'
-      return reject(typedError)
+      const typedError = new Error("nothing to jwt encode!");
+      typedError["type"] = "INTERNAL_ERROR";
+      return reject(typedError);
     }
-    jwt.sign(data, JWT_PRIVATE_KEY, { expiresIn: '24h' }, (err, encoded) => {
+    jwt.sign(data, JWT_PRIVATE_KEY, { expiresIn: "24h" }, (err, encoded) => {
       if (err) {
-        const typedError = new Error(err.message)
-        typedError['type'] = 'INTERNAL_ERROR'
-        reject(typedError)
+        const typedError = new Error(err.message);
+        typedError["type"] = "INTERNAL_ERROR";
+        reject(typedError);
       } else {
-        resolve(encoded)
+        resolve(encoded);
       }
-    })
-  })
+    });
+  });
 }
 
 export function decrypt(token) {
   return new Promise((resolve, reject) => {
     if (!token) {
-      return reject(new Error('no token to decode!'))
+      return reject(new Error("no token to decode!"));
     }
     jwt.verify(token, JWT_PRIVATE_KEY, (err, decoded) => {
       if (err) {
-        reject(err)
+        reject(err);
       } else {
-        resolve(decoded)
+        resolve(decoded);
       }
-    })
-  })
+    });
+  });
 }

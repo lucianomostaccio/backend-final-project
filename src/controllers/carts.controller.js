@@ -6,12 +6,14 @@ export async function getController(req, res, next) {
   try {
     // Ensure req.user exists
     if (!req.user) {
-      return res.status(401).json({ error: "User not authenticated" });
+      const typedError = new Error("Auth error");
+      typedError["type"] = "FAILED_AUTHENTICATION";
+      throw typedError;
     }
 
-    const userId = req.user._id; //
+    const userId = req.user._id;
     const cart = await cartsService.readOne(userId);
-    res.result(cart);
+    res.jsonOk(cart);
   } catch (error) {
     next(error);
   }
@@ -37,11 +39,11 @@ export async function putController(req, res, next) {
         cartId,
         productId
       );
-      return res.result(updatedCart);
+      return res.jsonOk(updatedCart);
     }
 
     const updatedCart = await cartsService.updateCart(cartId, payload);
-    res.result(updatedCart);
+    res.jsonOk(updatedCart);
   } catch (error) {
     next(error);
   }
@@ -51,21 +53,8 @@ export async function deleteController(req, res, next) {
   try {
     const { cartId } = req.params;
     await cartsService.deleteCart(cartId);
-    res.json({ message: "Cart cleared successfully" });
+    res.ok();
   } catch (error) {
     next(error);
   }
 }
-
-// export async function deleteProductFromCartController(req, res, next) {
-//   try {
-//     const { cartId, productId } = req.params;
-//     const updatedCart = await cartsService.deleteProductFromCart(
-//       cartId,
-//       productId
-//     );
-//     res.result(updatedCart);
-//   } catch (error) {
-//     next(error);
-//   }
-// }

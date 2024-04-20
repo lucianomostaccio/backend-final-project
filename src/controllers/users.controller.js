@@ -7,7 +7,7 @@ export async function getController(req, res, next) {
   try {
     const user = await usersService.getUserByEmail(req.user.email);
     console.log("user found by user get controller:", user);
-    res.result(user);
+    res.jsonOk(user);
   } catch (error) {
     Logger.error("Error in getController:", error);
     next(error);
@@ -18,7 +18,7 @@ export async function getAllController(req, res, next) {
   try {
     const users = await usersService.getAllUsers();
     console.log("users found by user get controller:", users);
-    res.result(users);
+    res.jsonOk(users);
   } catch (error) {
     Logger.error("Error in getController:", error);
     next(error);
@@ -33,7 +33,7 @@ export async function postController(req, res, next) {
     const user = await usersService.addUser(req.body);
     Logger.debug("User created/posted by postController:", user);
     req.user = user;
-    res["created"](user);
+    res.created(user);
   } catch (error) {
     Logger.error("Error in postController:", error);
     next(error);
@@ -65,7 +65,7 @@ export async function putController(req, res, next) {
 
     req.user = updatedUser;
 
-    res.updated(updatedUser);
+    res.jsonOk(updatedUser);
   } catch (error) {
     Logger.error("Error updating user information:", error);
     res.status(400).json({ status: "error", message: error.message });
@@ -75,8 +75,8 @@ export async function putController(req, res, next) {
 export async function deleteController(req, res, next) {
   try {
     const deletedUser = await usersService.deleteUser(req.params.id);
-    console.log("user detected to be deleted:",deletedUser)
-    res.deleted();
+    console.log("user detected to be deleted:", deletedUser);
+    res.ok();
   } catch (error) {
     next(error);
   }

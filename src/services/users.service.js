@@ -97,6 +97,7 @@ export class UsersService {
   async getAllUsers() {
     return await this.usersDao.readMany({});
   }
+
   // Update user by ID
   async updateUser(_id, updateFields) {
     console.log("user id obtained in updateUser in users.service", _id);
