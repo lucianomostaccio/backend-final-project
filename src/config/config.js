@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const PORT = process.env.PORT;
-export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR;
+export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR || 'mongodb://127.0.0.1/luciano_14'
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 // export const GITHUB_APP_ID = process.env.GITHUB_APP_ID;
@@ -10,6 +10,7 @@ export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 // export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 // export const GITHUB_CALLBACK_URL = process.env.GITHUB_CALLBACK_URL;
 export const DEFAULT_USER_AVATAR_PATH = process.env.DEFAULT_USER_AVATAR_PATH;
+export const DEFAULT_ROLE = 'user'
 export const EMAIL_USER = process.env.EMAIL_USER || "test email user";
 export const EMAIL_PASS = process.env.EMAIL_PASS;
 export const ADMIN_SMS_NUMBER = process.env.ADMIN_SMS_NUMBER;

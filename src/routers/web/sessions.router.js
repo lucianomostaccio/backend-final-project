@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
-// import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const sessionsRouter = Router();
 
@@ -9,13 +8,9 @@ export const sessionsRouter = Router();
 sessionsRouter.get("/login", authenticateWithJwt, (req, res) => {
   if (!req.user) {
     console.log("req.user does not exist in sessions router, redirect");
-    res.render("login.handlebars", { pageTitle: "Login", style: "login.css" });
+    res.render("login.handlebars", { pageTitle: "Login" });
   } else {
     console.log("req.user exists in sessions router", req.user);
     res.redirect("/products");
   }
 });
-
-// sessionsRouter.get("/login", (req, res) => {
-//   res.render("login.handlebars", { pageTitle: "Login", style: "login.css" });
-// });

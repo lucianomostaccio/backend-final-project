@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { DEFAULT_ROLE } from "../config/config";
 
 export class User {
   #_id;
@@ -8,6 +9,7 @@ export class User {
   #last_name;
   #age;
   #profile_picture;
+  #role;
   #orders;
 
   constructor({
@@ -18,6 +20,7 @@ export class User {
     last_name,
     age,
     profile_picture,
+    role,
     orders,
   }) {
     this.#_id = _id;
@@ -27,6 +30,7 @@ export class User {
     this.last_name = last_name;
     this.age = age;
     this.profile_picture = profile_picture;
+    this.role = role || DEFAULT_ROLE;
     this.orders = orders;
   }
 
@@ -63,7 +67,7 @@ export class User {
   }
 
   set email(value) {
-    if (!value) throw new Error("el email es obligatorio");
+    if (!value) throw new Error("email is mandatory");
     this.#email = value;
   }
 
@@ -101,6 +105,7 @@ export class User {
       last_name: this.#last_name,
       age: this.#age,
       profile_picture: this.#profile_picture,
+      role: this.#role,
       orders: this.#orders,
     };
   }

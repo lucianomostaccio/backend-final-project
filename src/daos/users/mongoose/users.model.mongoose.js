@@ -1,7 +1,10 @@
-import { Schema } from 'mongoose'
+import { Schema } from "mongoose";
 import { randomUUID } from "node:crypto";
 
-import { DEFAULT_USER_AVATAR_PATH } from "../../../config/config.js";
+import {
+  DEFAULT_ROLE,
+  DEFAULT_USER_AVATAR_PATH,
+} from "../../../config/config.js";
 
 export const usersSchema = new Schema(
   {
@@ -12,6 +15,7 @@ export const usersSchema = new Schema(
     last_name: { type: String, default: "(not specified)" },
     age: { type: Number, default: "(not specified)" },
     profile_picture: { type: String, default: DEFAULT_USER_AVATAR_PATH },
+    role: { type: String, required: true, default: DEFAULT_ROLE },
     orders: {
       type: [
         {

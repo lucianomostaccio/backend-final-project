@@ -36,6 +36,5 @@ sessionsRouter.post("/", sessionsPost, tokenizeUserInCookie, (req, res) => {
 
 
 sessionsRouter.delete("/current", deleteTokenFromCookie, (req, res) => {
-  console.log("token from cookie deleted in sessions/current")
   res["ok"]();
 });

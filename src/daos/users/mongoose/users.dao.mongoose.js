@@ -40,7 +40,7 @@ export class UsersDaoMongoose {
   }
 
   async deleteMany(query) {
-    await this.usersModel.deleteMany(query);
-    return null;
+    const deleteResult = await this.usersModel.deleteMany(query);
+    return { deletedCount: deleteResult.deletedCount };
   }
 }
