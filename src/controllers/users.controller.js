@@ -52,11 +52,15 @@ export async function putController(req, res, next) {
   try {
     const userId = req.user._id;
     console.log("userId obtained in putController:", userId);
-    const updateFields = {
+    let updateFields = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      age: req.body.age,
+      age: req.body.age
     };
+
+    if (req.body.role) {
+      updateFields.role = req.body.role;
+    }
 
     console.log("updateFields obtained in putController:", updateFields);
 
@@ -66,7 +70,7 @@ export async function putController(req, res, next) {
 
     const updatedUser = await usersService.updateUser(userId, updateFields);
     console.log(
-      "user fields to update in put controller after using usersService.update:",
+      "user fields updated in put controller after using usersService.update:",
       updatedUser
     );
 
@@ -75,9 +79,12 @@ export async function putController(req, res, next) {
     res.jsonOk(updatedUser);
   } catch (error) {
     Logger.error("Error updating user information:", error);
-    res.status(400).json({ status: "error", message: error.message });
+    const typedError = new Error("Invalid Argument");
+      typedError["type"] = "INVALID_ARGUMENT";
+      throw typedError;
   }
 }
+
 
 export async function deleteController(req, res, next) {
   try {
@@ -98,3 +105,4 @@ export const inactiveController = async (req, res, next) => {
     next(error);
   }
 };
+

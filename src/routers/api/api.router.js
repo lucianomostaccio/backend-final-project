@@ -6,6 +6,7 @@ import { improvedReplies } from "../../middlewares/improvedReplies.js";
 import loggerRouter from "./logger.router.js";
 import { cartsRouter } from "./carts.router.js";
 import { errorsHandler } from "../../middlewares/errorsHandler.js";
+import { adminRouter } from "../web/admin.router.js";
 
 export const apiRouter = Router();
 
@@ -20,3 +21,4 @@ apiRouter.use("/carts", cartsRouter);
 apiRouter.use("/sessions", sessionsRouter);
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/loggerTest", loggerRouter);
+apiRouter.use("/admin", adminRouter);

@@ -54,9 +54,10 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
 
       const usersDao = getDaoUsers();
       const email = user.email;
+      console.log("email:", email);
       const updatedUser = await usersDao.readOne({ email }, { password: 0 });
       Logger.debug("Updated user object from database:", updatedUser); // Log the updated user object from DB
-
+      console.log("Updated user object from database:", updatedUser);
       const normalizedImagePath = updatedUser.profile_picture.replace(
         /\\/g,
         "/"

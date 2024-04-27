@@ -8,27 +8,27 @@
 <h1 class="pageTitle">List of users and their roles:</h1>
 
 <ul class="productList">
-  {{#each users}}
+  {{#each allUsers}}
     <li class="productTitle">
-      {{user}}
-      -
-      {{role}}
+      USER: {{first_name}} {{last_name}} - ROLE:{{role}}
       <form
-        class="greenButton"
-        action="/users/{{_id}}/edit-role"
-        method="POST"
+        
+        action="/admin/{{_id}}"
+        method="PUT"
       >
+        <input type="text" name="role" placeholder="New Role" required>
         <button class="greenButton" type="submit">Edit Role</button>
       </form>
       <form
-        class="redButton"
-        action="/users/{{_id}}/remove-user"
-        method="POST"
+        action="/admin/{{_id}}"
+        method="REMOVE"
       >
-        <button class="greenButton" type="submit">Remove User</button>
+        <br>
+        <button class="smallRedButton" type="submit">Remove User</button>
       </form>
+      <br><br><br>
     </li>
   {{/each}}
 </ul>
 
-<script src="/js/admin.js"></script>
+{{!-- <script src="/js/admin.js"></script> --}}

@@ -8,7 +8,6 @@ import { webCartsRouter } from "./cart.router.js";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 import { SWAGGER_CONFIG } from "../../config/config.js";
-import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const webRouter = Router();
 
@@ -17,6 +16,7 @@ webRouter.use(webUsersRouter);
 webRouter.use(sessionsRouter);
 webRouter.use(webCartsRouter);
 webRouter.use(adminRouter);
+
 
 webRouter.get("/", (req, res) => {
   Logger.debug("Root route accessed");

@@ -13,10 +13,11 @@ export class UsersDaoMongoose {
   }
 
   async readOne(email) {
+    console.log("accessed readOne with email:",email)
     const userDoc = await this.usersModel
       .findOne(email)
       .lean();
-  
+    console.log("readOne userDoc", userDoc)
     return toPOJO(userDoc); // Apply toPOJO and return in a single step
   }
   

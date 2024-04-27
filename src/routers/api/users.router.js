@@ -2,7 +2,6 @@
 // Import necessary modules
 import { Router } from "express";
 import {
-  getController,
   postController,
   deleteController,
   putController,
@@ -10,11 +9,8 @@ import {
   inactiveController,
 } from "../../controllers/users.controller.js";
 import { createHash } from "../../utils/hashing.js";
-// import { onlyLoggedInRest } from "../../middlewares/authorization.js";
 import { extractFile } from "../../middlewares/multer.js";
 import Logger from "../../utils/logger.js";
-import { tokenizeUserInCookie } from "../../middlewares/tokens.js";
-import { rolesOnly } from "../../middlewares/authorization.js";
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 // Create the router
@@ -25,7 +21,6 @@ usersRouter.post(
   "/",
   extractFile("profile_picture"),
   postController,
-  tokenizeUserInCookie,
   async (req, res) => {
     //put exact name assigned in form to picture field
     try {
@@ -37,24 +32,23 @@ usersRouter.post(
 
       console.log("user created");
       (req, res) => {
-        res["result"](req['user']);
+        res["result"](req["user"]);
       };
     } catch (error) {
       // Handle errors
       Logger.error("Error in user registration:", error);
-      res.status(400).json({ status: "error", message: error.message });
+      const typedError = new Error("Invalid Argument");
+      typedError["type"] = "INVALID_ARGUMENT";
+      throw typedError;
     }
   }
 );
 
 usersRouter.get("/current", authenticateWithJwt, async (req, res, next) => {
-  res['jsonOk'](req['user'])
+  res["jsonOk"](req["user"]);
 });
 
-usersRouter.get(
-  "/",
-  getAllController,
-);
+usersRouter.get("/", getAllController);
 
 // Update user password (PUT /api/users/resetpass)
 usersRouter.put("/resetpass", authenticateWithJwt, async function (req, res) {
@@ -71,7 +65,9 @@ usersRouter.put("/resetpass", authenticateWithJwt, async function (req, res) {
   } catch (error) {
     // Handle errors
     Logger.error("Error updating user password:", error);
-    res.status(400).json({ status: "error", message: error.message });
+    const typedError = new Error("Invalid Argument");
+    typedError["type"] = "INVALID_ARGUMENT";
+    throw typedError;
   }
 });
 
