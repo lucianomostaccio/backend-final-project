@@ -25,6 +25,7 @@ export const usersSchema = new Schema(
       ],
       default: [],
     },
+    last_login: { type: Date }
   },
   {
     strict: "throw",

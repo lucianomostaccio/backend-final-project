@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { DEFAULT_ROLE } from "../config/config";
+import { DEFAULT_ROLE } from "../config/config.js";
 
 export class User {
   #_id;
@@ -11,6 +11,7 @@ export class User {
   #profile_picture;
   #role;
   #orders;
+  #last_login;
 
   constructor({
     _id = randomUUID(),
@@ -22,6 +23,7 @@ export class User {
     profile_picture,
     role,
     orders,
+    last_login,
   }) {
     this.#_id = _id;
     this.email = email;
@@ -32,6 +34,7 @@ export class User {
     this.profile_picture = profile_picture;
     this.role = role || DEFAULT_ROLE;
     this.orders = orders;
+    this.last_login = last_login;
   }
 
   get _id() {
@@ -64,6 +67,13 @@ export class User {
 
   get orders() {
     return this.#orders;
+  }
+  get last_login() {
+    return this.#last_login;
+  }
+
+  set last_login(value) {
+    this.#last_login = value;
   }
 
   set email(value) {
@@ -107,6 +117,7 @@ export class User {
       profile_picture: this.#profile_picture,
       role: this.#role,
       orders: this.#orders,
+      last_login: this.#last_login,
     };
   }
 }

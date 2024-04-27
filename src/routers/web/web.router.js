@@ -2,6 +2,7 @@ import { Router } from "express";
 import { webProductsRouter } from "./products.router.js";
 import { webUsersRouter } from "./users.router.js";
 import { sessionsRouter } from "./sessions.router.js";
+import { adminRouter } from "./admin.router.js";
 import Logger from "../../utils/logger.js";
 import { webCartsRouter } from "./cart.router.js";
 import swaggerJsdoc from "swagger-jsdoc";
@@ -15,6 +16,7 @@ webRouter.use(webProductsRouter);
 webRouter.use(webUsersRouter);
 webRouter.use(sessionsRouter);
 webRouter.use(webCartsRouter);
+webRouter.use(adminRouter);
 
 webRouter.get("/", (req, res) => {
   Logger.debug("Root route accessed");

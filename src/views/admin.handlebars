@@ -1,0 +1,34 @@
+
+<section class="profileSection">
+  <ul class="userProfile" id="products-home">
+    <li class="profileItem">{{first_name}}</li>
+  </ul>
+</section>
+
+<h1 class="pageTitle">List of users and their roles:</h1>
+
+<ul class="productList">
+  {{#each users}}
+    <li class="productTitle">
+      {{user}}
+      -
+      {{role}}
+      <form
+        class="greenButton"
+        action="/users/{{_id}}/edit-role"
+        method="POST"
+      >
+        <button class="greenButton" type="submit">Edit Role</button>
+      </form>
+      <form
+        class="redButton"
+        action="/users/{{_id}}/remove-user"
+        method="POST"
+      >
+        <button class="greenButton" type="submit">Remove User</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
+
+<script src="/js/admin.js"></script>

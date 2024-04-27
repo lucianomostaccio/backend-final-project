@@ -6,4 +6,4 @@ Handlebars for views.
 Hidden .env for sensitive data.
 Mock, logger, hashing, documentations.
 Files system for offline mode.
-SMS+EMAIL notifications. Roles
+SMS+EMAIL notifications. Role

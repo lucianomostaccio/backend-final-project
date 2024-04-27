@@ -12,9 +12,6 @@ import { isValidPassword, createHash } from "../utils/hashing.js";
 // const CartsDao = getDaoCarts()
 // export const CartsService = new CartsService({ CartsDao, productsService })
 
-// const suscriptoresDao = getDaoSuscriptores()
-// export const newslettersService = new NewslettersService({ suscriptoresDao, emailService })
-
 const smsService = getSmsService();
 const usersDao = getDaoUsers();
 const productsDao = getDaoProducts();

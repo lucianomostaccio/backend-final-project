@@ -160,4 +160,43 @@ export class UsersService {
       throw error;
     }
   }
+
+  async updateLastLogin(userId) {
+    try {
+      const updatedUser = await this.usersDao.updateOne(
+        { _id: userId },
+        { $set: { last_login: new Date() } },
+        { new: true }
+      );
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Error updating last login: ${error.message}`);
+    }
+  }
+
+  async clearInactiveUsers() {
+    try {
+      const inactiveUsers = await this.usersDao.readMany({
+        // last_login: { $lt: new Date(Date.now() - 48 * 60 * 60 * 1000) },
+        last_login: { $lt: new Date(Date.now() - 10 * 60 * 1000) },
+      });
+      console.log("accounts with no login in last 10 minutes:", inactiveUsers)
+      const deletedUsers = [];
+
+      for (const user of inactiveUsers) {
+        await this.usersDao.deleteOne({ _id: user._id });
+        console.log("deleted user:", user);
+        await this.emailService.send(
+          user.email,
+          "inactive accout",
+          "your account has been removed due to inactivity that lasted more than 48 hours"
+        );
+        deletedUsers.push(user);
+      }
+      
+      return deletedUsers;
+    } catch (error) {
+      throw new Error(`Error clearing inactive users: ${error.message}`);
+    }
+  }
 }

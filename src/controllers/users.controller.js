@@ -17,8 +17,15 @@ export async function getController(req, res, next) {
 export async function getAllController(req, res, next) {
   try {
     const users = await usersService.getAllUsers();
-    console.log("users found by user get controller:", users);
-    res.jsonOk(users);
+    const filteredUsers = users.map((user) => ({
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      role: user.role,
+    }));
+    console.log("users found by user get controller:", filteredUsers);
+
+    res.jsonOk(filteredUsers);
   } catch (error) {
     Logger.error("Error in getController:", error);
     next(error);
@@ -81,3 +88,13 @@ export async function deleteController(req, res, next) {
     next(error);
   }
 }
+
+export const inactiveController = async (req, res, next) => {
+  try {
+    const deletedUsers = await usersService.clearInactiveUsers();
+    console.log("deleted users:", deletedUsers);
+    res.ok();
+  } catch (error) {
+    next(error);
+  }
+};

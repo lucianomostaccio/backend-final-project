@@ -7,6 +7,7 @@ import {
   deleteController,
   putController,
   getAllController,
+  inactiveController,
 } from "../../controllers/users.controller.js";
 import { createHash } from "../../utils/hashing.js";
 // import { onlyLoggedInRest } from "../../middlewares/authorization.js";
@@ -52,9 +53,7 @@ usersRouter.get("/current", authenticateWithJwt, async (req, res, next) => {
 
 usersRouter.get(
   "/",
-  authenticateWithJwt,
-  rolesOnly(["admin"]),
-  getAllController
+  getAllController,
 );
 
 // Update user password (PUT /api/users/resetpass)
@@ -84,4 +83,11 @@ usersRouter.put(
   putController
 );
 
-usersRouter.delete("/:id", deleteController); 
+// Route to delete a specific user by ID
+usersRouter.delete("/:id", deleteController);
+
+// Route to clear inactive users
+usersRouter.delete("/", inactiveController);
+
+// // Delete inactive users
+// usersRouter.delete("/", clearInactiveUsersController);
