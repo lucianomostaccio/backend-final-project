@@ -15,12 +15,10 @@ if (EXECUTION_MODE === "online") {
     const productsModel = model("products", productsSchema);
     daoProducts = new ProductsDaoMongoose(productsModel);
     Logger.info("using mongodb persistence - products");
-    console.log("using mongodb persistence - products")
   }
 } else {
   daoProducts = new ProductsDaoFiles(PATH_PRODUCTS_FILES);
   Logger.info("using files persistence - products");
-  console.log("using files persistence - products")
 }
 
 export function getDaoProducts() {

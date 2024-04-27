@@ -1,7 +1,5 @@
 function removeProductFromCart(event, cartId, productId) {
   event.preventDefault();
-  console.log("Cart ID:", cartId);
-  console.log("Product ID:", productId);
 
   fetch(`/api/carts/${cartId}/products/${productId}`, {
     method: "PUT",
@@ -15,7 +13,6 @@ function removeProductFromCart(event, cartId, productId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Product removed:", data);
       window.location.reload();
     })
     .catch((error) => {
@@ -34,7 +31,6 @@ function removeCart(event, cartId) {
   })
     .then((response) => {
       if (response.ok) {
-        console.log("Cart cleared successfully");
         window.location.reload();
       } else {
         throw new Error("Failed to clear cart");
@@ -58,7 +54,6 @@ function buyCart(event, cartId) {
     .then((response) => {
       if (response.ok) {
         alert("THANK YOU FOR YOUR PURCHASE!");
-        console.log("Sale completed & cart cleared successfully");
         window.location.reload();
       } else {
         throw new Error("Failed to clear cart");

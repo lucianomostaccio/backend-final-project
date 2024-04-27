@@ -1,8 +1,9 @@
 import { cartsService } from "../services/carts.service.js";
+import Logger from "../utils/logger.js";
 
 export async function getController(req, res, next) {
-  console.log("req.user obtained in getController:", req.user);
-  console.log("req.user._id obtained in getController", req.user._id);
+  Logger.debug("req.user obtained in getController:", req.user);
+  Logger.debug("req.user._id obtained in getController", req.user._id);
   try {
     // Ensure req.user exists
     if (!req.user) {

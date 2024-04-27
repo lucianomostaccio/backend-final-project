@@ -1,10 +1,11 @@
 import { cartsService } from "../services/carts.service.js";
 import { usersService } from "../services/index.js";
 import { productsService } from "../services/products.service.js";
+import Logger from "../utils/logger.js";
 
 export async function getController(req, res, next) {
   try {
-    console.log(
+    Logger.debug(
       "Accessed get products controller, req.params.pid is:",
       req.params.pid
     );
@@ -30,24 +31,24 @@ export async function getController(req, res, next) {
 
 export async function postController(req, res, next) {
   try {
-    console.log("req.body to create product:", req.body);
+    Logger.debug("req.body to create product:", req.body);
     const product = await productsService.addProduct(req.body);
     res.created(product);
-    console.log("product created:", product);
+    Logger.debug("product created:", product);
   } catch (error) {
     next(error);
   }
 }
 
 export async function addToCartController(req, res, next) {
-  console.log("req.params:", req.params);
+  Logger.debug("req.params:", req.params);
   const { pid } = req.params;
-  console.log("product id obtained in controller", pid);
-  console.log("user", req.user);
+  Logger.debug("product id obtained in controller", pid);
+  Logger.debug("user", req.user);
 
   try {
     const user = await usersService.getUserByEmail(req.user.email);
-    console.log("user id:", user._id);
+    Logger.debug("user id:", user._id);
     await cartsService.addProductToCart(user._id, pid);
 
     res.ok();
@@ -75,7 +76,7 @@ export async function deleteController(req, res, next) {
     const product = await productsService.deleteProduct({
       _id: req.params.pid,
     });
-    console.log("product to delete:", product);
+    Logger.debug("product to delete:", product);
     res.ok(product);
   } catch (error) {
     next(error);

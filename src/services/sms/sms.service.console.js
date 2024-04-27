@@ -1,8 +1,9 @@
-export class SmsServiceConsole {
-  constructor() {
-  }
+import Logger from "../../utils/logger.js";
 
-  async enviar({ to, body }) {
-    console.log(`to: ${to} - body: ${body}`)
+export class SmsServiceConsole {
+  constructor() {}
+
+  async send({ to, body }) {
+    Logger.info(`to: ${to} - body: ${body}`);
   }
 }

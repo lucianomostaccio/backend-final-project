@@ -16,7 +16,7 @@ export class CartDaoMongoose {
   }
 
   async readOne(query) {
-    console.log("query obtained in cartsDaoMongoose read", query);
+    Logger.debug("query obtained in cartsDaoMongoose read", query);
     const cart = await this.cartModel
       .findOne(query)
       .populate({
@@ -24,7 +24,7 @@ export class CartDaoMongoose {
         select: "title price description",
       })
       .lean();
-    console.log(
+    Logger.debug(
       "cart found by cartDaoMongoose:",
       JSON.stringify(cart, null, 2)
     );

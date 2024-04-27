@@ -26,7 +26,7 @@ formEditProfile?.addEventListener("submit", async (event) => {
 
     // @ts-ignore
     const body = formData;
-    console.log("body submitted for edit:", body);
+
 
     const response = await fetch("/api/users/edit", {
       method: "PUT",

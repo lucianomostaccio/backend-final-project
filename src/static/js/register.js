@@ -15,10 +15,10 @@ formRegister?.addEventListener("submit", async (event) => {
     // @ts-ignore
     const { payload: user } = await response.json();
     alert("Registration successful");
-    console.log("registration successful, redirecting...")
+
     window.location.href = "/login";
   } else {
-    console.log("error with the registration")
+
     const error = await response.json();
     alert(error.message);
   }

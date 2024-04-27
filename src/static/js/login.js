@@ -8,11 +8,10 @@ formLogin?.addEventListener("submit", async (event) => {
     // @ts-ignore
     body: new URLSearchParams(new FormData(formLogin)),
   });
-  console.log("datos del form fetcheados a api session:", response);
 
   if (response.status === 201) {
     const session = await response.json();
-    console.log("session:", session);
+
     // alert(JSON.stringify(session)); //will show the whole session object, including payload
     window.location.href = "/products";
   } else if (response.status === 401) {

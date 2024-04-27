@@ -1,4 +1,5 @@
 import { EMAIL_USER } from "../../config/config.js";
+import Logger from "../../utils/logger.js";
 
 class FakeEmailService {
   async send(to, subject, body, attachments = []) {
@@ -13,7 +14,7 @@ class FakeEmailService {
       emailOptions.attachments = attachments;
     }
 
-    console.log(JSON.stringify(emailOptions, null, 2));
+    Logger.info(JSON.stringify(emailOptions, null, 2));
   }
 }
 

@@ -6,6 +6,7 @@ import {
 import { EmailServiceConsole } from "./email.service.console.js";
 import { EmailServiceNodemailer } from "./email.service.nodemailer.js";
 import { fakeEmailService } from "./email.service.fake.js";
+import Logger from "../../utils/logger.js";
 
 let emailService;
 
@@ -13,16 +14,16 @@ let emailService;
 if (EXECUTION_MODE === "online" && NODE_ENV === "prod") {
   if (!emailService) {
     emailService = new EmailServiceNodemailer(NODEMAILER_GMAIL_OPTIONS);
-    console.log("sending emails using gmail");
+    Logger.info("sending emails using gmail");
   }
-// @ts-ignore
+  // @ts-ignore
 } else if (EXECUTION_MODE === "offline" && NODE_ENV === "dev") {
   emailService = new EmailServiceConsole();
-  console.log("sending emails using console");
-// @ts-ignore
+  Logger.info("sending emails using console");
+  // @ts-ignore
 } else {
   emailService = fakeEmailService;
-  console.log("Sending EMAIL using fake service");
+  Logger.info("Sending EMAIL using fake service");
 }
 
 export function getEmailService() {

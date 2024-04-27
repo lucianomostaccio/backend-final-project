@@ -44,7 +44,7 @@ export class UsersService {
       Logger.debug("Data to be saved:", user.toPOJO()); // Examine after toPOJO
       await this.usersDao.create(user.toPOJO());
 
-      console.log(
+      Logger.debug(
         "ADMIN SMS NUMBER RECEIVED AT USERS.SERVICE:",
         ADMIN_SMS_NUMBER
       ),
@@ -69,7 +69,7 @@ export class UsersService {
   async getUserByEmail(email) {
     try {
       const user = await this.usersDao.readOne({ email });
-      console.log("user obtained by getUserByEmail in users.service:", user);
+      Logger.debug("user obtained by getUserByEmail in users.service:", user);
       if (!user) {
         throw new Error("User not found");
       }
@@ -84,7 +84,7 @@ export class UsersService {
   async getUserById(_id) {
     try {
       const user = await this.usersDao.readOne({ _id });
-      console.log("user obtained by getUserById in users.service:", user);
+      Logger.debug("user obtained by getUserById in users.service:", user);
       if (!user) {
         throw new Error("User not found");
       }
@@ -100,10 +100,10 @@ export class UsersService {
 
   // Update user by ID
   async updateUser(_id, updateFields) {
-    console.log("user id obtained in updateUser in users.service", _id);
+    Logger.debug("user id obtained in updateUser in users.service", _id);
     try {
       const userToUpdate = await this.usersDao.readOne({ _id });
-      console.log("user found to be updated:", userToUpdate);
+      Logger.debug("user found to be updated:", userToUpdate);
 
       if (!userToUpdate) {
         Logger.warning("User not found for update");
@@ -117,9 +117,9 @@ export class UsersService {
         { $set: updateFields },
         { new: true }
       );
-      console.log("updated user fields in users.service:", updatedUser);
+      Logger.debug("updated user fields in users.service:", updatedUser);
       Logger.info("User information updated:", { userId: updatedUser._id });
-      console.log("User information updated for user id:", {
+      Logger.debug("User information updated for user id:", {
         userId: updatedUser._id,
       });
       return updatedUser;
@@ -180,12 +180,12 @@ export class UsersService {
         // last_login: { $lt: new Date(Date.now() - 48 * 60 * 60 * 1000) },
         last_login: { $lt: new Date(Date.now() - 10 * 60 * 1000) },
       });
-      console.log("accounts with no login in last 10 minutes:", inactiveUsers)
+      Logger.debug("accounts with no login in last 10 minutes:", inactiveUsers);
       const deletedUsers = [];
 
       for (const user of inactiveUsers) {
         await this.usersDao.deleteOne({ _id: user._id });
-        console.log("deleted user:", user);
+        Logger.debug("deleted user:", user);
         await this.emailService.send(
           user.email,
           "inactive accout",
@@ -193,7 +193,7 @@ export class UsersService {
         );
         deletedUsers.push(user);
       }
-      
+
       return deletedUsers;
     } catch (error) {
       throw new Error(`Error clearing inactive users: ${error.message}`);

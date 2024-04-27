@@ -1,12 +1,11 @@
 // server
-import { app } from './app/app.js'
-import { PORT } from './config/config.js'
-import { connect } from './database/database.js'
-import Logger from './utils/logger.js';
+import { app } from "./app/app.js";
+import { PORT } from "./config/config.js";
+import { connect } from "./database/database.js";
+import Logger from "./utils/logger.js";
 
-await connect()
+await connect();
 
 app.listen(PORT, () => {
-  console.log(`Server listening in port: ${PORT}`)
-  Logger.info(`Server listening in port: ${PORT}`);
+  Logger.debug(`Server listening in port: ${PORT}`);
 });

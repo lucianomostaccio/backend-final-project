@@ -1,7 +1,6 @@
 import Logger from "../../../utils/logger.js";
 import { toPOJO } from "../../utils.js";
 
-
 export class UsersDaoMongoose {
   constructor(usersModel) {
     this.usersModel = usersModel;
@@ -13,14 +12,11 @@ export class UsersDaoMongoose {
   }
 
   async readOne(email) {
-    console.log("accessed readOne with email:",email)
-    const userDoc = await this.usersModel
-      .findOne(email)
-      .lean();
-    console.log("readOne userDoc", userDoc)
+    Logger.debug("accessed readOne with email:", email);
+    const userDoc = await this.usersModel.findOne(email).lean();
+    Logger.debug("readOne userDoc", userDoc);
     return toPOJO(userDoc); // Apply toPOJO and return in a single step
   }
-  
 
   async readMany(query) {
     return toPOJO(await this.usersModel.find(query).lean());

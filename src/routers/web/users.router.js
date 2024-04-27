@@ -25,7 +25,7 @@ webUsersRouter.get("/edit", authenticateWithJwt, async (req, res) => {
   // webUsersRouter.get("/edit", rolesOnly, (req, res) => {
   try {
     const user = req.user;
-    console.log("req.user detected for edit profile page:", user);
+    Logger.debug("req.user detected for edit profile page:", user);
 
     const usersDao = getDaoUsers();
     const email = user.email;
@@ -45,19 +45,19 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
   // webUsersRouter.get("/profile", rolesOnly, async (req, res) => {
   try {
     if (!req.user) {
-      console.log("req.user does not exist for profile page, redirect");
+      Logger.debug("req.user does not exist for profile page, redirect");
       res.redirect("/login");
     } else {
-      console.log("req.user exists in webusersrouter", req.user);
+      Logger.debug("req.user exists in webusersrouter", req.user);
       const user = req.user;
-      console.log("user detected for profile page:", user);
+      Logger.debug("user detected for profile page:", user);
 
       const usersDao = getDaoUsers();
       const email = user.email;
-      console.log("email:", email);
+      Logger.debug("email:", email);
       const updatedUser = await usersDao.readOne({ email }, { password: 0 });
       Logger.debug("Updated user object from database:", updatedUser); // Log the updated user object from DB
-      console.log("Updated user object from database:", updatedUser);
+      Logger.debug("Updated user object from database:", updatedUser);
       // Normalize image path and construct full image URL
       if (updatedUser.profile_picture) {
         const basePath = process.env.BASE_URL || "http://localhost:8080";
@@ -68,9 +68,9 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
         const imageUrlPath = normalizedImagePath.replace("src/static/", "");
         updatedUser.fullImageUrl = `${basePath}/${imageUrlPath}`;
         Logger.debug("Full image URL:", updatedUser.fullImageUrl);
-        console.log("Full image URL:", updatedUser.fullImageUrl);
+        Logger.debug("Full image URL:", updatedUser.fullImageUrl);
       }
-      console.log("Updated user:", updatedUser);
+      Logger.debug("Updated user:", updatedUser);
       Logger.debug("Session updated with new user data", updatedUser); // Log session update
       res.render("profile.handlebars", {
         pageTitle: "Profile",

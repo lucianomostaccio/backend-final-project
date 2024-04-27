@@ -1,9 +1,10 @@
 import nodemailer from "nodemailer";
+import Logger from "../../utils/logger.js";
 
 export class EmailServiceNodemailer {
   constructor(options) {
     this.origin = options.auth.user;
-    console.log('Origin set to:', this.origin); // Esto debería mostrar el correo electrónico configurado
+    Logger.info("Origin set to:", this.origin); // Esto debería mostrar el correo electrónico configurado
     this.transport = nodemailer.createTransport(options);
   }
 
@@ -20,6 +21,6 @@ export class EmailServiceNodemailer {
     }
 
     await this.transport.sendMail(emailOptions);
-    console.log(emailOptions);
+    Logger.info(emailOptions);
   }
 }

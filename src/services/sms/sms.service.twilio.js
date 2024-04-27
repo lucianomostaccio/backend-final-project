@@ -1,4 +1,5 @@
 import twilio from "twilio";
+import Logger from "../../utils/logger.js";
 
 export class SmsServiceTwilio {
   constructor({ sid, authToken, origin }) {
@@ -7,19 +8,19 @@ export class SmsServiceTwilio {
   }
 
   async send({ to, body }) {
-    console.log('Sending SMS to:', to); 
-    console.log('SMS Body:', body); 
+    Logger.info("Sending SMS to:", to);
+    Logger.info("SMS Body:", body);
     const smsOptions = {
       from: this.origin,
       to,
       body,
     };
-    console.log('Twilio SMS options before sending:', smsOptions); 
+    Logger.info("Twilio SMS options before sending:", smsOptions);
     try {
       const message = await this.client.messages.create(smsOptions);
-      console.log('Twilio SMS response:', message); 
+      Logger.info("Twilio SMS response:", message);
     } catch (error) {
-      console.error('Error sending SMS through Twilio:', error);
+      Logger.error("Error sending SMS through Twilio:", error);
     }
   }
 }

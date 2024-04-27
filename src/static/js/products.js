@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // Get the action URL from the form
       // @ts-ignore
       const actionUrl = form.action;
-      console.log("action url obtained:", actionUrl);
+
 
       // Extract the product ID from the action URL
       const url = new URL(actionUrl);
       const productId = url.pathname.split("/")[2];
-      console.log("productId extracted:", productId);
+
       try {
         // Send the product ID to the server
         const response = await fetch(`/api/products/${productId}/add-to-cart`, {

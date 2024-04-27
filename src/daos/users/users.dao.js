@@ -11,18 +11,18 @@ let daoUsers;
 
 // @ts-ignore
 if (EXECUTION_MODE === "online") {
-  if(!daoUsers) {
-    const usersModel = model('users', usersSchema)
-    daoUsers = new UsersDaoMongoose(usersModel)
-    Logger.info('using mongodb persistence - users')
-    console.log('using mongodb persistence - users')
+  if (!daoUsers) {
+    const usersModel = model("users", usersSchema);
+    daoUsers = new UsersDaoMongoose(usersModel);
+    Logger.info("using mongodb persistence - users");
+    Logger.debug("using mongodb persistence - users");
   }
 } else {
-  daoUsers = new UsersDaoFiles(PATH_USERS_FILE)
-  Logger.info('using files persistence - users')
-  console.log('using files persistence - users')
+  daoUsers = new UsersDaoFiles(PATH_USERS_FILE);
+  Logger.info("using files persistence - users");
+  Logger.debug("using files persistence - users");
 }
 
 export function getDaoUsers() {
-  return daoUsers
-} 
+  return daoUsers;
+}

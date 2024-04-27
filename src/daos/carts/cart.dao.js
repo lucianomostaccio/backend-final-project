@@ -16,12 +16,10 @@ if (EXECUTION_MODE === "online") {
     const cartsModel = model("carts", cartSchema);
     daoCarts = new CartDaoMongoose(cartsModel);
     Logger.info("using mongodb persistence - carts");
-    console.log("using mongodb persistence - carts")
   }
 } else {
   daoCarts = new CartDaoFiles(PATH_CARTS_FILES);
   Logger.info("using files persistence - carts");
-  console.log("using files persistence - carts")
 }
 
 export function getDaoCarts() {

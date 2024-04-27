@@ -25,21 +25,24 @@ class CartsService {
   async addProductToCart(userId, productId) {
     // First, find the user's cart by userId
     let cart = await cartsDao.readOne({ userId });
-    console.log("Cart before adding product:", cart);
+    Logger.debug("Cart before adding product:", cart);
 
     // If the cart doesn't exist, create a new one for the user
     if (!cart) {
       cart = await cartsDao.create({ userId, products: [] });
-      console.log("New cart created for user:", userId);
+      Logger.debug("New cart created for user:", userId);
     }
 
     // Diagnostic logging to see the product ID being added
-    console.log("Attempting to add product with ID:", productId);
+    Logger.debug("Attempting to add product with ID:", productId);
 
     // Find if the product already exists in the cart
     const productIndex = cart.products.findIndex((product) => {
       // Diagnostic logging for comparison
-      console.log("Comparing with product in cart with ID:", product.productId);
+      Logger.debug(
+        "Comparing with product in cart with ID:",
+        product.productId
+      );
       return product.productId._id === productId;
     });
 
@@ -56,13 +59,13 @@ class CartsService {
       { _id: cart._id },
       { $set: { products: cart.products } }
     );
-    console.log("Product added to the cart");
+    Logger.debug("Product added to the cart");
   }
 
   async deleteProductFromCart(cartId, productId) {
     try {
       // Diagnostic logging to see the cart and product IDs being processed
-      console.log(
+      Logger.debug(
         "Received the following cartId and productId in cart service:",
         cartId,
         productId
@@ -70,7 +73,7 @@ class CartsService {
 
       // First, find the cart by cartId
       let cart = await cartsDao.readOne({ _id: cartId });
-      console.log("Cart before deleting product:", cart);
+      Logger.debug("Cart before deleting product:", cart);
 
       // If the cart doesn't exist, throw an error
       if (!cart) {
@@ -82,7 +85,7 @@ class CartsService {
 
       // Update the cart in the database
       const updatedCart = await cartsDao.updateOne({ _id: cartId }, update);
-      console.log("Cart updated in carts service:", updatedCart);
+      Logger.debug("Cart updated in carts service:", updatedCart);
 
       // If the update operation didn't return an updated cart, throw an error
       if (!updatedCart) {

@@ -1,14 +1,15 @@
 import { TWILIO_SMS_NUMBER } from "../../config/config.js";
+import Logger from "../../utils/logger.js";
 
 class SmsServiceFake {
   async send(to, body) {
     const smsOptions = {
       from: TWILIO_SMS_NUMBER,
       to,
-      body
+      body,
     };
 
-    console.log(smsOptions);
+    Logger.info(smsOptions);
   }
 }
 

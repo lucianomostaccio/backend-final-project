@@ -5,6 +5,7 @@ import {
   tokenizeUserInCookie,
 } from "../../middlewares/tokens.js";
 import { sessionsPost } from "../../controllers/sessions.controller.js";
+import Logger from "../../utils/logger.js";
 
 export const sessionsRouter = Router();
 
@@ -16,7 +17,7 @@ sessionsRouter.post(
     try {
       // @ts-ignore
       res["created"](req.user);
-      console.log("Session created for", req.user);
+      Logger.info("Session created for", req.user);
     } catch (error) {
       // Handle any errors that may occur during the process
       console.error("Error creating session:", error);

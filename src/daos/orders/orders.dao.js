@@ -15,12 +15,12 @@ if (EXECUTION_MODE === "online") {
     const ordersModel = model("orders", ordersSchema);
     daoOrders = new OrdersDaoMongoose(ordersModel);
     Logger.info("using mongodb persistence - orders");
-    console.log("using mongodb persistence - orders")
+    Logger.debug("using mongodb persistence - orders");
   }
 } else {
   daoOrders = new OrdersDaoFiles(PATH_ORDERS_FILES);
   Logger.info("using files persistence - orders");
-  console.log("using files persistence - orders")
+  Logger.debug("using files persistence - orders");
 }
 
 export function getDaoOrders() {

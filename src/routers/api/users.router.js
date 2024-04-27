@@ -27,10 +27,10 @@ usersRouter.post(
       // Set the profile picture path based on the uploaded file
       if (req.file) {
         req.body.profile_picture = req.file.path;
-        console.log("profile pic detected");
+        Logger.debug("profile pic detected");
       }
 
-      console.log("user created");
+      Logger.debug("user created");
       (req, res) => {
         res["result"](req["user"]);
       };

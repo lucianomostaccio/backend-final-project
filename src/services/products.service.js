@@ -6,11 +6,11 @@ const productsDao = getDaoProducts();
 
 class ProductsService {
   async addProduct(data) {
-    console.log("data add product products service", data);
+    Logger.debug("data add product products service", data);
     const product = new Product(data);
-    console.log("new product(data)", product);
+    Logger.debug("new product(data)", product);
     const savedProduct = await productsDao.create(product.toPOJO());
-    console.log(
+    Logger.debug(
       "saved product created with toPOJO, products service",
       savedProduct
     );

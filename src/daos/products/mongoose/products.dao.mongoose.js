@@ -15,8 +15,8 @@ export class ProductsDaoMongoose {
     return toPOJO(products);
   }
 
-  async readMany(query) {
-    return toPOJO(await this.productsModel.find(query).lean());
+  async readMany(query, sortOptions = {}) {
+    return toPOJO(await this.productsModel.find(query).sort(sortOptions).lean());
   }
 
   async updateOne(query, data) {
