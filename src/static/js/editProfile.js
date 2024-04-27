@@ -5,11 +5,6 @@ const inputs = document.querySelectorAll("input");
 //first, we load current profile data
 window.addEventListener("load", async (event) => {
   const response = await fetch("/api/users/current");
-  // if (response.status === 403) {
-  //   alert("You need to be logged in to modify your profile");
-  //   return (window.location.href = "/login");
-  // }
-  //NEEDED??
 
   const result = await response.json();
   const user = result.payload;

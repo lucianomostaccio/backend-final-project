@@ -58,18 +58,18 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
       const updatedUser = await usersDao.readOne({ email }, { password: 0 });
       Logger.debug("Updated user object from database:", updatedUser); // Log the updated user object from DB
       console.log("Updated user object from database:", updatedUser);
-      const normalizedImagePath = updatedUser.profile_picture.replace(
-        /\\/g,
-        "/"
-      );
-      Logger.debug("Normalized image path:", normalizedImagePath); // Log the normalized image path
-
-      updatedUser.fullImageUrl = `http://localhost:8080/${normalizedImagePath.replace(
-        "src/static/",
-        ""
-      )}`;
-      Logger.debug("Full image URL:", updatedUser.fullImageUrl); // Log the full image URL
-
+      // Normalize image path and construct full image URL
+      if (updatedUser.profile_picture) {
+        const basePath = process.env.BASE_URL || "http://localhost:8080";
+        const normalizedImagePath = updatedUser.profile_picture.replace(
+          /\\/g,
+          "/"
+        );
+        const imageUrlPath = normalizedImagePath.replace("src/static/", "");
+        updatedUser.fullImageUrl = `${basePath}/${imageUrlPath}`;
+        Logger.debug("Full image URL:", updatedUser.fullImageUrl);
+        console.log("Full image URL:", updatedUser.fullImageUrl);
+      }
       console.log("Updated user:", updatedUser);
       Logger.debug("Session updated with new user data", updatedUser); // Log session update
       res.render("profile.handlebars", {

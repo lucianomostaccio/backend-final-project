@@ -50,13 +50,16 @@ export async function postController(req, res, next) {
 //update
 export async function putController(req, res, next) {
   try {
-    const userId = req.user._id;
+    console.log("req.params.id detected in put", req.params.id)
+    const userId = req.params.id || req.user._id;
     console.log("userId obtained in putController:", userId);
     let updateFields = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       age: req.body.age
     };
+
+    console.log("req.body.role exist to update", req.body.role);
 
     if (req.body.role) {
       updateFields.role = req.body.role;

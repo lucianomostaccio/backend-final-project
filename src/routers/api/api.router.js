@@ -6,7 +6,7 @@ import { improvedReplies } from "../../middlewares/improvedReplies.js";
 import loggerRouter from "./logger.router.js";
 import { cartsRouter } from "./carts.router.js";
 import { errorsHandler } from "../../middlewares/errorsHandler.js";
-import { adminRouter } from "../web/admin.router.js";
+import { adminRouter } from "./admin.router.js";
 
 export const apiRouter = Router();
 

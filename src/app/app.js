@@ -6,8 +6,6 @@ import * as handlebarsHelpers from "../helpers/handlebarsHelpers.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-// import initializePassport from "../config/passport.config.js";
-// import initializeGithubPassport from "../config/githubpassport.config.js";
 import errorMiddleware from "../middlewares/errorMiddleware.js";
 import { cookies } from "../middlewares/cookies.js";
 import { authentication } from "../middlewares/authentication.js";
@@ -35,8 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "static"))); 
 app.use(authentication);
-// initializePassport();
-// initializeGithubPassport();
+
 app.use(errorMiddleware);
 
 // routers

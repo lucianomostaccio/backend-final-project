@@ -1,4 +1,3 @@
-
 <section class="profileSection">
   <ul class="userProfile" id="products-home">
     <li class="profileItem">{{first_name}}</li>
@@ -11,19 +10,15 @@
   {{#each allUsers}}
     <li class="productTitle">
       USER: {{first_name}} {{last_name}} - ROLE:{{role}}
-      <form
-        
-        action="/admin/{{_id}}"
-        method="PUT"
-      >
-        <input type="text" name="role" placeholder="New Role" required>
+      <form action="api/admin/{{_id}}" class="editForm">
+        <select name="role" required>
+          <option value="">Select New Role</option>
+          <option value="user" {{#if_eq role 'user'}}selected{{/if_eq}}>User</option>
+          <option value="admin" {{#if_eq role 'admin'}}selected{{/if_eq}}>Admin</option>
+        </select>
         <button class="greenButton" type="submit">Edit Role</button>
       </form>
-      <form
-        action="/admin/{{_id}}"
-        method="REMOVE"
-      >
-        <br>
+      <form action="api/admin/{{_id}}" method="post" class="removeForm">
         <button class="smallRedButton" type="submit">Remove User</button>
       </form>
       <br><br><br>
@@ -31,4 +26,4 @@
   {{/each}}
 </ul>
 
-{{!-- <script src="/js/admin.js"></script> --}}
+<script src="/js/admin.js"></script>

@@ -8,5 +8,4 @@ await connect()
 
 app.listen(PORT, () => {
   Logger.info(`Server listening in port: ${PORT}`);
-  // console.log(`Server listening in port: ${PORT}`);
 });

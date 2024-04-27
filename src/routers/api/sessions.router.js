@@ -1,33 +1,12 @@
 //login
 import { Router } from "express";
-// import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../../config/config.js";
 import {
   deleteTokenFromCookie,
   tokenizeUserInCookie,
 } from "../../middlewares/tokens.js";
 import { sessionsPost } from "../../controllers/sessions.controller.js";
-import { usersService } from "../../services/index.js";
-// import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const sessionsRouter = Router();
-
-// sessionsRouter.get(
-//   "/github",
-//   passport.authenticate("github", { scope: ["user:email"] }),
-//   async (req, res) => {}
-// );
-
-// sessionsRouter.get(
-//   "/githubcallback",
-//   passport.authenticate("github", {
-//     // successRedirect: "/",
-//     failureRedirect: "/login",
-//   }),
-//   async (req, res) => {
-//     req.session["user"] = req.user;
-//     res.redirect("/");
-//   }
-// );
 
 sessionsRouter.post(
   "/",
