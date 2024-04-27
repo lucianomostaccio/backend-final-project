@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import { MONGODB_CNX_STR } from "../src/config/config.js";
+import {
+  ADMIN_EMAIL,
+  MONGODB_CNX_STR,
+} from "../src/config/config.js";
 import { connect } from "../src/database/database.js";
 import { getDaoUsers } from "../src/daos/users/users.dao.js";
 
@@ -10,26 +13,27 @@ console.log(MONGODB_CNX_STR);
 
 await connect();
 
-const deleted = await usersDao.deleteMany({ email: "admin@admin.com" });
+const deleted = await usersDao.deleteMany({ email: ADMIN_EMAIL });
+console.log(ADMIN_EMAIL);
 
-console.log("user deleted",deleted);
+console.log("user deleted", deleted);
 
 const user = await usersDao.create({
-  email: "admin@admin.com",
-  password: "admin",
+  email: ADMIN_EMAIL,
+  password: 123,
   first_name: "admin",
   last_name: "admin",
-  age: ""
+  age: "",
 });
 
-console.log("user to create",user);
+console.log("user to create", user);
 
 const updatedUser = await usersDao.updateOne(
-  { email: "admin@admin.com" },
+  { email: ADMIN_EMAIL },
   { $set: { role: "admin" } },
   { new: true }
 );
 
-console.log("updated user:",updatedUser);
+console.log("updated user:", updatedUser);
 
 await mongoose.disconnect();
