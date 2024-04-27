@@ -7,5 +7,6 @@ import Logger from './utils/logger.js';
 await connect()
 
 app.listen(PORT, () => {
+  console.log(`Server listening in port: ${PORT}`)
   Logger.info(`Server listening in port: ${PORT}`);
 });

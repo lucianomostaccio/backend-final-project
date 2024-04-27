@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import {
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
-  MONGODB_CNX_STR,
 } from "../src/config/config.js";
 import { connect } from "../src/database/database.js";
 import { getDaoUsers } from "../src/daos/users/users.dao.js";
