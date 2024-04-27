@@ -20,7 +20,7 @@ console.log("user deleted", deleted);
 
 const user = await usersDao.create({
   email: ADMIN_EMAIL,
-  password: 123,
+  password: 'admin',
   first_name: "admin",
   last_name: "admin",
   age: "",
