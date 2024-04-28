@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  box-sizing: border-box;
+  box-sizing: bticket-box;
 }
 
 a {
@@ -94,7 +94,7 @@ p {
   background-color: #dc3545;
   color: #fff;
   padding: 10px 15px;
-  border: none;
+  bticket: none;
   cursor: pointer;
 }
 
@@ -106,9 +106,9 @@ p {
   background-color: #dc3545;
   color: #fff;
   padding: 5px 7.5px;
-  border: none;
+  bticket: none;
   cursor: pointer;
-  border-radius: 10px;
+  bticket-radius: 10px;
 }
 
 .smallRedButton:hover {
@@ -119,7 +119,7 @@ p {
   background-color: #28a745;
   color: #fff;
   padding: 10px 15px;
-  border: none;
+  bticket: none;
   cursor: pointer;
   width: 10vw;
 }
@@ -132,7 +132,7 @@ p {
   background-color: #28a745;
   color: #fff;
   padding: 10px 15px;
-  border: none;
+  bticket: none;
   cursor: pointer;
 }
 
@@ -170,8 +170,8 @@ label {
 input {
   width: 30vw;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  bticket: 1px solid #ccc;
+  bticket-radius: 4px;
 }
 
 #emailNotEdit {

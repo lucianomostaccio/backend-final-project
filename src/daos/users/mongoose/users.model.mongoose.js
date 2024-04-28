@@ -16,16 +16,16 @@ export const usersSchema = new Schema(
     age: { type: Number, default: "(not specified)" },
     profile_picture: { type: String, default: DEFAULT_USER_AVATAR_PATH },
     role: { type: String, required: true, default: DEFAULT_ROLE },
-    orders: {
+    tickets: {
       type: [
         {
           type: String,
-          ref: "orders",
+          ref: "tickets",
         },
       ],
       default: [],
     },
-    last_login: { type: Date }
+    last_login: { type: Date },
   },
   {
     strict: "throw",

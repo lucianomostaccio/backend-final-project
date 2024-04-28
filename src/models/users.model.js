@@ -10,7 +10,7 @@ export class User {
   #age;
   #profile_picture;
   #role;
-  #orders;
+  #tickets;
   #last_login;
 
   constructor({
@@ -22,7 +22,7 @@ export class User {
     age,
     profile_picture,
     role,
-    orders,
+    tickets,
     last_login,
   }) {
     this.#_id = _id;
@@ -33,7 +33,7 @@ export class User {
     this.age = age;
     this.profile_picture = profile_picture;
     this.role = role || DEFAULT_ROLE;
-    this.orders = orders;
+    this.tickets = tickets;
     this.last_login = last_login;
   }
 
@@ -65,8 +65,8 @@ export class User {
     return this.#profile_picture;
   }
 
-  get orders() {
-    return this.#orders;
+  get tickets() {
+    return this.#tickets;
   }
   get last_login() {
     return this.#last_login;
@@ -102,8 +102,8 @@ export class User {
     this.#profile_picture = value;
   }
 
-  set orders(value) {
-    this.#orders = value;
+  set tickets(value) {
+    this.#tickets = value;
   }
 
   toPOJO() {
@@ -116,7 +116,7 @@ export class User {
       age: this.#age,
       profile_picture: this.#profile_picture,
       role: this.#role,
-      orders: this.#orders,
+      tickets: this.#tickets,
       last_login: this.#last_login,
     };
   }

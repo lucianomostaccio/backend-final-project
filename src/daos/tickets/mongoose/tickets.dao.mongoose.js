@@ -1,21 +1,21 @@
 import { toPOJO } from "../../utils.js";
 
-export class OrdersDaoMongoose {
-  constructor(ordersModel) {
-    this.ordersModel = ordersModel;
+export class TicketsDaoMongoose {
+  constructor(ticketsModel) {
+    this.ticketsModel = ticketsModel;
   }
 
   async create(data) {
-    const order = await this.ordersModel.create(data);
-    return toPOJO(order);
+    const ticket = await this.ticketsModel.create(data);
+    return toPOJO(ticket);
   }
 
   async readOne(query) {
-    return toPOJO(await this.ordersModel.findOne(query).lean());
+    return toPOJO(await this.ticketsModel.findOne(query).lean());
   }
 
   async readMany(query) {
-    return toPOJO(await this.ordersModel.find(query).lean());
+    return toPOJO(await this.ticketsModel.find(query).lean());
   }
 
   async updateOne(query, data) {
@@ -27,7 +27,7 @@ export class OrdersDaoMongoose {
   }
 
   async deleteOne(query) {
-    return toPOJO(await this.ordersModel.findOneAndDelete(query).lean());
+    return toPOJO(await this.ticketsModel.findOneAndDelete(query).lean());
   }
 
   async deleteMany(query) {

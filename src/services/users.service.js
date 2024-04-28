@@ -177,10 +177,9 @@ export class UsersService {
   async clearInactiveUsers() {
     try {
       const inactiveUsers = await this.usersDao.readMany({
-        // last_login: { $lt: new Date(Date.now() - 48 * 60 * 60 * 1000) },
-        last_login: { $lt: new Date(Date.now() - 10 * 60 * 1000) },
+        last_login: { $lt: new Date(Date.now() - 48 * 60 * 60 * 1000) },
       });
-      Logger.debug("accounts with no login in last 10 minutes:", inactiveUsers);
+      Logger.debug("accounts with no login in last 48 hours:", inactiveUsers);
       const deletedUsers = [];
 
       for (const user of inactiveUsers) {

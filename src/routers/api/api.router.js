@@ -7,6 +7,7 @@ import loggerRouter from "./logger.router.js";
 import { cartsRouter } from "./carts.router.js";
 import { errorsHandler } from "../../middlewares/errorsHandler.js";
 import { adminRouter } from "./admin.router.js";
+import { ticketsRouter } from "./tickets.router.js";
 
 export const apiRouter = Router();
 
@@ -22,3 +23,4 @@ apiRouter.use("/sessions", sessionsRouter);
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/loggerTest", loggerRouter);
 apiRouter.use("/admin", adminRouter);
+apiRouter.use("/tickets", ticketsRouter);

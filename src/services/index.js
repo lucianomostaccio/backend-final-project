@@ -17,6 +17,7 @@ const usersDao = getDaoUsers();
 const productsDao = getDaoProducts();
 const emailService = getEmailService();
 
+
 export const usersService = new UsersService({
   usersDao,
   productsDao,

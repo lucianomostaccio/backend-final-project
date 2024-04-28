@@ -2,6 +2,7 @@ import { Router } from "express";
 // import { rolesOnly } from "../../middlewares/authorization.js";
 import { getDaoProducts } from "../../daos/products/products.dao.js";
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
+import Logger from "../../utils/logger.js";
 
 export const webProductsRouter = Router();
 

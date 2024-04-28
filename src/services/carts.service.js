@@ -120,6 +120,22 @@ class CartsService {
     }
   }
 
+  async calculateTotalPrice(_id) {
+    console.log("id received in calculate", _id)
+    const cart = await this.readOneById(_id);
+    if (!cart) {
+      throw new Error("Cart not found");
+    }
+
+    let totalPrice = 0;
+    console.log("cart.products", cart.products);
+    cart.products.forEach((product) => {
+      totalPrice += product.quantity * product.productId.price;
+    });
+
+    return totalPrice;
+  }
+
   // Delete cart by ID
   async deleteCart(_id) {
     try {

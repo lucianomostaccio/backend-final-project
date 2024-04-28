@@ -20,9 +20,9 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
     const productsInCart = await daoCarts.readOne({ userId: req.user._id });
 
     const user = req.user;
-    Logger.debug("req.user detected in cart", req.user);
+    console.log("req.user detected in cart", req.user);
     // @ts-ignore
-    Logger.debug("req.user._id detected in cart", req.user._id);
+    console.log("req.user._id detected in cart", req.user._id);
 
     let total = 0;
     let cartId = null;
@@ -33,10 +33,10 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
       });
       cartId = productsInCart._id;
     } else {
-      Logger.debug("No cart found for user:", user);
+      console.log("No cart found for user:", user);
     }
 
-    Logger.debug(JSON.stringify(productsInCart, null, 2));
+    console.log(JSON.stringify(productsInCart, null, 2));
     res.render("cart.handlebars", {
       welcomeMessage: "Welcome",
       user,
