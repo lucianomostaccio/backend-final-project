@@ -6,7 +6,9 @@ export class TicketsDaoMongoose {
   }
 
   async create(data) {
+    console.log("Ticket to create dao mongoose:", data);
     const ticket = await this.ticketsModel.create(data);
+    console.log("Ticket created in create dao mongoose:", ticket);
     return toPOJO(ticket);
   }
 

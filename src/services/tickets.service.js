@@ -8,7 +8,10 @@ class TicketsService {
   // Add a new ticket to the database
   async addTicket(ticketData) {
     try {
+      console.log("Adding ticketData:", ticketData);
       const ticket = new Ticket(ticketData);
+      console.log('Generated ticket _id:', ticket._id);
+      console.log("Ticket created in addTicket:", ticket);
       const savedTicket = await ticketsDao.create(ticket.toPOJO());
       console.log("Ticket created successfully:", savedTicket);
       return savedTicket;

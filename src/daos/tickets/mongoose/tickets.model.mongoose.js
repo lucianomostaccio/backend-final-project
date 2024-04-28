@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 
 export const ticketsSchema = new Schema(
   {
-    _id: { type: String, default: randomUUID },
+    _id: { type: String, default: randomUUID},
     code: {
       type: [String],
       unique: true,
@@ -20,6 +20,7 @@ export const ticketsSchema = new Schema(
     },
   },
   {
+    strict: "throw",
     versionKey: false, // Disables the __v version key on MongoDB documents
   }
 );

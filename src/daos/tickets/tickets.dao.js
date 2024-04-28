@@ -13,6 +13,7 @@ let daoTickets;
 if (EXECUTION_MODE === "online") {
   if (!daoTickets) {
     const ticketsModel = model("tickets", ticketsSchema);
+    ticketsModel.syncIndexes();
     daoTickets = new TicketsDaoMongoose(ticketsModel);
     Logger.info("using mongodb persistence - tickets");
     Logger.debug("using mongodb persistence - tickets");
