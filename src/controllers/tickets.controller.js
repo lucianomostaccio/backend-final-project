@@ -40,7 +40,11 @@ export async function postController(req, res, next) {
     console.log("Ticket created successfully:", ticket);
 
     console.log("Clearing cart post-ticket creation:", cart._id);
-    await cartsService.deleteCart(cart._id);
+    const deleteResult = await cartsService.deleteCart(cart._id);
+    console.log("Delete cart result:", deleteResult);
+    if (!deleteResult) {
+      console.error("Failed to clear cart after ticket creation");
+    }
 
     res.created(ticket);
   } catch (error) {
