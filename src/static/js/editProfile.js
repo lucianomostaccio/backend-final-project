@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-nocheck
 const formEditProfile = document.querySelector("#form-edit-profile");
 const inputs = document.querySelectorAll("input");
 
@@ -20,13 +20,10 @@ formEditProfile?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   try {
-    // @ts-ignore
     const formData = new FormData(formEditProfile);
     formData.append("email", inputs[2].value);
 
-    // @ts-ignore
     const body = formData;
-
 
     const response = await fetch("/api/users/edit", {
       method: "PUT",
@@ -49,26 +46,19 @@ formEditProfile?.addEventListener("submit", async (event) => {
 function previewImage() {
   let preview = document.querySelector("#imagePreview");
   let fileInput = document.querySelector("#newProfilePicture");
-  let footer = document.querySelector("#footer");
-  // @ts-ignore
-  footer.style.position = "static";
-  // @ts-ignore
-  footer.style.bottom = " ";
-  // @ts-ignore
   let file = fileInput.files[0];
-
   let reader = new FileReader();
 
   reader.onloadend = function () {
-    // @ts-ignore
     preview.innerHTML =
-      '<img class="profile_picture" src="' + reader.result + '" alt="Preview">';
+      '<img class="profile_picture modal-trigger" src="' +
+      reader.result +
+      '" alt="Profile picture preview">';
   };
 
   if (file) {
     reader.readAsDataURL(file);
   } else {
-    // @ts-ignore
     preview.innerHTML = "";
   }
 }

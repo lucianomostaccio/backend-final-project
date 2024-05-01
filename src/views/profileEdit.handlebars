@@ -10,7 +10,10 @@
       <li class="profileItem">Age: {{age}}</li>
       <li class="profileItem">Role: {{role}}</li>
       <li class="profileItem">Profile picture:
-        <img class="profile_picture" src="{{fullImageUrl}}" /></li>
+        <img
+          class="profile_picture modal-trigger"
+          src="{{fullImageUrl}}"
+        /></li>
     </ul>
   </article>
   <article>
@@ -34,7 +37,7 @@
           placeholder="input your last name"
         /><br />
       </div>
-      {{!-- <div class="form-group">
+      {{! <div class="form-group">
         <label for="Password">Current password</label>
         <input
           id="inputCurrentPassword"
@@ -51,7 +54,7 @@
           type="password"
           placeholder="input your new password"
         /><br />
-      </div> --}}
+      </div> }}
       <div class="form-group">
         <label for="email">Email
           <span><small id="emailNotEdit">
@@ -84,7 +87,6 @@
       <button class="greenButton" type="submit">Save your changes</button>
     </form>
   </article>
-
 </section>
 
 <script src="/js/editProfile.js"></script>

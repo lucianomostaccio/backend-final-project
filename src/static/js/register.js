@@ -18,7 +18,6 @@ formRegister?.addEventListener("submit", async (event) => {
 
     window.location.href = "/login";
   } else {
-
     const error = await response.json();
     alert(error.message);
   }
@@ -40,7 +39,9 @@ function previewImage() {
   reader.onloadend = function () {
     // @ts-ignore
     preview.innerHTML =
-      '<img class="profile_picture" src="' + reader.result + '" alt="Preview">';
+      '<img class="profile_picture modal-trigger" src="' +
+      reader.result +
+      '" alt="Preview">';
   };
 
   if (file) {

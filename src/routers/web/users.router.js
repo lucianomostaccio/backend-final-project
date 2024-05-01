@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 import { Router } from "express";
 // import { rolesOnly } from "../../middlewares/authorization.js";
 import { getDaoUsers } from "../../daos/users/users.dao.js";
@@ -30,6 +31,18 @@ webUsersRouter.get("/edit", authenticateWithJwt, async (req, res) => {
     const usersDao = getDaoUsers();
     const email = user.email;
     const updatedUser = await usersDao.readOne({ email }, { password: 0 });
+    if (updatedUser.profile_picture) {
+      const basePath = process.env.BASE_URL || "http://localhost:8080";
+      const normalizedImagePath = updatedUser.profile_picture.replace(
+        /\\/g,
+        "/"
+      );
+      const imageUrlPath = normalizedImagePath.replace("src/static/", "");
+      updatedUser.fullImageUrl = `${basePath}/${imageUrlPath}`;
+      Logger.debug("Full image URL:", updatedUser.fullImageUrl);
+      Logger.debug("Full image URL:", updatedUser.fullImageUrl);
+    }
+    console.log("Updated user object from database:", updatedUser); // Log the updated user object from DB
     res.render("profileEdit.handlebars", {
       pageTitle: "Edit your profile",
       ...updatedUser,
@@ -72,6 +85,7 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
       }
       Logger.debug("Updated user:", updatedUser);
       Logger.debug("Session updated with new user data", updatedUser); // Log session update
+      console.log("Session updated with new user data", updatedUser);
       res.render("profile.handlebars", {
         pageTitle: "Profile",
         ...updatedUser,
