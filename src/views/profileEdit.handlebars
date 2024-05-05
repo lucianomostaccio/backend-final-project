@@ -4,7 +4,6 @@
     <h1>current profile</h1>
     <ul class="userProfile" id="products-edit">
       <li class="profileItem">First name: {{first_name}}</li>
-      {{! <button></button> }}
       <li class="profileItem">Last name: {{last_name}}</li>
       <li class="profileItem">Email: {{email}}</li>
       <li class="profileItem">Age: {{age}}</li>
@@ -37,10 +36,26 @@
           placeholder="input your last name"
         /><br />
       </div>
+      {{! <div class="form-group">
+        <label for="Password">Current password</label>
+        <input
+          class="inputCurrentPassword"
+          name="currentPassword"
+          autocomplete="off"
+        /><br />
+      </div> }}
+
+      <div class="form-group">
+        <label for="email">Email
+          <span><small id="emailNotEdit">
+              *You can't edit your email*</small></span></label>
+        <input id="inputEmail" readonly /><br />
+      </div>
+
       <div class="form-group">
         <label for="Password">Current password</label>
         <input
-          id="inputCurrentPassword"
+          class="inputCurrentPassword"
           name="currentPassword"
           type="password"
           placeholder="input your current password"
@@ -49,17 +64,11 @@
       <div class="form-group">
         <label for="Password">New Password</label>
         <input
-          id="inputCurrentPassword"
-          name="currentPassword"
+          class="inputNewPassword"
+          name="newPassword"
           type="password"
           placeholder="input your new password"
         /><br />
-      </div>
-      <div class="form-group">
-        <label for="email">Email
-          <span><small id="emailNotEdit">
-              *You can't edit your email*</small></span></label>
-        <input id="inputEmail" readonly /><br />
       </div>
       <div class="form-group">
         <label for="age">Age</label>

@@ -104,13 +104,13 @@ export class UsersService {
     try {
       const userToUpdate = await this.usersDao.readOne({ _id });
       Logger.debug("user found to be updated:", userToUpdate);
+      console.log("user found to be updated:", userToUpdate);
+      console.log("updateFields in updateUser:", updateFields);
 
       if (!userToUpdate) {
         Logger.warning("User not found for update");
         throw new Error("User not found");
       }
-
-      // Object.assign(userToUpdate, updatedUser);
 
       const updatedUser = await this.usersDao.updateOne(
         { _id },
@@ -118,11 +118,13 @@ export class UsersService {
         { new: true }
       );
       Logger.debug("updated user fields in users.service:", updatedUser);
+      console.log("updated user fields in users.service:", updatedUser);
       Logger.info("User information updated:", { userId: updatedUser._id });
+      console.log("User information updated:", { userId: updatedUser._id })
       Logger.debug("User information updated for user id:", {
         userId: updatedUser._id,
       });
-      return updatedUser;
+      return await updatedUser;
     } catch (error) {
       Logger.error("Error updating user:", error);
       throw error;
@@ -130,10 +132,9 @@ export class UsersService {
   }
 
   async updatePassword(userId, newPassword) {
-    const hashedPassword = createHash(newPassword);
     const updatedUser = await this.usersDao.updateOne(
       { _id: userId },
-      { $set: { password: hashedPassword } },
+      { $set: { password: newPassword } },
       { new: true }
     );
 
@@ -142,6 +143,19 @@ export class UsersService {
     }
     return updatedUser;
   }
+
+  async retrievePassword(userId, newPassword) {
+    const updatedUser = await this.usersDao.updateOne(
+      { _id: userId },
+      { $set: { password: newPassword } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new Error("User not found");
+    }
+    return updatedUser;
+  }  
 
   // Delete user by ID
   async deleteUser(_id) {

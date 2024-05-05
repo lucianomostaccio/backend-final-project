@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+main {
+  padding: 20px;
+}
+
 a {
   text-decoration: none;
 }
@@ -37,8 +41,8 @@ nav ul {
   color: white;
 }
 
-main {
-  padding: 20px;
+img:hover {
+  cursor: pointer;
 }
 
 h1 {
@@ -250,4 +254,8 @@ input {
 #captionText {
   color: white;
   text-align: center;
+}
+
+#resetPassForm{
+  margin-top: 1rem;
 }

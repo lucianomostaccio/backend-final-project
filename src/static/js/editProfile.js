@@ -9,10 +9,11 @@ window.addEventListener("load", async (event) => {
   const result = await response.json();
   const user = result.payload;
 
+  //bring current data to inputs
   inputs[0].value = user.first_name;
   inputs[1].value = user.last_name;
   inputs[2].value = user.email;
-  inputs[3].value = user.age;
+  inputs[5].value = user.age;
 });
 
 //secondly, we handle edit submitting
@@ -22,6 +23,7 @@ formEditProfile?.addEventListener("submit", async (event) => {
   try {
     const formData = new FormData(formEditProfile);
     formData.append("email", inputs[2].value);
+    console.log("Form data:", formData);
 
     const body = formData;
 
