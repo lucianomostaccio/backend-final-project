@@ -36,23 +36,48 @@
           placeholder="input your last name"
         /><br />
       </div>
-      {{! <div class="form-group">
-        <label for="Password">Current password</label>
-        <input
-          class="inputCurrentPassword"
-          name="currentPassword"
-          autocomplete="off"
-        /><br />
-      </div> }}
-
       <div class="form-group">
         <label for="email">Email
           <span><small id="emailNotEdit">
               *You can't edit your email*</small></span></label>
         <input id="inputEmail" readonly /><br />
       </div>
+      <div class="dropdown">
+        <button class="dropdown-button">Change password</button>
+        <div class="dropdown-content">
+          <div class="form-group">
+            <label for="currentPassword">Current password:</label>
+            <input
+              type="password"
+              id="currentPassword"
+              name="currentPassword"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="newPassword">New password:</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="repeatNewPassword">Repeat new password:</label>
+            <input
+              type="password"
+              id="repeatNewPassword"
+              name="repeatNewPassword"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+        </div>
+      </div>
 
-      <div class="form-group">
+      {{! <div class="form-group">
         <label for="Password">Current password</label>
         <input
           class="inputCurrentPassword"
@@ -78,7 +103,7 @@
           type="password"
           placeholder="input your new password"
         /><br />
-      </div>
+      </div> }}
       <div class="form-group">
         <label for="age">Age</label>
         <input

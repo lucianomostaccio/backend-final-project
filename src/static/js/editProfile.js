@@ -13,12 +13,22 @@ window.addEventListener("load", async (event) => {
   inputs[0].value = user.first_name;
   inputs[1].value = user.last_name;
   inputs[2].value = user.email;
-  inputs[5].value = user.age;
+  inputs[6].value = user.age;
 });
 
 //secondly, we handle edit submitting
 formEditProfile?.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  const newPassword = document.querySelector("[name='newPassword']").value;
+  const repeatNewPassword = document.querySelector(
+    "[name='repeatNewPassword']"
+  ).value;
+
+  if (newPassword !== repeatNewPassword) {
+    alert("The new passwords do not match.");
+    return;
+  }
 
   try {
     const formData = new FormData(formEditProfile);
@@ -64,3 +74,17 @@ function previewImage() {
     preview.innerHTML = "";
   }
 }
+
+//Finally, for the change password dropdown:
+document
+  .querySelector(".dropdown-button")
+  .addEventListener("click", function () {
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+      dropdownContent.classList.remove("show");
+    } else {
+      dropdownContent.style.display = "block";
+      dropdownContent.classList.add("show");
+    }
+  });
