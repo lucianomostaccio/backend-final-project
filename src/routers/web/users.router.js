@@ -100,7 +100,18 @@ webUsersRouter.get("/profile", authenticateWithJwt, async (req, res) => {
 
 webUsersRouter.get("/resetpass", authenticateWithJwt, (req, res) => {
   if (!req.user) {
-    res.render("resetpass.handlebars", {
+    res.render("resetPass.handlebars", {
+      pageTitle: "Reset Password",
+      style: "resetpass.css",
+    }); // Only show the reset password view if the user is not logged in
+  } else {
+    res.redirect("/products"); // Redirect the user to the products view if already logged in
+  }
+});
+
+webUsersRouter.get("/confirmResetPass/:token", authenticateWithJwt, (req, res) => {
+  if (!req.user) {
+    res.render("confirmPassReset.handlebars", {
       pageTitle: "Reset Password",
       style: "resetpass.css",
     }); // Only show the reset password view if the user is not logged in

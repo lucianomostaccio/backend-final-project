@@ -1,38 +1,28 @@
-// const formResetPwd = document.querySelector('form')
-
-// formResetPwd?.addEventListener('submit', async event => {
-//   event.preventDefault()
-
-//   const response = await fetch('/api/users/resetpass', {
-//     method: 'PUT',
-//     // @ts-ignore
-//     body: new URLSearchParams(new FormData(formResetPwd))
-//   })
-
-//   if (response.status === 200) {
-//     alert('Password updated successfully')
-//     window.location.href = '/login'
-//   } else {
-//     const error = await response.json()
-//     alert(error.message)
-//   }
-// })
-
-const formResetPwd = document.querySelector('form#resetPassForm');
+// @ts-ignore
+const formResetPwd = document.querySelector('#resetPassForm');
 
 formResetPwd?.addEventListener('submit', async event => {
   event.preventDefault();
 
+  // @ts-ignore
+  const formData = new FormData(formResetPwd);
+  const email = formData.get('email');
+  console.log('Email:', email);
+
   const response = await fetch('/api/users/resetpass', {
     method: 'POST',
-    // @ts-ignore
-    body: new URLSearchParams(new FormData(formResetPwd))
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email})
   });
 
   if (response.ok) {
     alert('Please check your email to reset your password');
+    window.location.href = '/login';
   } else {
     const error = await response.json();
     alert(error.message || 'Failed to send reset email');
   }
 });
+

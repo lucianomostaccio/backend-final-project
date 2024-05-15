@@ -2,7 +2,8 @@
 import { User } from "../models/users.model.js";
 import Logger from "../utils/logger.js";
 import { ADMIN_SMS_NUMBER } from "../config/config.js";
-import { createHash } from "../utils/hashing.js";
+import { createHash, decrypt, encrypt } from "../utils/hashing.js";
+import { tokenizeUserInCookie } from "../middlewares/tokens.js";
 
 export class UsersService {
   constructor({ usersDao, productsDao, emailService, smsService, hashing }) {
@@ -16,16 +17,20 @@ export class UsersService {
   async authenticate({ email, password }) {
     try {
       const user = await this.usersDao.readOne({ email });
+      console.log("user obtained by authenticate in users.service:", user);
       if (!user) {
+        console.log("user not found");
         const typedError = new Error("Auth error");
         typedError["type"] = "FAILED_AUTHENTICATION";
         throw typedError;
       }
       if (!this.hashing.isValidPassword(password, user.password)) {
+        console.log("invalid password");
         const typedError = new Error("Auth error");
         typedError["type"] = "FAILED_AUTHENTICATION";
         throw typedError;
       }
+      console.log("authenticated successfully");
       return user;
     } catch (error) {
       throw new Error(`Auth error: ${error.message}`);
@@ -68,9 +73,15 @@ export class UsersService {
   // Get user by email
   async getUserByEmail(email) {
     try {
+      console.log("getUserByEmail in users.service obtained email", email);
       const user = await this.usersDao.readOne({ email });
+      console.log(
+        "user obtained by getUserByEmail in users.service using usersDao:",
+        user
+      );
       Logger.debug("user obtained by getUserByEmail in users.service:", user);
       if (!user) {
+        console.log("user not found in users.service");
         throw new Error("User not found");
       }
       return await user;
@@ -120,7 +131,7 @@ export class UsersService {
       Logger.debug("updated user fields in users.service:", updatedUser);
       console.log("updated user fields in users.service:", updatedUser);
       Logger.info("User information updated:", { userId: updatedUser._id });
-      console.log("User information updated:", { userId: updatedUser._id })
+      console.log("User information updated:", { userId: updatedUser._id });
       Logger.debug("User information updated for user id:", {
         userId: updatedUser._id,
       });
@@ -131,31 +142,57 @@ export class UsersService {
     }
   }
 
-  async updatePassword(userId, newPassword) {
-    const updatedUser = await this.usersDao.updateOne(
-      { _id: userId },
-      { $set: { password: newPassword } },
-      { new: true }
-    );
+  async updatePassword(userId, newPassword, token) {
+    if (token && !userId) {
+      console.log("token exists and userId doesn't", token);
+      const decryptedData = await decrypt(token);
+      const userIdFromToken = decryptedData._id;
+      console.log(
+        "user id decrypted obtained from token in updatePassword in users.service updatePassword",
+        userIdFromToken
+      );
+      const hashedPassword = await createHash(newPassword);
+      const updatedUser = await this.usersDao.updateOne(
+        { _id: userIdFromToken },
+        { $set: { password: hashedPassword } },
+        { new: true }
+      );
 
-    if (!updatedUser) {
-      throw new Error("User not found");
+      if (!updatedUser) {
+        throw new Error("User not found");
+      }
+
+      return updatedUser;
+    } else {
+      const hashedPassword = await createHash(newPassword);
+      const updatedUser = await this.usersDao.updateOne(
+        { _id: userId },
+        { $set: { password: hashedPassword } },
+        { new: true }
+      );
+
+      if (!updatedUser) {
+        throw new Error("User not found");
+      }
+
+      return updatedUser;
     }
-    return updatedUser;
   }
 
-  async retrievePassword(userId, newPassword) {
-    const updatedUser = await this.usersDao.updateOne(
-      { _id: userId },
-      { $set: { password: newPassword } },
-      { new: true }
+  async resetPassword(user) {
+    console.log(
+      "resetPassword obtained userId & password",
+      user._id,
+      user.password
     );
+    const token = await encrypt({ _id: user._id });
 
-    if (!updatedUser) {
-      throw new Error("User not found");
-    }
-    return updatedUser;
-  }  
+    await this.emailService.send(
+      user.email,
+      "Reset Password", // Subject
+      `Please click the following link to reset your password: http://localhost:8080/confirmresetpass?token=${token}` // Message
+    );
+  }
 
   // Delete user by ID
   async deleteUser(_id) {

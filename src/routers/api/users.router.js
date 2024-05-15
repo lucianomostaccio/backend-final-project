@@ -7,7 +7,8 @@ import {
   putController,
   getAllController,
   inactiveController,
-  retrievePasswordController,
+  resetPasswordController,
+  confirmPasswordResetController,
 } from "../../controllers/users.controller.js";
 import { extractFile } from "../../middlewares/multer.js";
 import Logger from "../../utils/logger.js";
@@ -75,14 +76,16 @@ usersRouter.get("/", getAllController);
 // });
 
 // Retrieve forgotten password
-usersRouter.post("/resetpass", retrievePasswordController);
+usersRouter.post("/resetpass", resetPasswordController);
+
+usersRouter.post('/confirmresetpass', confirmPasswordResetController); //ver aca
 
 // Update user profile information (PUT /api/users/edit)
 usersRouter.put(
   "/edit",
   authenticateWithJwt,
   extractFile("profile_picture"),
-  putController,
+  putController
   // tokenizeUserInCookie
 );
 
