@@ -2,9 +2,9 @@
 const formResetPwd = document.querySelector("#resetPassForm");
 
 function getToken() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get("token");
-  console.log("token obtained by getToken: ",token)
+  const path = window.location.pathname;
+  const token = path.substring(path.lastIndexOf("/") + 1);
+  console.log("Token obtained by getToken: ", token);
   return token;
 }
 
@@ -14,9 +14,9 @@ formResetPwd?.addEventListener("submit", async (event) => {
   // @ts-ignore
   const formData = new FormData(formResetPwd);
   const newPassword = formData.get("new_password");
-  console.log("newPassword",newPassword);
+  console.log("newPassword", newPassword);
   const repeatPassword = formData.get("repeat_password");
-  console.log("repeatPassword",repeatPassword);
+  console.log("repeatPassword", repeatPassword);
 
   // Validar que las contraseñas coincidan
   if (newPassword !== repeatPassword) {
@@ -25,9 +25,9 @@ formResetPwd?.addEventListener("submit", async (event) => {
   }
 
   const token = getToken();
-  console.log("2 token obtained by getToken: ",token)
+  console.log("2 token obtained by getToken: ", token);
 
-  const response = await fetch(`/api/users/confirmresetpass?token=${token}`, {
+  const response = await fetch(`/api/users/confirmresetpass/${token}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

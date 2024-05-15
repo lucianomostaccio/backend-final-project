@@ -143,40 +143,39 @@ export class UsersService {
   }
 
   async updatePassword(userId, newPassword, token) {
+    // Determine the correct user ID.
+    let effectiveUserId = userId;
     if (token && !userId) {
-      console.log("token exists and userId doesn't", token);
+      console.log("Token exists and userId doesn't", token);
       const decryptedData = await decrypt(token);
-      const userIdFromToken = decryptedData._id;
+      effectiveUserId = decryptedData._id;
       console.log(
-        "user id decrypted obtained from token in updatePassword in users.service updatePassword",
-        userIdFromToken
+        "User ID decrypted obtained from token in updatePassword in users.service",
+        effectiveUserId
       );
-      const hashedPassword = await createHash(newPassword);
-      const updatedUser = await this.usersDao.updateOne(
-        { _id: userIdFromToken },
-        { $set: { password: hashedPassword } },
-        { new: true }
-      );
-
-      if (!updatedUser) {
-        throw new Error("User not found");
-      }
-
-      return updatedUser;
-    } else {
-      const hashedPassword = await createHash(newPassword);
-      const updatedUser = await this.usersDao.updateOne(
-        { _id: userId },
-        { $set: { password: hashedPassword } },
-        { new: true }
-      );
-
-      if (!updatedUser) {
-        throw new Error("User not found");
-      }
-
-      return updatedUser;
     }
+
+    // If no userId could be determined, throw an error.
+    if (!effectiveUserId) {
+      throw new Error("User ID is not available");
+    }
+
+    // Hash the new password.
+    const hashedPassword = await createHash(newPassword);
+
+    // Update the user's password.
+    const updatedUser = await this.usersDao.updateOne(
+      { _id: effectiveUserId },
+      { $set: { password: hashedPassword } },
+      { new: true }
+    );
+
+    // Handle case where user is not found.
+    if (!updatedUser) {
+      throw new Error("User not found");
+    }
+
+    return updatedUser;
   }
 
   async resetPassword(user) {
@@ -190,7 +189,7 @@ export class UsersService {
     await this.emailService.send(
       user.email,
       "Reset Password", // Subject
-      `Please click the following link to reset your password: http://localhost:8080/confirmresetpass?token=${token}` // Message
+      `Please click the following link to reset your password: http://localhost:8080/confirmresetpass/${token}` // Message
     );
   }
 

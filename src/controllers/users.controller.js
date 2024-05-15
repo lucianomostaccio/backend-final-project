@@ -223,10 +223,10 @@ export const resetPasswordController = async (req, res, next) => {
 
 export const confirmPasswordResetController = async (req, res, next) => {
   try {
-    const { token } = req.params;
+    console.log(req.params)
+    const { token }= req.params;
     console.log("token got from req.params", token);
     const { newPassword } = req.body;
-    console.log("newPassword got from req.body", newPassword);
     const user = await usersService.updatePassword(null, newPassword, token);
     if (!user) {
       return res.status(400).json({ message: "Password reset token is invalid or has expired." });
