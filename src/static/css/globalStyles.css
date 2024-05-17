@@ -7,16 +7,141 @@
 
 main {
   padding: 20px;
+  background-color: #eee;
 }
 
 a {
   text-decoration: none;
 }
 
+a:hover {
+  color: #3ca0e7 !important;
+}
+
 li {
   list-style: none;
 }
 
+ul li ul li a {
+  transition: all 0.5s ease;
+}
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+nav {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #172940;
+  border-bottom: 3px solid black;
+}
+
+.logo {
+  text-decoration: none;
+  color: white;
+}
+
+/*nav list li*/
+.navListItem {
+  list-style: none;
+  margin: 0 auto;
+  border-left: 2px solid #3ca0e7;
+  display: inline-block;
+  padding: 0 30px;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.navListItem:hover {
+  cursor: pointer;
+}
+
+/*nav links*/
+.navListItem a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*nav links hover*/
+.navListItem a:hover {
+  padding-left: 10px;
+  transition: all 0.3s ease;
+}
+
+/* toggable submenu: */
+.navListItem ul {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  padding-left: 0;
+  left: 0;
+  display: none;
+  background: white;
+  clear: both;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
+  border-style: none;
+}
+
+.navListItem:hover > ul,
+.navListItem ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  max-width: 10rem;
+  text-align: left;
+  padding-top: 20px;
+  box-shadow: 0px 3px 5px -1px #ccc;
+}
+
+#categoryToggler {
+  color: white;
+  font-family: sans-serif;
+}
+
+.categoriesSubMenu {
+  color: black;
+}
+
+#cartIcon {
+  display: inline-block;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  box-sizing: content-box;
+}
+
+#cartQuantity {
+  margin-left: 3px;
+  font-style: normal;
+}
+
+.menu {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.menu-link:hover {
+  text-decoration: underline;
+}
+/* 
 nav {
   background-color: black;
 }
@@ -39,7 +164,7 @@ nav ul {
 
 .navListItem a {
   color: white;
-}
+} */
 
 img:hover {
   cursor: pointer;
@@ -126,6 +251,10 @@ p {
   border: none;
   cursor: pointer;
   width: 10vw;
+  border-radius: 0.5rem;
+  line-height: 1;
+  /* border: 2px solid var(--clr-main); */
+  transition: 0.2s;
 }
 
 .greenButton:hover {
@@ -256,6 +385,6 @@ input {
   text-align: center;
 }
 
-#resetPassForm{
+#resetPassForm {
   margin-top: 1rem;
 }

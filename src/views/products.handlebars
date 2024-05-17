@@ -6,23 +6,37 @@
   </ul>
 </section>
 
-<h1 class="pageTitle">Products</h1>
+<section class="productSection">
+  <h1 class="pageTitle">Products</h1>
 
-<ul class="productList">
-  {{#each products}}
-    <li class="productTitle">
-      {{title}}
-      -
-      {{formatPrice price}}
-      <form
-        class="addToCartButton"
-        action="/products/{{_id}}/add-to-cart"
-        method="POST"
-      >
-        <button class="greenButton" type="submit">Add to Cart</button>
-      </form>
-    </li>
-  {{/each}}
-</ul>
+  <ul class="productList">
+    {{#each products}}
+      <div class="productCardContainer">
+        <li>
+          <img
+            class="productImage"
+            src="{{getFirstThumbnail thumbnails}}"
+            alt="product image"
+          />
+          <div class="productInfo">
+            <h3 class="productTitle">{{title}}</h3>
 
+            <p>Price: {{formatPrice price}}</p>
+            <p>{{category}}</p>
+            {{!-- <p>Code: {{code}}</p>
+          <p>Category: {{category}}</p> --}}
+            <p> Stock: {{stock}}units </p>
+            <form
+              class="addToCartButton"
+              action="/products/{{_id}}/add-to-cart"
+              method="POST"
+            >
+              <button class="greenButton" type="submit">Add to Cart</button>
+            </form>
+          </div>
+        </li>
+      </div>
+    {{/each}}
+  </ul>
+</section>
 <script src="/js/products.js"></script>

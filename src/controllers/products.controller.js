@@ -44,14 +44,16 @@ export async function addToCartController(req, res, next) {
   Logger.debug("req.params:", req.params);
   const { pid } = req.params;
   Logger.debug("product id obtained in controller", pid);
-  Logger.debug("user", req.user);
+  console.log("user", req.user);
 
   try {
-    const user = await usersService.getUserByEmail(req.user.email);
+    const user = req.user;
     Logger.debug("user id:", user._id);
     await cartsService.addProductToCart(user._id, pid);
 
-    res.ok();
+    const updatedCart = await cartsService.readOne(user._id);
+
+    res.jsonOk(updatedCart);
   } catch (error) {
     res.status(500).send("Error adding product to cart");
     next(error);

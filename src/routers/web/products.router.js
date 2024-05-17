@@ -16,7 +16,6 @@ webProductsRouter.get("/products", authenticateWithJwt, async (req, res) => {
     // Load products directly, or change it to use a database
     const daoProducts = getDaoProducts();
     const products = await daoProducts.readMany({}, { title: 1 });
-    // Logger.debug("products listed:", products)
     res.render("products.handlebars", {
       welcomeMessage: "Welcome",
       ...req.user,

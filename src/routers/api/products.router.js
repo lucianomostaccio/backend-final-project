@@ -18,7 +18,7 @@ productsRouter.put("/:pid", putController);
 productsRouter.delete("/:pid", deleteController); 
 productsRouter.post(
   "/:pid/add-to-cart", 
-  authenticateWithJwt, //needed to get user data using req.user
+  authenticateWithJwt, //protect the endpoint with the auth middleware
   addToCartController
 );
 

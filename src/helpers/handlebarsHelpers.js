@@ -12,3 +12,7 @@ export function if_eq(a, b, opts) {
     return opts.inverse(this);
   }
 }
+
+export function getFirstThumbnail (thumbnails) {
+  return thumbnails[0];
+}

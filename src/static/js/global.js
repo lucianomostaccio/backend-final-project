@@ -20,3 +20,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   span.onclick = () => (modal.style.display = "none");
 });
+
+//update cart in real time
+document.addEventListener("DOMContentLoaded", () => {
+  const addToCartForms = document.querySelectorAll(".addToCartButton");
+  const cartQuantityElement = document.getElementById("cartQuantity");
+
+  addToCartForms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      console.log("addtocart selected")
+
+      const actionUrl = form.getAttribute("action");
+
+      try {
+        const response = await fetch(actionUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Incluir las cookies en la solicitud
+        });
+
+        if (response.ok) {
+          const updatedCart = await response.json();
+          const newQuantity = updatedCart.products.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+          );
+          cartQuantityElement.textContent = newQuantity;
+        } else {
+          console.error("Error updating cart:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+  });
+});

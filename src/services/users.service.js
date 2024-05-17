@@ -3,7 +3,6 @@ import { User } from "../models/users.model.js";
 import Logger from "../utils/logger.js";
 import { ADMIN_SMS_NUMBER } from "../config/config.js";
 import { createHash, decrypt, encrypt } from "../utils/hashing.js";
-import { tokenizeUserInCookie } from "../middlewares/tokens.js";
 
 export class UsersService {
   constructor({ usersDao, productsDao, emailService, smsService, hashing }) {
