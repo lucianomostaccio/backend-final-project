@@ -1,7 +1,7 @@
 <h1 class="pageTitle" id="profileEdit">Edit your profile</h1>
 <section>
   <article class="profileSection">
-    <h1>current profile</h1>
+    <h1 class="pageTitle">Current profile</h1>
     <ul class="userProfile" id="products-edit">
       <li class="profileItem">First name: {{first_name}}</li>
       <li class="profileItem">Last name: {{last_name}}</li>
@@ -15,8 +15,8 @@
         /></li>
     </ul>
   </article>
-  <article>
-    <h1>new profile data</h1>
+  <article class="profileSection" id="newProfileInput">
+    <h1 class="pageTitle">New profile data</h1>
     <form id="form-edit-profile" enctype="multipart/form-data">
       <div class="form-group">
         <label for="first_name">First name</label>
@@ -38,43 +38,8 @@
       </div>
       <div class="form-group">
         <label for="email">Email
-          <span><small id="emailNotEdit">
-              *You can't edit your email*</small></span></label>
+          <span><small id="emailNotEdit">*You can't edit your email*</small></span></label>
         <input id="inputEmail" readonly /><br />
-      </div>
-      <div class="dropdown">
-        <button class="dropdown-button">Change password</button>
-        <div class="dropdown-content">
-          <div class="form-group">
-            <label for="currentPassword">Current password:</label>
-            <input
-              type="password"
-              id="currentPassword"
-              name="currentPassword"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="newPassword">New password:</label>
-            <input
-              type="password"
-              id="newPassword"
-              name="newPassword"
-              autocomplete="new-password"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="repeatNewPassword">Repeat new password:</label>
-            <input
-              type="password"
-              id="repeatNewPassword"
-              name="repeatNewPassword"
-              autocomplete="new-password"
-              required
-            />
-          </div>
-        </div>
       </div>
       <div class="form-group">
         <label for="age">Age</label>
@@ -92,17 +57,53 @@
         <input
           name="profile_picture"
           type="file"
-          class="profile_picture"
           id="newProfilePicture"
           onchange="previewImage()"
         />
         <div id="imagePreview" class="image-preview"></div>
         <br />
       </div>
-      <button class="greenButton" type="submit">Save your changes</button>
+      <div id="changePassSaveChanges">
+        <div class="dropdown">
+          <button class="dropdown-button">Change password</button>
+          <div class="dropdown-content">
+            <div class="form-group">
+              <label for="currentPassword">Current password:</label>
+              <input
+                type="password"
+                id="currentPassword"
+                name="currentPassword"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New password:</label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="repeatNewPassword">Repeat new password:</label>
+              <input
+                type="password"
+                id="repeatNewPassword"
+                name="repeatNewPassword"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <button type="submit" id="saveProfileChanges">Save your changes</button>
+      </div>
     </form>
   </article>
 </section>
 
 <script src="/js/editProfile.js"></script>
+
 <link rel="stylesheet" href="/css/editProfile.css" />

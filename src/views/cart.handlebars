@@ -27,19 +27,26 @@
     {{/each}}
   </ul>
   <br />
-  <h2>Total: {{formatPrice total}}</h2>
+  <div id="bottomCartDiv">
+    <div id="cartTotal">
+      <h2>Total: {{formatPrice total}}</h2>
+    </div>
+    <br>
+    <div id="clearBuyCart">
+      <button
+        class="redButton"
+        id="clearCart"
+        onclick="removeCart(event, '{{cartId}}')"
+      >Clear cart</button>
 
-  <button
-    class="redButton"
-    id="clearCart"
-    onclick="removeCart(event, '{{cartId}}')"
-  >Clear cart</button>
-
-  <button
-    class="greenButton"
-    type="submit"
-    onclick="buyCart(event, '{{cartId}}')"
-  >Buy cart</button>
+      <button
+        class="greenButton"
+        id="buyCart"
+        type="submit"
+        onclick="buyCart(event, '{{cartId}}')"
+      >Buy cart</button>
+    </div>
+  </div>
 </div>
 <link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>

@@ -52,7 +52,7 @@ h2 {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   unicode-bidi: isolate;
-  font-size: 16px;
+  font-size: 1.5em;
   font-weight: 400;
 }
 
@@ -233,6 +233,8 @@ nav {
   padding: 10px 15px;
   border: none;
   cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 700;
 }
 
 .redButton:hover {
@@ -263,6 +265,7 @@ nav {
   line-height: 1;
   /* border: 2px solid var(--clr-main); */
   transition: 0.2s;
+  font-weight: 700;
 }
 
 .greenButton:hover {
@@ -326,7 +329,8 @@ input {
 .profile_picture {
   max-height: 15vh;
   display: block;
-  margin-top: 1rem;
+  border-radius: 50%;
+  border: 2px solid #4a90e2;
 }
 
 #products-edit {
