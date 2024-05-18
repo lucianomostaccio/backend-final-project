@@ -386,6 +386,7 @@ footer {
   background: #172940;
   padding-top: 60px;
   max-height: 40em;
+  padding-bottom: 40px;
 }
 
 .footer {
@@ -414,12 +415,14 @@ footer {
   margin-bottom: 30px;
 }
 
-.footerLinks > div > h2 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 400;
-  color: #f7f7f7;
+.footerLinks > div > a {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+  margin-bottom: 10px;
+  color: #a2b5cd;
 }
+
 
 .footerBottom {
   padding: 20px 0;
