@@ -38,7 +38,6 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
 
     console.log(JSON.stringify(productsInCart, null, 2));
     res.render("cart.handlebars", {
-      welcomeMessage: "Welcome",
       user,
       pageTitle: "Cart",
       products: productsInCart ? productsInCart.products : [],

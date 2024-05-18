@@ -1,13 +1,14 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   box-sizing: border-box;
 }
 
 main {
-  padding: 20px;
+  padding: 2rem;
   background-color: #eee;
+  padding-bottom: 8rem;
 }
 
 a {
@@ -25,6 +26,36 @@ li {
 ul li ul li a {
   transition: all 0.5s ease;
 }
+
+img:hover {
+  cursor: pointer;
+}
+
+h1 {
+  color: #333;
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h2 {
+  display: block;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 p {
   display: block;
   margin-block-start: 1em;
@@ -32,6 +63,7 @@ p {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   unicode-bidi: isolate;
+  margin-bottom: 10px;
 }
 nav {
   padding: 2rem;
@@ -44,7 +76,19 @@ nav {
 
 .logo {
   text-decoration: none;
+  color: white !important;
+}
+
+.logo:hover {
+  color: #3ca0e7;
+}
+
+.logo > h1 {
   color: white;
+}
+
+.logo > h1:hover {
+  color: #3ca0e7;
 }
 
 /*nav list li*/
@@ -140,42 +184,6 @@ nav {
 
 .menu-link:hover {
   text-decoration: underline;
-}
-/* 
-nav {
-  background-color: black;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  gap: 1em;
-}
-
-#navList {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  text-decoration: none;
-  list-style: none;
-  padding: 1rem;
-}
-
-.navListItem a {
-  color: white;
-} */
-
-img:hover {
-  cursor: pointer;
-}
-
-h1 {
-  color: #333;
-}
-
-p {
-  margin-bottom: 10px;
 }
 
 #welcomeMessage {
@@ -325,24 +333,6 @@ input {
   align-content: flex-start;
 }
 
-.footerBar {
-  background-color: black;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-#footerList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#footerList li {
-  color: white;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -387,4 +377,65 @@ input {
 
 #resetPassForm {
   margin-top: 1rem;
+}
+
+/* footer */
+footer {
+  display: block;
+  width: 100%;
+  background: #172940;
+  padding-top: 60px;
+  max-height: 40em;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 600px;
+  padding: 0;
+  color: #a2b5cd;
+  margin: 0 auto;
+}
+
+.footerTop {
+  border-bottom: 2px solid #3a4f6a;
+  padding-bottom: 20px;
+}
+
+.footerLinks {
+  display: flex;
+}
+
+.footerLinks > div {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.footerLinks > div > h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #f7f7f7;
+}
+
+.footerBottom {
+  padding: 20px 0;
+}
+
+.legal {
+  font-size: 12px;
+  display: flex;
+}
+
+.legal > span {
+  margin-right: 10px;
+}
+
+.footerBottom > p {
+  display: flex;
+  gap: 18px;
+  margin: 0 4px;
 }

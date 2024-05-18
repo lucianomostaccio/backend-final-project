@@ -1,37 +1,45 @@
 <!-- cart.handlebars -->
+<div class="cartPageContainer">
+  <h1 class="pageTitle">Products in cart</h1>
 
-<section class="profileSection">
-  <ul class="userProfile" id="products-home">
-    <li class="profileItem">{{user.first_name}}</li>
+  <ul id="cartContainer">
+    {{#each products}}
+      <li class="itemCart">
+        <br />
+        {{!-- <img
+          class="cartPicture"
+          src="{{getFirstThumbnail thumbnails}}"
+          alt="product image"
+        /> --}}
+        <h3 class="cartProductTitle">{{productId.title}}</h3>
+        <p>Quantity: {{quantity}}</p>
+        <p>Price per unit: {{formatPrice productId.price}} </p>
+        <p>Total price: </p>
+        {{!-- <p>{{productId.description}}</p> --}}
+        
+        <form
+          onsubmit="removeProductFromCart(event, '{{../cartId}}', '{{this.productId._id}}')"
+        >
+          <button class="smallRedButton" type="submit">Remove from Cart</button>
+        </form>
+        <br />
+      </li>
+    {{/each}}
   </ul>
-</section>
+  <br />
+  <h2>Total: {{formatPrice total}}</h2>
 
-<h1 class="pageTitle">Products in cart</h1>
+  <button
+    class="redButton"
+    id="clearCart"
+    onclick="removeCart(event, '{{cartId}}')"
+  >Clear cart</button>
 
-<ul class="productList">
-  {{#each products}}
-    <li class="productTitle">
-      {{productId.title}}
-      -
-      {{formatPrice productId.price}}
-      -
-      {{productId.description}}
-      - quantity:{{quantity}}
-      units
-      <form
-        onsubmit="removeProductFromCart(event, '{{../cartId}}', '{{this.productId._id}}')"
-      >
-        <button class="smallRedButton" type="submit">Remove from Cart</button>
-      </form>
-    </li>
-  {{/each}}
-</ul>
-<br>
-<h2>Total: {{formatPrice total}}</h2>
-
-<button class="redButton" id="clearCart" onclick="removeCart(event, '{{cartId}}')">Clear cart</button>
-
-<button class="greenButton" type="submit" onclick="buyCart(event, '{{cartId}}')">Buy cart</button>
-
+  <button
+    class="greenButton"
+    type="submit"
+    onclick="buyCart(event, '{{cartId}}')"
+  >Buy cart</button>
+</div>
 <link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>
