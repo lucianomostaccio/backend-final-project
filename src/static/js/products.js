@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
             "Content-Type": "application/json",
           },
         });
-
         if (response.ok) {
           alert("Product added to cart successfully!");
+          window.location.reload();
         } else {
           const errorData = await response.json();
           alert(`Failed to add product to cart: ${errorData.message || ""}`);
