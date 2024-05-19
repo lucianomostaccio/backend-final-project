@@ -64,33 +64,6 @@
   transform: scaleY(1);
 } */
 
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-.profileSection {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.userProfile {
-  list-style-type: none;
-  padding: 0;
-}
-
-.profileItem {
-  margin-bottom: 15px;
-  font-size: 18px;
-}
-
 .profile_picture {
   border-radius: 0;
   border: none;
@@ -128,7 +101,6 @@ body {
   border-color: #4a90e2;
 }
 
-/* Estilos para el botón de selección de archivo */
 #newProfilePicture {
   appearance: none;
   -webkit-appearance: none;
@@ -140,7 +112,6 @@ body {
   margin-left: 0;
 }
 
-/* Estilos para el texto del botón de selección de archivo */
 #newProfilePicture::-webkit-file-upload-button {
   visibility: hidden;
 }

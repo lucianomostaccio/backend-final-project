@@ -326,6 +326,25 @@ input {
   cursor: not-allowed;
 }
 
+.profileSection {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.userProfile {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profileItem {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
 .profile_picture {
   max-height: 15vh;
   display: block;
@@ -426,7 +445,6 @@ footer {
   margin-bottom: 10px;
   color: #a2b5cd;
 }
-
 
 .footerBottom {
   padding: 20px 0;
