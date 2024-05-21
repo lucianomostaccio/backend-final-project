@@ -1,6 +1,7 @@
 import { Router } from "express";
 // import { rolesOnly } from "../../middlewares/authorization.js";
 import { getDaoCarts } from "../../daos/carts/cart.dao.js";
+import { getDaoProducts } from "../../daos/products/products.dao.js";
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
 import Logger from "../../utils/logger.js";
 
@@ -16,6 +17,7 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
 
     // Load carts directly, or change it to use a database
     const daoCarts = getDaoCarts();
+    const daoProducts = getDaoProducts();
     // @ts-ignore
     const productsInCart = await daoCarts.readOne({ userId: req.user._id });
 
@@ -26,11 +28,30 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
 
     let total = 0;
     let cartId = null;
+    let productsWithThumbnails = [];
+
+    // if (productsInCart) {
+    //   productsInCart.products.forEach((product) => {
+    //     total += product.productId.price * product.quantity;
+    //   });
+    //   cartId = productsInCart._id;
+    // } else {
+    //   console.log("No cart found for user:", user);
+    // }
 
     if (productsInCart) {
-      productsInCart.products.forEach((product) => {
-        total += product.productId.price * product.quantity;
-      });
+      for (let product of productsInCart.products) {
+        const productDetails = await daoProducts.readOne({
+          _id: product.productId,
+        });
+        if (productDetails) {
+          productsWithThumbnails.push({
+            ...product,
+            thumbnails: productDetails.thumbnails,
+          });
+          total += productDetails.price * product.quantity;
+        }
+      }
       cartId = productsInCart._id;
     } else {
       console.log("No cart found for user:", user);
@@ -40,7 +61,8 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
     res.render("cart.handlebars", {
       user,
       pageTitle: "Cart",
-      products: productsInCart ? productsInCart.products : [],
+      // products: productsInCart ? productsInCart.products : [],
+      products: productsWithThumbnails,
       cartId,
       total,
       style: "cart.css",

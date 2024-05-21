@@ -62,3 +62,13 @@
 #buyCart {
   min-width: 12rem;
 }
+
+footer {
+  margin-top: 4rem;
+}
+
+@media only screen and (max-height: 950px) {
+  footer {
+    position: static;
+  }
+}
