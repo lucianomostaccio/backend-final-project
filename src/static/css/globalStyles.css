@@ -11,6 +11,7 @@ body{
 
 main {
   padding-left: 2rem;
+  margin-bottom: 4rem;
 }
 
 a {
@@ -470,4 +471,10 @@ footer {
   display: flex;
   gap: 18px;
   margin: 0 4px;
+}
+
+@media only screen and (max-height: 950px) {
+  footer {
+    position: static;
+  }
 }
