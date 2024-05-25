@@ -65,4 +65,7 @@
 
 footer {
   margin-top: 4rem;
+  display: block;
+  position: absolute;
+  bottom: 0;
 }
