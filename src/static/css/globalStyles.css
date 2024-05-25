@@ -348,17 +348,6 @@ input {
   font-size: 18px;
 }
 
-/* .profile_picture {
-  max-height: 15vh;
-  display: block;
-  border-radius: 50%;
-  border: 2px solid #4a90e2;
-} */
-
-/* #profile_picture_register_input {
-  border-radius: 0;
-} */
-
 .profile_picture {
   appearance: none;
   -webkit-appearance: none;
@@ -368,6 +357,7 @@ input {
   padding: 10px;
   cursor: pointer;
   margin-left: 0;
+  max-width: 10rem;
 }
 
 .profile_picture::-webkit-file-upload-button {

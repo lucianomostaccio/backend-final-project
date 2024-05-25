@@ -30,15 +30,6 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
     let cartId = null;
     let productsWithThumbnails = [];
 
-    // if (productsInCart) {
-    //   productsInCart.products.forEach((product) => {
-    //     total += product.productId.price * product.quantity;
-    //   });
-    //   cartId = productsInCart._id;
-    // } else {
-    //   console.log("No cart found for user:", user);
-    // }
-
     if (productsInCart) {
       for (let product of productsInCart.products) {
         const productDetails = await daoProducts.readOne({
@@ -53,6 +44,7 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
         }
       }
       cartId = productsInCart._id;
+      console.log("products with thumbnails", productsWithThumbnails);
     } else {
       console.log("No cart found for user:", user);
     }
@@ -61,7 +53,6 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
     res.render("cart.handlebars", {
       user,
       pageTitle: "Cart",
-      // products: productsInCart ? productsInCart.products : [],
       products: productsWithThumbnails,
       cartId,
       total,

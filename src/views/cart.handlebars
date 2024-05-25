@@ -6,11 +6,11 @@
     {{#each products}}
       <li class="itemCart">
         <br />
-        {{!-- <img
+        <img
           class="cartPicture"
           src="{{getFirstThumbnail thumbnails}}"
           alt="product image"
-        /> --}}
+        />
         <h3 class="cartProductTitle">{{productId.title}}</h3>
         <p>Quantity: {{quantity}}</p>
         <p>Price per unit: {{formatPrice productId.price}} </p>
