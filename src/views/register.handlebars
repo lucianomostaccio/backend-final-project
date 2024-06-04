@@ -1,3 +1,126 @@
+{{!-- <form class="space-y-6">
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label
+        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+        for="firstName"
+      >
+        First Name
+      </label>
+      <div class="mt-1">
+        <input
+          class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+          id="firstName"
+          required=""
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <label
+        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+        for="lastName"
+      >
+        Last Name
+      </label>
+      <div class="mt-1">
+        <input
+          class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+          id="lastName"
+          required=""
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <div>
+    <label
+      class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+      for="age"
+    >
+      Age
+    </label>
+    <div class="mt-1">
+      <input
+        class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+        id="age"
+        type="number"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <label
+      class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+      for="email"
+    >
+      Email address
+    </label>
+    <div class="mt-1">
+      <input
+        class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+        id="email"
+        autocomplete="email"
+        required=""
+        type="email"
+      />
+    </div>
+  </div>
+  <div>
+    <label
+      class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+      for="password"
+    >
+      Password
+    </label>
+    <div class="mt-1">
+      <input
+        class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+        id="password"
+        autocomplete="current-password"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <label
+      class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+      for="profilePicture"
+    >
+      Profile Picture
+    </label>
+    <div class="mt-1 flex items-center">
+      <input
+        class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+        id="profilePicture"
+        type="file"
+        accept="image/*"
+        required=""
+      />
+    </div>
+  </div>
+  <div>
+    <button
+      class="items-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-gray-50 shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
+      type="submit"
+    >
+      Register
+    </button>
+  </div>
+  <div class="flex items-center justify-center">
+    <a
+      class="text-sm font-medium text-primary hover:underline dark:text-primary-400"
+      href="#"
+    >
+      Already have an account? Sign in
+    </a>
+  </div>
+</form> --}}
+
 <h1>Register</h1>
 <form id="register-form" enctype="multipart/form-data">
   <div class="form-group">

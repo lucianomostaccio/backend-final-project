@@ -1,12 +1,61 @@
+<div
+  class="max-w-md w-full space-y-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md my-12"
+>
+  <div>
+    <h2
+      class="text-center text-3xl font-bold text-gray-900 dark:text-gray-50"
+    >Reset your password</h2>
+    <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+      Enter your email address and we\'ll send you a link to reset your
+      password.
+    </p>
+  </div>
+  <form class="space-y-6">
+    <div>
+      <label
+        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+        for="email"
+      >
+        Email address
+      </label>
+      <div class="mt-1">
+        <input
+          class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+          id="email"
+          autocomplete="email"
+          required=""
+          type="email"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <button
+        class="items-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-gray-50 shadow-sm hover:bg-primary-600 focus:outline focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
+        type="submit"
+        data-id="47"
+      >Reset password</button>
+    </div>
+    <div class="flex items-center justify-center">
+      <a
+        href="/login"
+        class="text-sm font-medium text-primary hover:underline dark:text-primary-400"
+      >
+        Remember your password? Sign in
+      </a>
+    </div>
+  </form>
+</div>
+{{! 
 <h1>Reset password</h1>
 <form id="resetPassForm">
   <label for="email">Email:</label>
-  <input type="email" name="email" required placeholder="Enter your email"><br />
-  <br>
+  <input type="email" name="email" required placeholder="Enter your email" /><br
+  />
+  <br />
   <button type="submit" class="greenButton">Send Reset Email</button>
 </form>
-<br>
-<p>Have you remembered your password? <a href="/login">LOGIN</a></p>
+<br />
+<p>Have you remembered your password? <a href="/login">LOGIN</a></p> }}
 
-<script src="/css/resetpass.css"></script>
 <script src="/js/resetpass.js"></script>
