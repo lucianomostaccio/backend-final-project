@@ -329,3 +329,10 @@ input {
 #resetPassForm {
   margin-top: 1rem;
 }
+
+#imagePreview{
+  aspect-ratio: 50 / 50;
+  object-fit: cover;
+  width: 50;
+  height: 50;
+}
