@@ -330,7 +330,7 @@ input {
   margin-top: 1rem;
 }
 
-#imagePreview{
+#imagePreview {
   aspect-ratio: 50 / 50;
   object-fit: cover;
   width: 50;
@@ -338,23 +338,18 @@ input {
 }
 
 /* navbar */
-.dropdown-content {
+.navCategories {
   display: none;
+  background: white;
+}
+
+.categoryDropdown:hover .navCategories {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-.show {
-  display: block;
+  max-width: 10rem;
+  text-align: left;
+  box-shadow: 0px 3px 5px -1px #ccc;
+  padding: 17px;
+  gap: 15px;
 }
