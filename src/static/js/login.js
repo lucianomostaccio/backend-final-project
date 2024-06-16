@@ -1,33 +1,45 @@
 // @ts-nocheck
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   const formLogin = document.querySelector("form");
   const emailInput = document.querySelector('input[name="email"]');
   const passwordInput = document.querySelector('input[name="password"]');
-  const rememberCheckbox = document.getElementById('remember');
+  const rememberCheckbox = document.getElementById("remember");
 
-  // Cargar los datos guardados al cargar la página
-  emailInput.value = localStorage.getItem('email') || '';
-  passwordInput.value = localStorage.getItem('password') || '';
-  rememberCheckbox.checked = localStorage.getItem('remember') === 'true';
+  if (!formLogin || !emailInput || !passwordInput || !rememberCheckbox) {
+    console.error("One or more elements not found:", {
+      formLogin,
+      emailInput,
+      passwordInput,
+      rememberCheckbox,
+    });
+    return;
+  }
 
-  formLogin.addEventListener('submit', async (event) => {
+  // Load saved data when the page loads
+  emailInput.value = localStorage.getItem("email") || "";
+  passwordInput.value = localStorage.getItem("password") || "";
+  rememberCheckbox.checked = localStorage.getItem("remember") === "true";
+
+  formLogin.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // Manejar el almacenamiento local según el estado del checkbox
+    // Set local storage according to checkbox status
     if (rememberCheckbox.checked) {
-      localStorage.setItem('email', emailInput.value);
-      localStorage.setItem('password', passwordInput.value);
-      localStorage.setItem('remember', 'true');
+      localStorage.setItem("email", emailInput.value);
+      localStorage.setItem("password", passwordInput.value);
+      localStorage.setItem("remember", "true");
     } else {
-      localStorage.removeItem('email');
-      localStorage.removeItem('password');
-      localStorage.removeItem('remember');
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+      localStorage.removeItem("remember");
     }
+
+    const formData = new URLSearchParams(new FormData(formLogin));
 
     const response = await fetch("/api/sessions", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(new FormData(formLogin)),
+      body: formData,
     });
 
     if (response.status === 201) {
@@ -41,4 +53,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-

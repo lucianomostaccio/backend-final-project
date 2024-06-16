@@ -17,6 +17,7 @@
       <div class="mt-1">
         <input
           class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+          name="email"
           id="email"
           autocomplete="email"
           required=""
@@ -29,6 +30,7 @@
       <label
         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
         for="password"
+        name="password"
       >
         Password
       </label>
@@ -36,19 +38,20 @@
         <input
           class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outlinefocus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
           id="password"
-          autocomplete="current-password"
-          required=""
+          autocomplete="on"
+          name="password"
+          required
           type="password"
           value=""
         />
       </div>
     </div>
-    <div class="flex items-center justify-between" data-id="40"><div
+    <div class="flex items-center justify-between"><div
         class="flex items-center"
-        data-id="41"
       ><input
           aria-hidden="true"
           id="remember"
+          name="remember"
           tabindex="-1"
           type="checkbox"
           value="on"
@@ -56,12 +59,11 @@
           class="outline-none focus-visible:outlinefocus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md border border-gray-300 focus:border-primary focus:outline focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
         /><label
           class="font-medium ml-2 block text-sm text-gray-900 dark:text-gray-50"
-          for="remember-me"
-          data-id="43"
+          for="remember"
+          id="rememberText"
         >Remember me</label>
       </div>
-      <div class="text-sm" data-id="44"><a
-          data-id="45"
+      <div class="text-sm"><a
           class="font-medium text-primary hover:underline dark:text-primary-400"
           href="/resetpass"
           rel="ugc"
@@ -72,7 +74,6 @@
       <button
         class="items-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-gray-50 shadow-sm hover:bg-primary-600 focus:outline focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
         type="submit"
-        data-id="47"
       >Sign in</button>
     </div>
     <div class="flex items-center justify-center">
@@ -101,7 +102,8 @@
 
     </div>
     <div id="register">
-      <p class="text-center">Don't have an account? <a href="/register">Register Here</a></p>
+      <p class="text-center">Don't have an account?
+        <a href="/register">Register Here</a></p>
     </div>
   </form>
 </div>

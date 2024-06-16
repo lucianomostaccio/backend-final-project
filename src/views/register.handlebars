@@ -21,6 +21,8 @@
         <div class="mt-1">
           <input
             class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+            name="first_name"
+            autocomplete="on"
             type="text"
             id="firstName"
             required=""
@@ -38,6 +40,8 @@
         <div class="mt-1">
           <input
             class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+            name="last_name"
+            autocomplete="on"
             type="text"
             id="lastName"
             required=""
@@ -57,7 +61,10 @@
         <input
           class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
           type="number"
+          name="age"
           id="age"
+          min="1"
+          max="99"
           value=""
         />
       </div>
@@ -73,8 +80,9 @@
         <input
           class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
           type="email"
+          name="email"
           id="email"
-          autocomplete="email"
+          autocomplete="on"
           required=""
           value=""
         />
@@ -91,8 +99,9 @@
         <input
           class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
           type="password"
+          name="password"
           id="password"
-          autocomplete="current-password"
+          {{! autocomplete="current-password" }}
           required=""
           value=""
         />
@@ -108,11 +117,13 @@
       <div class="mt-1 flex items-center">
         <input
           class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
-          id="profilePicture"
-          accept="image/*"
-          required=""
           type="file"
+          id="profilePicture"
+          name="profile_picture"
+          accept="image/*"
         />
+        <div id="imagePreview" class="image-preview"></div>
+        <br />
       </div>
 
     </div>
@@ -197,7 +208,6 @@
   <button class="greenButton" type="submit">Register!</button>
 </form>--}}
 <script src="/js/register.js"></script>
-
 
 {{! SERIA ASI, VER POR QUE ROMPE TODOS LOS FORMATOS. CAMBIAR LO MENOS POSIBLE DEL FORM NUEVO CON LO DE ABAJO }}
 {{!-- <div class="mt-1 flex items-center">
