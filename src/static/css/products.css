@@ -1,4 +1,4 @@
-.profileSection{
+/*.profileSection{
   padding: 0;
   border: none;
   background: none;
@@ -22,7 +22,7 @@
   justify-content: space-around;
   align-items: flex-start;
   align-content: center;
-  gap: 1rem; */
+  gap: 1rem; 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -60,4 +60,4 @@
 
 footer{
   position: relative;
-}
+}/*

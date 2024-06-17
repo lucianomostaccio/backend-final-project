@@ -3,6 +3,7 @@ import Logger from "../utils/logger.js";
 
 export const sessionsPost = async (req, res, next) => {
   try {
+    console.log("session post")
     const { email, password } = req.body;
     Logger.debug(req.body);
     const user = await usersService.authenticate({ email, password });

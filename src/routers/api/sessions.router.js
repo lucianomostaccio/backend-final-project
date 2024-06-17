@@ -16,6 +16,7 @@ sessionsRouter.post(
   async (req, res) => {
     try {
       // @ts-ignore
+      console.log("session created", req.user)
       res["created"](req.user);
       Logger.info("Session created for", req.user);
     } catch (error) {

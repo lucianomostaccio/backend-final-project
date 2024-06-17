@@ -61,7 +61,7 @@ h2 {
 
 p {
   display: block;
-  margin-block-start: 1em;
+  /* margin-block-start: 1em; */
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
@@ -132,9 +132,9 @@ p {
 }
 
 .redButton {
-  background-color: #dc3545;
+  background-color: #c82333;
   color: #fff;
-  padding: 10px 15px;
+  padding: 0.5rem 1rem;
   border: none;
   cursor: pointer;
   border-radius: 0.5rem;
@@ -142,11 +142,11 @@ p {
 }
 
 .redButton:hover {
-  background-color: #c82333;
+  background-color: #890f1b;
 }
 
 .smallRedButton {
-  background-color: #dc3545;
+  background-color: #c82333;
   color: #fff;
   padding: 5px 7.5px;
   border: none;
@@ -155,7 +155,7 @@ p {
 }
 
 .smallRedButton:hover {
-  background-color: #c82333;
+  background-color: #890f1b;
 }
 
 .greenButton {
@@ -352,4 +352,20 @@ input {
   box-shadow: 0px 3px 5px -1px #ccc;
   padding: 17px;
   gap: 15px;
+}
+
+#profileDataNav{
+  display: none;
+}
+
+#profileNavContainer:focus #profileDataNav,
+#profileNavContainer:focus-within #profileDataNav,
+#profileDataNav:focus-within {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 16rem;
+  margin-top: 13px;
+  text-align: left;
+  box-shadow: 0px 3px 5px -1px #ccc;
 }
