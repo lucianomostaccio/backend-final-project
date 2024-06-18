@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as JwtStrategy } from "passport-jwt";
 import { JWT_PRIVATE_KEY } from "../config/config.js";
+import { getDaoUsers } from "../daos/users/users.dao.js";
 
 passport.use(
   "jwt",
@@ -19,8 +20,23 @@ passport.use(
       },
       secretOrKey: JWT_PRIVATE_KEY,
     },
-    (user, done) => {
-      done(null, user);
+    // Searchs for the user in the database and passes it to the next middleware,
+    // in every request
+    async (user, done) => {
+      const daoUsers = getDaoUsers();
+      console.log(
+        "searching for authentication the user in the DB:",
+        user.email
+      );
+      await daoUsers
+        //convert the email to an object for mongoose to search
+        .readOne({ email: user.email })
+        .then((user) => {
+          done(null, user);
+        })
+        .catch((error) => {
+          done(error);
+        });
     }
   )
 );

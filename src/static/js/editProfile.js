@@ -1,6 +1,6 @@
 // @ts-nocheck
 const formEditProfile = document.querySelector("#form-edit-profile");
-const inputs = document.querySelectorAll("input");
+const inputs = document.querySelectorAll(".profileInput");
 
 //first, we load current profile data
 window.addEventListener("load", async (event) => {
@@ -13,7 +13,7 @@ window.addEventListener("load", async (event) => {
   inputs[0].value = user.first_name;
   inputs[1].value = user.last_name;
   inputs[2].value = user.email;
-  inputs[6].value = user.age;
+  inputs[3].value = user.age;
 });
 
 //secondly, we handle edit submitting
@@ -44,7 +44,7 @@ formEditProfile?.addEventListener("submit", async (event) => {
 
     if (response.status === 200) {
       alert("Profile updated successfully");
-      window.location.href = "/profile";
+      window.location.href = "/edit";
     } else {
       const error = await response.json();
       alert(error.message);
@@ -78,7 +78,8 @@ function previewImage() {
 //Finally, for the change password dropdown:
 document
   .querySelector(".dropdown-button")
-  .addEventListener("click", function () {
+  .addEventListener("click", function (event) {
+    event.preventDefault();
     var dropdownContent = this.nextElementSibling;
     if (dropdownContent.style.display === "block") {
       dropdownContent.style.display = "none";

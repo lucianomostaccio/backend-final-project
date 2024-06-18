@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const addToCartForms = document.querySelectorAll(".addToCartButton");
   const main = document.querySelector("main");
-
+  // @ts-ignore
+  main.classList.remove("flex", "items-center", "justify-center");
+  
   addToCartForms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
