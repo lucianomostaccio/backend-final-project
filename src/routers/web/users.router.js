@@ -21,6 +21,10 @@ webUsersRouter.get("/register", authenticateWithJwt, (req, res) => {
 
 webUsersRouter.get("/edit", authenticateWithJwt, async (req, res) => {
   try {
+    if (!req.user) {
+      res.redirect("/login"); // Redirect the user to the login view if not logged in
+      return;
+    }
     const user = req.user;
     Logger.debug("req.user detected for edit profile page:", user);
     res.render("profileEdit.handlebars", {

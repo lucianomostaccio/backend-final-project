@@ -132,54 +132,62 @@
             </svg>
             <span class="sr-only">Toggle profile menu</span>
           </button>
-          <div
-            id="profileDataNav"
-            class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-md shadow-lg z-10 hidden"
-          >
-            <div class="flex items-center p-4 border-b dark:border-gray-800">
-              <span
-                class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full mr-4"
-              >
-                <img
-                  class="aspect-square h-full w-full modal-trigger"
-                  src="{{fullImageUrl}}"
-                />
-              </span>
-              <div>
-                <h2
-                  class="text-lg font-bold text-gray-900 dark:text-gray-50"
-                >{{last_name}}, {{first_name}}</h2>
-                <p class="text-gray-500 dark:text-gray-400">{{role}}</p>
-              </div>
-            </div>
-            <div class="p-4 grid">
-              <div>
-                <p class="text-gray-500 dark:text-gray-400">Email</p>
-                <p class="text-gray-900 dark:text-gray-50">{{email}}</p>
-              </div>
-              <div>
-                <p class="text-gray-500 dark:text-gray-400">Age</p>
-                <p class="text-gray-900 dark:text-gray-50">{{age}}</p>
-              </div>
-              <a
-                class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
-                href="/edit"
-              >Edit Profile</a>
-              <form
-                class="formButton"
-                id="form-logout"
-                action="/api/sessions/current"
-                method="DELETE"
-              >
-                <button
-                  class="redButton text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center mt-2"
-                  type="submit"
-                >Log out
 
-                </button>
-              </form>
+            <div
+              id="profileDataNav"
+              class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-md shadow-lg z-10 hidden"
+            >
+              <div class="flex items-center p-4 border-b dark:border-gray-800">
+                {{#if last_name}}
+                <span
+                  class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full mr-4"
+                >
+                  <img
+                    class="aspect-square h-full w-full modal-trigger"
+                    src="{{fullImageUrl}}"
+                  />
+                </span>
+                <div>
+                  <h2
+                    class="text-lg font-bold text-gray-900 dark:text-gray-50"
+                  >{{last_name}}, {{first_name}}</h2>
+                  <p class="text-gray-500 dark:text-gray-400">{{role}}</p>
+                </div>
+              </div>
+              <div class="p-4 grid">
+                <div>
+                  <p class="text-gray-500 dark:text-gray-400">Email</p>
+                  <p class="text-gray-900 dark:text-gray-50">{{email}}</p>
+                </div>
+                <div>
+                  <p class="text-gray-500 dark:text-gray-400">Age</p>
+                  <p class="text-gray-900 dark:text-gray-50">{{age}}</p>
+                </div>
+                <a
+                  class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
+                  href="/edit"
+                >Edit Profile</a>
+                <form
+                  class="formButton"
+                  id="form-logout"
+                  action="/api/sessions/current"
+                  method="DELETE"
+                >
+                  <button
+                    class="redButton text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center mt-2"
+                    type="submit"
+                  >Log out
+
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
+          {{else}}
+            <a href="/login"><button
+              class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
+            >Login</button>
+            </a>
+          {{/if}}
         </div>
       </div>
       <button
