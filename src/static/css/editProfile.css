@@ -15,7 +15,8 @@
 }
 
 .dropdown-button:hover {
-  background-color: #357abd;
+  background-color: rgb(17, 17, 17);
+  color: white;
 }
 
 .dropdown-content {

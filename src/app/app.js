@@ -12,6 +12,7 @@ import { cookies } from "../middlewares/cookies.js";
 
 import { addCartQuantityToLocals } from "../middlewares/cartQuantity.js";
 import { authenticateWithJwt } from "../middlewares/authentication.js";
+import { addImagePathToLocals } from "../middlewares/imagePath.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "..", "static")));
 app.use(authenticateWithJwt);
 app.use(errorMiddleware);
 app.use(addCartQuantityToLocals);
+app.use(addImagePathToLocals);
 
 // routers
 app.use("/", webRouter);
