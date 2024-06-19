@@ -361,8 +361,8 @@ input {
 #profileNavContainer:focus #profileDataNav,
 #profileNavContainer:focus-within #profileDataNav,
 #profileDataNav:focus-within {
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
   position: absolute;
   width: 16rem;
   margin-top: 13px;
