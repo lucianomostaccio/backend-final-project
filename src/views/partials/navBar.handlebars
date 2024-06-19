@@ -13,11 +13,13 @@
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="h-6 w-6"
+        class="h-6 w-6 dark:text-gray-400 dark:hover:text-blue-400"
       >
         <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
       </svg>
-      <span class="font-semibold text-lg">LDM Store</span>
+      <span
+        class="font-semibold text-lg dark:text-gray-400 dark:hover:text-blue-400"
+      >LDM Store</span>
     </a>
     <nav class="hidden md:flex items-center gap-6">
       <a
@@ -87,7 +89,7 @@
           <path d="m21 21-4.3-4.3"></path>
         </svg>
         <input
-          class="flex h-8 border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100 dark:bg-gray-800 pl-8 pr-4 py-1.5 rounded-md w-56 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary"
+          class="flex h-8 border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100 dark:bg-gray-800 pl-8 pr-4 py-1.5 rounded-md w-56 active-focus:outline-none active-focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary"
           placeholder="Search products..."
           type="search"
           spellcheck="false"
@@ -107,7 +109,7 @@
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="h-6 w-6"
+          class="h-6 w-6 dark:text-gray-400"
         >
           <circle cx="8" cy="21" r="1"></circle>
           <circle cx="19" cy="21" r="1"></circle>
@@ -118,9 +120,11 @@
         <span class="sr-only">Cart</span>
       </button>
       <button
-        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
+        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
+        id="dark-mode-toggle"
       >
         <svg
+          id="light-mode-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -134,7 +138,33 @@
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
+        {{! sun icon for when on dark mode: }}
+        <svg
+          id="dark-mode-icon"
+          style="display: none;"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-6 w-6 text-yellow-500"
+        >
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
         <span class="sr-only">Toggle dark mode</span>
+
       </button>
       {{! Profile dropdown }}
       <div>
@@ -152,7 +182,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="h-6 w-6"
+              class="h-6 w-6 dark:text-gray-400"
             >
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
@@ -195,7 +225,7 @@
                     <p class="text-gray-900 dark:text-gray-50">{{age}}</p>
                   </div>
                   <a
-                    class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
+                    class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-200 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
                     href="/edit"
                   >Edit Profile</a>
                   <form
@@ -205,7 +235,7 @@
                     method="DELETE"
                   >
                     <button
-                      class="redButton text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center mt-2"
+                      class="redButton text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-200 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center mt-2"
                       type="submit"
                     >Log out
 

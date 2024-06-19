@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addToCartForms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      console.log("addtocart selected")
+      console.log("addtocart selected");
 
       const actionUrl = form.getAttribute("action");
 
@@ -58,3 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+//dark mode toggle
+document
+  .querySelector("#dark-mode-toggle")
+  .addEventListener("click", function () {
+    const isDarkMode = document.documentElement.classList.toggle("dark");
+
+    document.getElementById("dark-mode-icon").style.display = isDarkMode
+      ? "block"
+      : "none";
+    document.getElementById("light-mode-icon").style.display = isDarkMode
+      ? "none"
+      : "block";
+  });
