@@ -2,6 +2,9 @@
 
 //modal for images
 document.addEventListener("DOMContentLoaded", () => {
+  // Check the dark mode status from localStorage on DOMContentLoaded
+  toggleDarkMode(true);
+
   //use event delegation to add event listener to all images
   document.body.addEventListener("click", function (event) {
     if (event.target && event.target.matches("img.modal-trigger")) {
@@ -60,15 +63,31 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //dark mode toggle
+function toggleDarkMode(initialCheck = false) {
+  let isDarkMode;
+
+  if (initialCheck) {
+    // On initial check, read the dark mode setting from localStorage
+    isDarkMode = localStorage.getItem("darkMode") === "true";
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  } else {
+    // On button click, toggle the dark mode
+    isDarkMode = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("darkMode", isDarkMode);
+  }
+
+  // Update icons based on the dark mode status
+  document.getElementById("dark-mode-icon").style.display = isDarkMode
+    ? "block"
+    : "none";
+  document.getElementById("light-mode-icon").style.display = isDarkMode
+    ? "none"
+    : "block";
+}
+
+// Event listener for dark mode toggle
 document
   .querySelector("#dark-mode-toggle")
   .addEventListener("click", function () {
-    const isDarkMode = document.documentElement.classList.toggle("dark");
-
-    document.getElementById("dark-mode-icon").style.display = isDarkMode
-      ? "block"
-      : "none";
-    document.getElementById("light-mode-icon").style.display = isDarkMode
-      ? "none"
-      : "block";
+    toggleDarkMode();
   });

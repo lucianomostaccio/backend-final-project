@@ -1,173 +1,184 @@
-<div
-  class="max-w-md w-full space-y-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md my-12"
->
-  <div>
-    <h2
-      class="text-center text-3xl font-bold text-gray-900 dark:text-gray-50"
-    >Edit your profile</h2>
-    {{! <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+<section class="w-full flex justify-center dark:bg-gray-800">
+  <div
+    class="max-w-md w-full space-y-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md my-12"
+  >
+    <div>
+      <h2
+        class="text-center text-3xl font-bold text-gray-900 dark:text-gray-50"
+      >Edit your profile</h2>
+      {{! <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
       Modify your profile
     </p> }}
-  </div>
-  <form id="form-edit-profile" enctype="multipart/form-data" class="space-y-6">
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label
-          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-          for="firstName"
-        >
-          First Name
-        </label>
-        <div class="mt-1">
-          <input
-            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-            name="first_name"
-            autocomplete="on"
-            type="text"
-            id="firstName"
-            required=""
-            value=""
-          />
-        </div>
-      </div>
-      <div>
-        <label
-          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-          for="lastName"
-        >
-          Last Name
-        </label>
-        <div class="mt-1">
-          <input
-            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-            name="last_name"
-            autocomplete="on"
-            type="text"
-            id="lastName"
-            required=""
-            value=""
-          />
-        </div>
-      </div>
     </div>
-    <div>
-      <label
-      class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-      for="email"
-      >
-      Email address
-      </label>
-      <div class="mt-1">
-      <input
-        class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-        type="email"
-        name="email"
-        id="email"
-        autocomplete="on"
-        required=""
-        value=""
-        disabled
-      />
-      </div>
-    </div>
-    <div>
-      <label
-        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-        for="age"
-      >
-        Age
-      </label>
-      <div class="mt-1">
-        <input
-          class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-          type="number"
-          name="age"
-          id="age"
-          min="1"
-          max="99"
-          value=""
-        />
-      </div>
-    </div>
-    <div class="dropdown">
-      <button class="dropdown-button peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300">Change password</button>
-      <div class="dropdown-content">
-        <div class="form-group">
+    <form
+      id="form-edit-profile"
+      enctype="multipart/form-data"
+      class="space-y-6"
+    >
+      <div class="grid grid-cols-2 gap-4">
+        <div>
           <label
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-            for="currentPassword"
-          >Current password:</label>
-          <div class="mt1">
+            for="firstName"
+          >
+            First Name
+          </label>
+          <div class="mt-1">
             <input
-              type="password"
-              class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-              id="currentPassword"
-              name="currentPassword"
+              class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+              name="first_name"
+              autocomplete="on"
+              type="text"
+              id="firstName"
+              required=""
+              value=""
             />
           </div>
         </div>
-        <div class="form-group">
+        <div>
           <label
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-            for="newPassword"
-          >New password:</label>
-          <input
-            type="password"
-            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-            s
-            id="newPassword"
-            name="newPassword"
-          />
+            for="lastName"
+          >
+            Last Name
+          </label>
+          <div class="mt-1">
+            <input
+              class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+              name="last_name"
+              autocomplete="on"
+              type="text"
+              id="lastName"
+              required=""
+              value=""
+            />
+          </div>
         </div>
-        <div class="form-group">
-          <label
-            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-            for="repeatNewPassword"
-          >Repeat new password:</label>
+      </div>
+      <div>
+        <label
+          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          for="email"
+        >
+          Email address
+        </label>
+        <div class="mt-1">
           <input
-            type="password"
-            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
-            id="repeatNewPassword"
-            name="repeatNewPassword"
+            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+            type="email"
+            name="email"
+            id="email"
+            autocomplete="on"
+            required=""
+            value=""
+            disabled
           />
         </div>
       </div>
-    </div>
-    <div>
-      <li class="profileItem">Profile picture:
-        <img
-          class="profile_picture modal-trigger"
-          src="{{fullImageUrl}}"
-        /></li>
-      <label
-        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-        for="profilePicture"
-      >
-        Profile Picture
-      </label>
-      <div class="mt-1 flex items-center">
-        <input
-          class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
-          type="file"
-          id="profilePicture"
-          name="profile_picture"
-          accept="image/*"
-        />
-        <div id="imagePreview" class="image-preview"></div>
-        <br />
+      <div>
+        <label
+          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          for="age"
+        >
+          Age
+        </label>
+        <div class="mt-1">
+          <input
+            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+            type="number"
+            name="age"
+            id="age"
+            min="1"
+            max="99"
+            value=""
+          />
+        </div>
       </div>
+      <div class="dropdown">
+        <button
+          class="dropdown-button peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >Change password</button>
+        <div class="dropdown-content">
+          <div class="form-group">
+            <label
+              class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+              for="currentPassword"
+            >Current password:</label>
+            <div class="mt1">
+              <input
+                type="password"
+                class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+                id="currentPassword"
+                name="currentPassword"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label
+              class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+              for="newPassword"
+            >New password:</label>
+            <input
+              type="password"
+              class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+              s
+              id="newPassword"
+              name="newPassword"
+            />
+          </div>
+          <div class="form-group">
+            <label
+              class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+              for="repeatNewPassword"
+            >Repeat new password:</label>
+            <input
+              type="password"
+              class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black active-focus:outline-none focus:ring-black sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50 profileInput"
+              id="repeatNewPassword"
+              name="repeatNewPassword"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <li class="profileItem dark:text-gray-50">Profile picture:
+          <img
+            class="profile_picture modal-trigger"
+            src="{{fullImageUrl}}"
+          /></li>
+        <label
+          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          for="profilePicture"
+        >
+          Profile Picture
+        </label>
+        <div class="mt-1 flex items-center">
+          <input
+            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary active-focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+            type="file"
+            id="profilePicture"
+            name="profile_picture"
+            accept="image/*"
+          />
+          <div id="imagePreview" class="image-preview"></div>
+          <br />
+        </div>
 
-    </div>
-    <div>
-      <button
-        class="items-center whitespace-nowrap ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-gray-50 shadow-sm hover:bg-black-600 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-black-400 dark:text-gray-900 dark:hover:bg-black-500"
-        type="submit"
-      >
-        Submit changes
-      </button>
-    </div>
-  </form>
-</div>
+      </div>
+      <div>
+        <button
+          class="items-center whitespace-nowrap ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 flex w-full justify-center rounded-md border border-transparent bg-black hover:bg-gray-800 py-2 px-4 text-sm font-medium text-gray-50 shadow-sm hover:bg-black-600 active-focus:outline-none active-focus:ring-2 focus:ring-black active-focus:ring-offset-2 dark:text-gray-300"
+          type="submit"
+        >
+          Submit changes
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src="/js/editProfile.js"></script>
+<link rel="stylesheet" href="/css/editProfile.css" />
 
 {{!-- <h1 class="pageTitle" id="profileEdit">Edit your profile</h1>
 <section>
@@ -274,7 +285,3 @@
     </form>
   </article>
 </section> --}}
-
-<script src="/js/editProfile.js"></script>
- 
-<link rel="stylesheet" href="/css/editProfile.css" /> 
