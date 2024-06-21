@@ -10,6 +10,7 @@ export class Product {
   #stock;
   #category;
   #thumbnails;
+  #trending;
 
   constructor({
     _id = randomUUID(),
@@ -21,6 +22,7 @@ export class Product {
     stock,
     category,
     thumbnails,
+    trending,
   }) {
     this.#_id = _id;
     this.#title = title;
@@ -31,6 +33,7 @@ export class Product {
     this.#stock = stock;
     this.#category = category;
     this.#thumbnails = thumbnails;
+    this.#trending = trending;
   }
 
   get _id() {
@@ -61,6 +64,10 @@ export class Product {
     return this.#thumbnails;
   }
 
+  get trending() {
+    return this.#trending;
+  }
+
   set title(value) {
     if (!value) throw new Error("title is mandatory");
     this.#title = value;
@@ -82,6 +89,7 @@ export class Product {
       stock: this.#stock,
       category: this.#category,
       thumbnails: this.#thumbnails,
+      trending: this.#trending,
     };
   }
 }
