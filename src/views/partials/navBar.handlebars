@@ -96,29 +96,31 @@
           data-ms-editor="true"
         />
       </div>
-      <button
-        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="h-6 w-6 dark:text-gray-400"
+      <a href="/cart">
+        <button
+          class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
         >
-          <circle cx="8" cy="21" r="1"></circle>
-          <circle cx="19" cy="21" r="1"></circle>
-          <path
-            d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
-          ></path>
-        </svg>
-        <span class="sr-only">Cart</span>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 dark:text-gray-400"
+          >
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path
+              d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+            ></path>
+          </svg>
+          <span class="sr-only">Cart</span>
+        </button>
+      </a>
       <button
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
         id="dark-mode-toggle"
@@ -244,7 +246,7 @@
                 </div>
               {{else}}
                 <a href="/login"><button
-                    class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
+                    class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-gray-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
                   >Login</button>
                 </a>
               {{/if}}

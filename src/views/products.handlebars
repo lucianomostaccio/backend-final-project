@@ -38,49 +38,61 @@
     </div>
   </div>
 </section>
-<section class="py-12 md:py-20  dark:bg-gray-600">
+<section class="py-12 md:py-20 dark:bg-gray-600">
   <div class="container mx-auto px-4 md:px-6">
     <div class="flex items-center justify-between mb-8">
       <h2
         class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50"
       >Featured Products</h2>
-      <a class="text-primary hover:underline  dark:text-gray-300" href="#">
+      <a class="text-primary hover:underline dark:text-gray-300" href="#">
         View All
       </a>
     </div>
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
     >
-      <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Product 1"
-          width="400"
-          height="400"
-          class="rounded-t-lg object-cover w-full h-56"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-        <div class="p-4">
-          <h3
-            class="text-lg font-semibold text-gray-900 dark:text-gray-50"
-          >Product 1</h3>
-          <p class="text-gray-500 dark:text-gray-400 mb-4">Description of
-            Product 1</p>
-          <div class="flex items-center justify-between">
-            <span
-              class="text-xl font-bold text-gray-900 dark:text-gray-50"
-            >$49.99</span>
-            <button
-              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
-            >
-              Add to Cart
-            </button>
+      {{#each products}}
+        {{#if featured}}
+          <div
+            class="flex flex-col justify-between bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+          >
+            <img
+              src="{{#if src}}{{src}}{{else}}https://placehold.co/400{{/if}}"
+              alt="Product image"
+              width="400"
+              height="400"
+              class="rounded-t-lg object-cover w-full h-56"
+              style="aspect-ratio: 400 / 400; object-fit: cover;"
+            />
+            <div class="p-4">
+              <h3
+              class="text-lg font-semibold text-gray-900 dark:text-gray-50"
+              >{{title}}</h3>
+              <p
+              class="text-gray-500 dark:text-gray-400 mb-4"
+              >{{description}}</p>
+              <div class="flex items-center justify-between">
+                <span
+                  class="text-xl font-bold text-gray-900 dark:text-gray-50"
+                >{{formatPrice price}}</span>
+                <form
+                  class="addToCartButton"
+                  action="/products/{{_id}}/add-to-cart"
+                  method="POST"
+                >
+                  <button
+                    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
+                    type="submit"
+                  >
+                    Add to Cart
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div
+        {{/if}}
+      {{/each}}
+      {{! <div
         class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
       >
         <img
@@ -165,8 +177,8 @@
               Add to Cart
             </button>
           </div>
-        </div>
-      </div>
+        </div> }}
+      {{! </div> }}
     </div>
   </div>
 </section>
@@ -284,21 +296,21 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
     >
       {{#each products}}
-      {{#if trending}}
-      <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="{{getFirstThumbnail thumbnails}}"
-          alt="Trending Product 1"
-          width="400"
-          height="400"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-      </div>
-      {{/if}}
+        {{#if trending}}
+          <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+          >
+            <img
+              src="{{#if src}}{{src}}{{else}}https://placehold.co/400{{/if}}"
+              alt="Trending Product 1"
+              width="400"
+              height="400"
+              style="aspect-ratio: 400 / 400; object-fit: cover;"
+            />
+          </div>
+        {{/if}}
       {{/each}}
-      {{!-- <div
+      {{! <div
         class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
       >
         <img
@@ -330,7 +342,7 @@
           height="400"
           style="aspect-ratio: 400 / 400; object-fit: cover;"
         />
-      </div> --}}
+      </div> }}
     </div>
   </div>
 </section>

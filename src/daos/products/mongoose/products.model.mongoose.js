@@ -13,7 +13,8 @@ export const productsSchema = new Schema(
     stock: { type: Number },
     category: { type: String },
     thumbnails: [{ type: String }], //array of picture paths
-    trending: { type: Boolean, default: false}
+    trending: { type: Boolean, default: false},
+    featured: { type: Boolean, default: false}
   },
   {
     strict: "throw",
