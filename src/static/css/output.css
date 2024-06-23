@@ -1460,7 +1460,7 @@ input {
   gap: 15px;
 }
 
-#profileDataNav{
+#profileDataNav {
   display: none;
 }
 
@@ -1474,6 +1474,12 @@ input {
   margin-top: 13px;
   text-align: left;
   box-shadow: 0px 3px 5px -1px #ccc;
+}
+
+.fontMediaQ {
+  @media (max-width: 1535px) {
+    font-size: 0.93rem;
+  }
 }
 
 .file\:border-0::file-selector-button {
@@ -1732,11 +1738,6 @@ input {
 .dark\:text-gray-900:where(.dark, .dark *) {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.dark\:text-gray-600:where(.dark, .dark *) {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .dark\:hover\:bg-gray-800:hover:where(.dark, .dark *) {

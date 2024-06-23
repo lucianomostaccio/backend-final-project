@@ -15,11 +15,6 @@
           <button
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white h-10 px-4 py-2 hover:bg-gray-800"
           >Shop Now</button>
-          {{! <button
-            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-primary text-gray-50 hover:bg-primary-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
-          >
-            Shop Now
-          </button> }}
           <button
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-white hover:text-accent-foreground hover:bg-transparent h-10 px-4 py-2 text-gray-900 dark:text-gray-900 dark:bg-gray-400 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-50"
           >
@@ -54,7 +49,7 @@
       {{#each products}}
         {{#if featured}}
           <div
-            class="flex flex-col justify-between bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
           >
             <img
               src="{{#if src}}{{src}}{{else}}https://placehold.co/400{{/if}}"
@@ -92,93 +87,6 @@
           </div>
         {{/if}}
       {{/each}}
-      {{! <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Product 2"
-          width="400"
-          height="400"
-          class="rounded-t-lg object-cover w-full h-56"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-        <div class="p-4">
-          <h3
-            class="text-lg font-semibold text-gray-900 dark:text-gray-50"
-          >Product 2</h3>
-          <p class="text-gray-500 dark:text-gray-400 mb-4">Description of
-            Product 2</p>
-          <div class="flex items-center justify-between">
-            <span
-              class="text-xl font-bold text-gray-900 dark:text-gray-50"
-            >$29.99</span>
-            <button
-              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Product 3"
-          width="400"
-          height="400"
-          class="rounded-t-lg object-cover w-full h-56"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-        <div class="p-4">
-          <h3
-            class="text-lg font-semibold text-gray-900 dark:text-gray-50"
-          >Product 3</h3>
-          <p class="text-gray-500 dark:text-gray-400 mb-4">Description of
-            Product 3</p>
-          <div class="flex items-center justify-between">
-            <span
-              class="text-xl font-bold text-gray-900 dark:text-gray-50"
-            >$59.99</span>
-            <button
-              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Product 4"
-          width="400"
-          height="400"
-          class="rounded-t-lg object-cover w-full h-56"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-        <div class="p-4">
-          <h3
-            class="text-lg font-semibold text-gray-900 dark:text-gray-50"
-          >Product 4</h3>
-          <p class="text-gray-500 dark:text-gray-400 mb-4">Description of
-            Product 4</p>
-          <div class="flex items-center justify-between">
-            <span
-              class="text-xl font-bold text-gray-900 dark:text-gray-50"
-            >$39.99</span>
-            <button
-              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div> }}
-      {{! </div> }}
     </div>
   </div>
 </section>
@@ -195,6 +103,7 @@
     <div
       class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
     >
+      {{#each (uniqBy products "category") as |product|}}
       <a
         class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
         href="#"
@@ -207,78 +116,9 @@
           class="mb-2"
           style="aspect-ratio: 80 / 80; object-fit: cover;"
         />
-        <span class="text-gray-500 dark:text-gray-400 font-medium">Category 1</span>
+        <span class="text-gray-500 dark:text-gray-400 font-medium fontMediaQ">{{product.category}}</span>
       </a>
-      <a
-        class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
-        href="#"
-      >
-        <img
-          src="https://placehold.co/80"
-          alt="Category 2"
-          width="80"
-          height="80"
-          class="mb-2"
-          style="aspect-ratio: 80 / 80; object-fit: cover;"
-        />
-        <span class="text-gray-500 dark:text-gray-400 font-medium">Category 2</span>
-      </a>
-      <a
-        class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
-        href="#"
-      >
-        <img
-          src="https://placehold.co/80"
-          alt="Category 3"
-          width="80"
-          height="80"
-          class="mb-2"
-          style="aspect-ratio: 80 / 80; object-fit: cover;"
-        />
-        <span class="text-gray-500 dark:text-gray-400 font-medium">Category 3</span>
-      </a>
-      <a
-        class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
-        href="#"
-      >
-        <img
-          src="https://placehold.co/80"
-          alt="Category 4"
-          width="80"
-          height="80"
-          class="mb-2"
-          style="aspect-ratio: 80 / 80; object-fit: cover;"
-        />
-        <span class="text-gray-500 dark:text-gray-400 font-medium">Category 4</span>
-      </a>
-      <a
-        class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
-        href="#"
-      >
-        <img
-          src="https://placehold.co/80"
-          alt="Category 5"
-          width="80"
-          height="80"
-          class="mb-2"
-          style="aspect-ratio: 80 / 80; object-fit: cover;"
-        />
-        <span class="text-gray-500 dark:text-gray-400 font-medium">Category 5</span>
-      </a>
-      <a
-        class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
-        href="#"
-      >
-        <img
-          src="https://placehold.co/80"
-          alt="Category 6"
-          width="80"
-          height="80"
-          class="mb-2"
-          style="aspect-ratio: 80 / 80; object-fit: cover;"
-        />
-        <span class="text-gray-500 dark:text-gray-400 font-medium">Category 6</span>
-      </a>
+      {{/each}}
     </div>
   </div>
 </section>
@@ -310,42 +150,11 @@
           </div>
         {{/if}}
       {{/each}}
-      {{! <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Trending Product 2"
-          width="400"
-          height="400"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-      </div>
-      <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Trending Product 3"
-          width="400"
-          height="400"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-      </div>
-      <div
-        class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
-        <img
-          src="https://placehold.co/400"
-          alt="Trending Product 1"
-          width="400"
-          height="400"
-          style="aspect-ratio: 400 / 400; object-fit: cover;"
-        />
-      </div> }}
     </div>
   </div>
 </section>
+
+<script src="/js/products.js"></script>
 
 <!-- products.handlebars -->
 
@@ -388,4 +197,3 @@
     {{/each}}
   </ul>
 </section> --}}
-<script src="/js/products.js"></script>
