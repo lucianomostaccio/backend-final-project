@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import { getDaoProducts } from "../src/daos/products/products.dao.js";
 import Logger from "../src/utils/logger.js";
+import { MONGO_URL } from "../src/config/config.js";
 
 const daoProducts = getDaoProducts();
 mongoose
   .connect(
-    "mongodb+srv://lucianomostaccio:nose123@lucianobackendcourse.i2t7sxi.mongodb.net/LDM_Store?retryWrites=true&w=majority&appName=LucianoBackendCourse"
+    MONGO_URL
   )
   .then(() => {
     Logger.debug("connected to db");

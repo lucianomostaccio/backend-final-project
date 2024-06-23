@@ -1,7 +1,6 @@
 import { connect as connectToMongoose } from "mongoose";
 import {
   EXECUTION_MODE,
-  MONGODB_CNX_STR,
   MONGO_URL,
 } from "../config/config.js";
 import Logger from "../utils/logger.js";

@@ -1,5 +1,4 @@
 import { cartsService } from "../services/carts.service.js";
-import { usersService } from "../services/index.js";
 import { productsService } from "../services/products.service.js";
 import Logger from "../utils/logger.js";
 
@@ -84,12 +83,3 @@ export async function deleteController(req, res, next) {
     next(error);
   }
 }
-
-// export async function putController(req, res, next) {
-//   try {
-//     const product = await productsService.updateProduct(req.body)
-//     res.delete(product)
-//   } catch (error) {
-//     next(error)
-//   }
-// }
