@@ -20,6 +20,6 @@ adminRouter.get("/admin", authenticateWithJwt, async (req, res) => {
     });
   } else {
     Logger.warning("not an admin");
-    res.redirect("/products");
+    res.redirect("/home");
   }
 });

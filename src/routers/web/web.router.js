@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { webHomeRouter } from "./home.router.js";
 import { webProductsRouter } from "./products.router.js";
 import { webUsersRouter } from "./users.router.js";
 import { sessionsRouter } from "./sessions.router.js";
@@ -11,6 +12,7 @@ import { SWAGGER_CONFIG } from "../../config/config.js";
 
 export const webRouter = Router();
 
+webRouter.use(webHomeRouter);
 webRouter.use(webProductsRouter);
 webRouter.use(webUsersRouter);
 webRouter.use(sessionsRouter);
@@ -20,7 +22,7 @@ webRouter.use(adminRouter);
 
 webRouter.get("/", (req, res) => {
   Logger.debug("Root route accessed");
-  res.redirect("/products");
+  res.redirect("/home");
   // if (req.user) {
   //   Logger.debug("User is logged in, redirecting to /profile");
   //   res.redirect("/profile"); // If the user is logged in, redirect to /profile

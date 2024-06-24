@@ -15,7 +15,7 @@ webUsersRouter.get("/register", authenticateWithJwt, (req, res) => {
       style: "register.css",
     });
   } else {
-    res.redirect("/products"); // Redirect the user to the products view if already logged in
+    res.redirect("/home"); // Redirect the user to the home view if already logged in
   }
 });
 
@@ -45,7 +45,7 @@ webUsersRouter.get("/resetpass", authenticateWithJwt, (req, res) => {
       style: "resetpass.css",
     }); // Only show the reset password view if the user is not logged in
   } else {
-    res.redirect("/products"); // Redirect the user to the products view if already logged in
+    res.redirect("/home"); // Redirect the user to the home view if already logged in
   }
 });
 
@@ -56,6 +56,6 @@ webUsersRouter.get("/confirmResetPass/:token", authenticateWithJwt, (req, res) =
       style: "resetpass.css",
     }); // Only show the reset password view if the user is not logged in
   } else {
-    res.redirect("/products"); // Redirect the user to the products view if already logged in
+    res.redirect("/home"); // Redirect the user to the home view if already logged in
   }
 });

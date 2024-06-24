@@ -12,6 +12,6 @@ sessionsRouter.get("/login", authenticateWithJwt, (req, res) => {
     res.render("login.handlebars", { pageTitle: "Login" });
   } else {
     Logger.warning("req.user exists in sessions router", req.user);
-    res.redirect("/products");
+    res.redirect("/home");
   }
 });

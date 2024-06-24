@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (response.status === 201) {
       console.log("reponse successfull");
       const session = await response.json();
-      window.location.href = "/products";
+      window.location.href = "/home";
     } else if (response.status === 401) {
       console.log("reponse failed");
       alert("Invalid credentials");

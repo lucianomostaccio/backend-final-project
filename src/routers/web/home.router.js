@@ -2,16 +2,16 @@ import { Router } from "express";
 import { getDaoProducts } from "../../daos/products/products.dao.js";
 // import Logger from "../../utils/logger.js";
 
-export const webProductsRouter = Router();
+export const webHomeRouter = Router();
 
-webProductsRouter.get("/products", async (req, res) => {
+webHomeRouter.get("/home", async (req, res) => {
   const daoProducts = getDaoProducts();
-  console.log("req user in /products web router:", req.user);
+  console.log("req user in /home web router:", req.user);
   let products = await daoProducts.readMany({}, { title: 1 });
 
-  res.render("products.handlebars", {
+  res.render("home.handlebars", {
     ...req.user,
-    pageTitle: "All Products",
+    pageTitle: "LDM Store - Home",
     products,
   });
 });
