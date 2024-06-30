@@ -21,7 +21,7 @@
         class="font-semibold text-lg dark:text-gray-400 dark:hover:text-blue-400"
       >LDM Store</span>
     </a>
-    <nav class="hidden md:flex items-center gap-6">
+    <nav class="hidden md:flex items-center gap-12">
       <a
         class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
         href="/home"
@@ -33,12 +33,39 @@
         href=""
       >Categories ▾
         <ul class="navCategories dark:bg-gray-600">
-          {{#each (uniqBy products "category") as |product|}}
-            <li><a
-                class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href=""
-              >{{product.category}}</a></li>
-          {{/each}}
+          {{!-- {{#each (uniqBy products "category") as |product|}} --}}
+          <li><a
+              class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              href=""
+            >Tech & Gadgets</a>
+          </li>
+          <li><a
+              class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              href=""
+            >Hobbies & Leisure</a>
+          </li>
+          <li><a
+              class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              href=""
+            >Food & Drink</a>
+          </li>
+          <li><a
+              class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              href=""
+            >Home & Living</a>
+          </li>
+          <li><a
+              class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              href=""
+            >Health & Wellness</a>
+          </li>
+          <li><a
+              class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              href=""
+            >Fashion & Accessories</a>
+          </li>
+
+          {{!-- {{/each}} --}}
         </ul></li>
       <a
         class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
@@ -101,6 +128,7 @@
             ></path>
           </svg>
           <span class="sr-only">Cart</span>
+          <span class="dark:text-gray-400" id="cart-count">0</span>
         </button>
       </a>
       <button

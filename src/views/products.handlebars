@@ -1,4 +1,7 @@
-<section class="py-12 md:py-20 bg-gray-100 dark:bg-gray-600" style="padding-top: 3rem !important;">
+<section
+  class="py-12 md:py-20 bg-gray-100 dark:bg-gray-600"
+  style="padding-top: 3rem !important;"
+>
   <div class="container mx-auto px-4 md:px-6">
     <div class="flex items-center justify-between mb-8">
       <h2
@@ -27,6 +30,57 @@
           </svg>
           <span>Filters</span>
         </button>
+        <div
+          id="filter-menu"
+          class="hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="filter-menu-button"
+          tabindex="-1"
+        >
+          <div class="py-1" role="none">
+            <h3
+              class="px-4 py-2 text-sm font-medium text-gray-900"
+            >Categories</h3>
+            <div id="category-filters" class="px-4 py-2">
+              {{#each (uniqBy products "category") as |product|}}
+                <input
+                  id="category-filter1"
+                  type="checkbox"
+                  class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                />
+                <label
+                  for="category-filters"
+                  class="ml-2 text-sm text-gray-700"
+                >{{product.category}}</label>
+              {{/each}}
+            </div>
+          </div>
+          <div class="py-1" role="none">
+            <div class="flex items-center px-4 py-2">
+              <input
+                id="featured-filter"
+                type="checkbox"
+                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label
+                for="featured-filter"
+                class="ml-2 text-sm text-gray-700"
+              >Featured</label>
+            </div>
+            <div class="flex items-center px-4 py-2">
+              <input
+                id="trending-filter"
+                type="checkbox"
+                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label
+                for="trending-filter"
+                class="ml-2 text-sm text-gray-700"
+              >Trending</label>
+            </div>
+          </div>
+        </div>
         <button
           class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2"
           type="button"
@@ -45,16 +99,66 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             class="h-5 w-5"
-          ><line x1="10" x2="21" y1="6" y2="6"></line><line
-              x1="10"
-              x2="21"
-              y1="12"
-              y2="12"
-            ></line><line x1="10" x2="21" y1="18" y2="18"></line><path
-              d="M4 6h1v4"
-            ></path><path d="M4 10h2"></path><path
-              d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"
-            ></path></svg><span>Sort</span></button></div>
+          >
+            <line x1="10" x2="21" y1="6" y2="6">
+
+            </line>
+            <line x1="10" x2="21" y1="12" y2="12">
+            </line>
+            <line x1="10" x2="21" y1="18" y2="18">
+
+            </line>
+            <path d="M4 6h1v4">
+            </path>
+            <path d="M4 10h2">
+
+            </path>
+            <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1">
+            </path>
+          </svg>
+          <span>
+            Sort
+          </span>
+        </button>
+        <div
+          id="sort-menu"
+          class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="sort-menu-button"
+          tabindex="-1"
+        >
+          <div class="py-1" role="none">
+            <a
+              href="#"
+              class="sort-option text-gray-700 block px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              data-sort="price-asc"
+            >Price: Low to High</a>
+            <a
+              href="#"
+              class="sort-option text-gray-700 block px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              data-sort="price-desc"
+            >Price: High to Low</a>
+            <a
+              href="#"
+              class="sort-option text-gray-700 block px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              data-sort="name-asc"
+            >Name: A to Z</a>
+            <a
+              href="#"
+              class="sort-option text-gray-700 block px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              data-sort="name-desc"
+            >Name: Z to A</a>
+          </div></div>
+      </div>
     </div>
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
