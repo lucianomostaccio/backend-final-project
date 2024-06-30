@@ -44,7 +44,6 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
         }
       }
       cartId = productsInCart._id;
-      console.log("products with thumbnails", productsWithThumbnails);
     } else {
       console.log("No cart found for user:", user);
     }

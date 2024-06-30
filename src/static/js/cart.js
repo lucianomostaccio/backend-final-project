@@ -1,3 +1,4 @@
+// @ts-nocheck
 document.addEventListener("DOMContentLoaded", function () {
   const footer = document.querySelector("footer");
   const cartContainer = document.getElementById("cartContainer");

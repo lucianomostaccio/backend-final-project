@@ -14,6 +14,7 @@ export async function getController(req, res, next) {
 
     const userId = req.user._id;
     const cart = await cartsService.readOne(userId);
+    // console.log("cart", cart)
     res.jsonOk(cart);
   } catch (error) {
     next(error);
