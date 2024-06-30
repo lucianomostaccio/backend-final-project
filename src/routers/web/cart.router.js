@@ -21,7 +21,6 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
     // @ts-ignore
     const productsInCart = await daoCarts.readOne({ userId: req.user._id });
 
-    const user = req.user;
     console.log("req.user detected in cart", req.user);
     // @ts-ignore
     console.log("req.user._id detected in cart", req.user._id);
@@ -45,12 +44,12 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
       }
       cartId = productsInCart._id;
     } else {
-      console.log("No cart found for user:", user);
+      console.log("No cart found for user:", req.user);
     }
 
     console.log(JSON.stringify(productsInCart, null, 2));
     res.render("cart.handlebars", {
-      user,
+      ...req.user,
       pageTitle: "Cart",
       products: productsWithThumbnails,
       cartId,

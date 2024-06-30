@@ -1,5 +1,4 @@
-.cartPageContainer {
-  margin-top: 2rem;
+/* .cartPageContainer {
   margin-bottom: 5rem;
   max-width: 1140px;
   padding-inline: 1.5rem;
@@ -61,11 +60,8 @@
 
 #buyCart {
   min-width: 12rem;
-}
+} */
 
 footer {
-  margin-top: 4rem;
-  display: block;
-  position: absolute;
-  bottom: 0;
+  position: relative !important;
 }

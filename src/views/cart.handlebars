@@ -1,52 +1,124 @@
 <!-- cart.handlebars -->
-<div class="cartPageContainer">
-  <h1 class="pageTitle">Products in cart</h1>
+<section class="w-full flex justify-center dark:bg-gray-800">
+  <div class="container mx-auto px-4 md:px-6">
+    {{#if products}}
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-8" data-id="32">Your Cart</h2>
+        {{#each products}}
 
-  <ul id="cartContainer">
-    {{#each products}}
-      <li class="itemCart">
-        <br />
-        <img
-          class="cartPicture"
-          src="{{getFirstValidThumbnail thumbnails}}"
-          alt="product image"
-        />
-        <h3 class="cartProductTitle">{{productId.title}}</h3>
-        <p>Quantity: {{quantity}}</p>
-        <p>Price per unit: {{formatPrice productId.price}} </p>
-        <p>Total price: </p>
-        {{!-- <p>{{productId.description}}</p> --}}
-        
-        <form
-          onsubmit="removeProductFromCart(event, '{{../cartId}}', '{{this.productId._id}}')"
+    
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+          <div
+            class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+          >
+            <img
+              src="{{getFirstValidThumbnail thumbnails}}"
+              alt="product thumbnail"
+              width="300"
+              height="200"
+              class="rounded-t-lg object-cover w-full"
+              style="aspect-ratio: 300 / 200; object-fit: cover;"
+            />
+            <div class="p-4">
+              <h3
+                class="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2"
+              >{{productId.title}}</h3>
+              <p class="text-gray-500 dark:text-gray-400 mb-4">{{productId.description}}</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <button
+                    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full hover:border-red-700"
+                    disabled=""
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="h-5 w-5 dark:text-gray-100"
+                    >
+                      <path d="M5 12h14"></path>
+                    </svg>
+                  </button>
+                  <span class="text-gray-900 dark:text-gray-50 font-medium">{{quantity}}</span>
+                  <button
+                    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full hover:border-green-700"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="h-5 w-5 dark:text-gray-100"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="M12 5v14"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="text-gray-900 dark:text-gray-50 font-semibold"
+                >{{formatPrice productId.price}}</div>
+              </div>
+              <form onsubmit="removeProductFromCart(event, '{{../cartId}}', '{{this.productId._id}}')">
+                <button
+                  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full mt-4 dark:text-gray-100 dark:hover:bg-gray-800 hover:border-red-700">
+                    Remove
+                </button>
+              </form>
+            </div>
+          </div>
+  {{/each}}
+    </div>  
+        <div class="container mx-auto flex items-center justify-between mt-8">
+          <div
+            class="text-gray-900 dark:text-gray-50 font-semibold text-2xl"
+          >Total:{{formatPrice total}}
+          </div>
+          <div class="flex gap-4 mb-6">
+            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-gray-300 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 dark:bg-white dark:hover:bg-gray-200 hover:border-red-700" id="clearCart" onclick="removeCart(event, '{{cartId}}')">
+              Clear Cart
+            </button>
+            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-black text-gray-50 hover:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-900" id="buyCart" type="submit" onclick="buyCart(event, '{{cartId}}')">
+              Checkout
+            </button>
+          </div>
+        </div>        
+
+     {{else}}
+        <div class="container mx-auto px-4 md:px-6 text-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-16 w-16 text-gray-500 dark:text-gray-400 mx-auto mb-4"
         >
-          <button class="smallRedButton" type="submit">Remove from Cart</button>
-        </form>
-        <br />
-      </li>
-    {{/each}}
-  </ul>
-  <br />
-  <div id="bottomCartDiv">
-    <div id="cartTotal">
-      <h2>Total: {{formatPrice total}}</h2>
-    </div>
-    <br>
-    <div id="clearBuyCart">
-      <button
-        class="redButton"
-        id="clearCart"
-        onclick="removeCart(event, '{{cartId}}')"
-      >Clear cart</button>
-
-      <button
-        class="greenButton"
-        id="buyCart"
-        type="submit"
-        onclick="buyCart(event, '{{cartId}}')"
-      >Buy cart</button>
-    </div>
+          <circle cx="8" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+        </svg>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-2">Your cart is empty</h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-8">Start shopping to add items to your cart</p>
+        <a class="bg-black text-gray-50 hover:bg-gray-800 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-900 px-6 py-3 rounded-md font-medium"  href="/products" rel="ugc">Continue Shopping</a>
+      </div>
+      {{/if}}
   </div>
-</div>
+</section>
 <link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>
