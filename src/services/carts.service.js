@@ -23,26 +23,30 @@ class CartsService {
 
   // Add product to a specific cart
   async addProductToCart(userId, productId) {
+    console.log(
+      "Adding product to cart for user:",
+      userId,
+      "Product:",
+      productId
+    );
+
     // First, find the user's cart by userId
     let cart = await cartsDao.readOne({ userId });
-    Logger.debug("Cart before adding product:", cart);
+    console.log("Cart before adding product:", cart);
 
     // If the cart doesn't exist, create a new one for the user
     if (!cart) {
       cart = await cartsDao.create({ userId, products: [] });
-      Logger.debug("New cart created for user:", userId);
+      console.log("New cart created for user:", userId);
     }
 
     // Diagnostic logging to see the product ID being added
-    Logger.debug("Attempting to add product with ID:", productId);
+    console.log("Attempting to add product with ID:", productId);
 
     // Find if the product already exists in the cart
     const productIndex = cart.products.findIndex((product) => {
       // Diagnostic logging for comparison
-      Logger.debug(
-        "Comparing with product in cart with ID:",
-        product.productId
-      );
+      console.log("Comparing with product in cart with ID:", product.productId);
       return product.productId._id === productId;
     });
 
@@ -55,65 +59,111 @@ class CartsService {
     }
 
     // Update the cart in the database
-    await cartsDao.updateOne(
+    const updatedCart = await cartsDao.updateOne(
       { _id: cart._id },
       { $set: { products: cart.products } }
     );
-    Logger.debug("Product added to the cart");
+    console.log("Product added to the cart");
+    return updatedCart;
   }
 
-  async deleteProductFromCart(cartId, productId) {
-    try {
-      // Diagnostic logging to see the cart and product IDs being processed
-      Logger.debug(
-        "Received the following cartId and productId in cart service:",
-        cartId,
-        productId
-      );
+  async deleteProductFromCart(userId, productId) {
+    console.log(
+      "Modifying product quantity in cart for user:",
+      userId,
+      "Product:",
+      productId
+    );
+    const cart = await cartsDao.readOne({ userId });
 
-      // First, find the cart by cartId
-      let cart = await cartsDao.readOne({ _id: cartId });
-      Logger.debug("Cart before deleting product:", cart);
-
-      // If the cart doesn't exist, throw an error
-      if (!cart) {
-        throw new Error("Cart not found");
-      }
-
-      // Prepare the update operation to remove the product from the cart
-      const update = { $pull: { products: { productId: productId } } };
-
-      // Update the cart in the database
-      const updatedCart = await cartsDao.updateOne({ _id: cartId }, update);
-      Logger.debug("Cart updated in carts service:", updatedCart);
-
-      // If the update operation didn't return an updated cart, throw an error
-      if (!updatedCart) {
-        throw new Error("Failed to remove product from cart");
-      }
-
-      return updatedCart;
-    } catch (error) {
-      Logger.error("Error removing product from cart:", error);
-      throw error;
+    if (!cart) {
+      throw new Error("Cart not found");
     }
+
+    const productIndex = cart.products.findIndex((product) => {
+      // Diagnostic logging for comparison
+      console.log("Comparing with product in cart with ID:", product.productId);
+      return product.productId._id === productId;
+    });
+
+    if (productIndex === -1) {
+      throw new Error("Product not found in cart");
+    }
+
+    if (cart.products[productIndex].quantity > 1) {
+      // If more than one unit, decrement the quantity
+      cart.products[productIndex].quantity -= 1;
+    } else {
+      // If only one unit, remove the product from the cart
+      cart.products.splice(productIndex, 1);
+    }
+
+    const updatedCart = await cartsDao.updateOne(
+      { _id: cart._id },
+      { $set: { products: cart.products } }
+    );
+
+    if (!updatedCart) {
+      throw new Error("Failed to update cart");
+    }
+
+    console.log("Product quantity updated in cart");
+    return updatedCart;
+  }
+
+  async removeWholeProductFromCart(userId, productId) {
+    console.log(
+      "removing product from cart for user:",
+      userId,
+      "Product:",
+      productId
+    );
+    const cart = await cartsDao.readOne({ userId });
+
+    if (!cart) {
+      throw new Error("Cart not found");
+    }
+
+    const productIndex = cart.products.findIndex((product) => {
+      // Diagnostic logging for comparison
+      console.log("Comparing with product in cart with ID:", product.productId);
+      return product.productId._id === productId;
+    });
+
+    if (productIndex === -1) {
+      throw new Error("Product not found in cart");
+    }
+
+    cart.products.splice(productIndex, 1);
+
+    const updatedCart = await cartsDao.updateOne(
+      { _id: cart._id },
+      { $set: { products: cart.products } }
+    );
+
+    if (!updatedCart) {
+      throw new Error("Failed to update cart");
+    }
+
+    console.log("Product removed from cart");
+    return updatedCart;
   }
 
   // Update cart by ID
-  async updateCart(_id, updatedCart) {
+  async updateCart(userId, updatedCartData) {
+    console.log("Updating cart for user:", userId);
     try {
-      const cartToUpdate = await cartsDao.readOne({ _id });
+      const cartToUpdate = await cartsDao.readOne({ userId });
 
       if (!cartToUpdate) {
-        Logger.warning("Cart not found for update", { _id });
-        return null;
+        throw new Error("Cart not found");
       }
 
-      Object.assign(cartToUpdate, updatedCart);
+      Object.assign(cartToUpdate, updatedCartData);
 
-      await cartsDao.updateOne({ _id }, cartToUpdate);
-      Logger.info("Cart updated:", cartToUpdate);
-      return cartToUpdate;
+      const updatedCart = await cartsDao.updateOne({ userId }, cartToUpdate);
+      console.log("Cart updated");
+      return updatedCart;
     } catch (error) {
       Logger.error("Error updating cart:", error);
       throw error;
@@ -121,7 +171,7 @@ class CartsService {
   }
 
   async calculateTotalPrice(_id) {
-    console.log("id received in calculate", _id)
+    console.log("id received in calculate", _id);
     const cart = await this.readOneById(_id);
     if (!cart) {
       throw new Error("Cart not found");

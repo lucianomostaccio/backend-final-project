@@ -4,7 +4,7 @@ import { sessionsRouter } from "./sessions.router.js";
 import { usersRouter } from "./users.router.js";
 import { improvedReplies } from "../../middlewares/improvedReplies.js";
 import loggerRouter from "./logger.router.js";
-import { cartsRouter } from "./carts.router.js";
+import { cartsRouter } from "./cart.router.js";
 import { errorsHandler } from "../../middlewares/errorsHandler.js";
 import { adminRouter } from "./admin.router.js";
 import { ticketsRouter } from "./tickets.router.js";

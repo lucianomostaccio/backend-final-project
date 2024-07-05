@@ -1,29 +1,58 @@
 // @ts-nocheck
-document.addEventListener("DOMContentLoaded", function () {
-  const footer = document.querySelector("footer");
-  const cartContainer = document.getElementById("cartContainer");
-
-  // Verificar si el carrito está vacío
-  const cartIsEmpty =
-    cartContainer && cartContainer.querySelectorAll("li").length === 0;
-
-  if (cartIsEmpty) {
-    footer.style.display = "block";
-    footer.style.position = "absolute";
-    footer.style.bottom = "0";
-  }
-});
-
-function removeProductFromCart(event, cartId, productId) {
+function addProductToCart(event, productId) {
   event.preventDefault();
 
-  fetch(`/api/carts/${cartId}/products/${productId}`, {
+  fetch(`/api/carts/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      action: "addProduct",
+      productId: productId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function removeProductFromCart(event, productId) {
+  event.preventDefault();
+
+  fetch(`/api/carts/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       action: "removeProduct",
+      productId: productId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function removeWholeProductFromCart(event, productId) {
+  event.preventDefault();
+
+  fetch(`/api/carts/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      action: "removeWholeProduct",
       productId: productId,
     }),
   })

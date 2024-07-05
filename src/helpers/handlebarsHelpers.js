@@ -47,3 +47,7 @@ export function uniqBy(array, key) {
     return true;
   });
 }
+
+export function quantityGreaterThanOne(quantity, options) {
+  return quantity > 1;
+}

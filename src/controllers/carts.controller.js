@@ -32,21 +32,39 @@ export async function postController(req, res, next) {
 
 export async function putController(req, res, next) {
   try {
-    const { cartId, productId } = req.params;
+    const { action, productId } = req.body;
+    const userId = req.user._id;
+    console.log("Action:", action, "ProductId:", productId, "UserId:", userId);
 
-    const payload = req.body;
+    let updatedCart;
 
-    if (payload.action === "removeProduct" && productId) {
-      const updatedCart = await cartsService.deleteProductFromCart(
-        cartId,
+    if (action === "removeProduct" && productId) {
+      console.log("Removing product from cart");
+      updatedCart = await cartsService.deleteProductFromCart(userId, productId);
+    } else if (action == "removeWholeProduct" && productId) {
+      console.log("Removing whole product from cart");
+      updatedCart = await cartsService.removeWholeProductFromCart(
+        userId,
         productId
       );
-      return res.jsonOk(updatedCart);
+    } else if (action === "addProduct" && productId) {
+      console.log("Adding product to cart");
+      updatedCart = await cartsService.addProductToCart(userId, productId);
+    } else {
+      console.log("Updating cart");
+      updatedCart = await cartsService.updateCart(userId, req.body);
     }
 
-    const updatedCart = await cartsService.updateCart(cartId, payload);
+    if (!updatedCart) {
+      return res.status(404).json({
+        status: "error",
+        message: "Cart not found or operation failed",
+      });
+    }
+
     res.jsonOk(updatedCart);
   } catch (error) {
+    console.error("Error in putController:", error);
     next(error);
   }
 }
