@@ -62,34 +62,3 @@ export async function deleteController(req, res, next) {
     next(error);
   }
 }
-
-// export async function getFilteredAndSortedProductsController(req, res, next) {
-//   try {
-//     const { categories, featured, trending, sort } = req.query;
-
-//     const filters = {
-//       categories: categories ? categories.split(",") : [],
-//       featured: featured === "true",
-//       trending: trending === "true",
-//     };
-
-//     const products = await productsService.getFilteredAndSortedProducts(
-//       filters,
-//       sort
-//     );
-//     res.jsonOk(products);
-//   } catch (error) {
-//     Logger.error("Error in getFilteredAndSortedProductsController:", error);
-//     next(error);
-//   }
-// }
-
-// export async function getCategoriesController(req, res, next) {
-//   try {
-//     const categories = await productsService.getCategories();
-//     res.jsonOk(categories);
-//   } catch (error) {
-//     Logger.error("Error in getCategoriesController:", error);
-//     next(error);
-//   }
-// }

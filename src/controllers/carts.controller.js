@@ -38,21 +38,29 @@ export async function putController(req, res, next) {
 
     let updatedCart;
 
-    if (action === "removeProduct" && productId) {
-      console.log("Removing product from cart");
-      updatedCart = await cartsService.deleteProductFromCart(userId, productId);
-    } else if (action == "removeWholeProduct" && productId) {
-      console.log("Removing whole product from cart");
-      updatedCart = await cartsService.removeWholeProductFromCart(
-        userId,
-        productId
-      );
-    } else if (action === "addProduct" && productId) {
-      console.log("Adding product to cart");
-      updatedCart = await cartsService.addProductToCart(userId, productId);
-    } else {
-      console.log("Updating cart");
-      updatedCart = await cartsService.updateCart(userId, req.body);
+    switch (action) {
+      case "removeProduct":
+        if (productId) {
+          console.log("Removing product from cart");
+          updatedCart = await cartsService.deleteProductFromCart(userId, productId);
+        }
+        break;
+      case "removeWholeProduct":
+        if (productId) {
+          console.log("Removing whole product from cart");
+          updatedCart = await cartsService.removeWholeProductFromCart(userId, productId);
+        }
+        break;
+      case "addProduct":
+        if (productId) {
+          console.log("Adding product to cart");
+          updatedCart = await cartsService.addProductToCart(userId, productId);
+        }
+        break;
+      default:
+        console.log("Updating cart");
+        updatedCart = await cartsService.updateCart(userId, req.body);
+        break;
     }
 
     if (!updatedCart) {
