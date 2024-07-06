@@ -17,12 +17,11 @@
               class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white h-10 px-12 py-2 hover:bg-gray-800"
             >Shop Now</button>
           </a>
-          </a>
-          {{!-- <button
+          {{! <button
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-white hover:text-accent-foreground hover:bg-transparent h-10 px-4 py-2 text-gray-900 dark:text-gray-900 dark:bg-gray-400 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-50"
           >
             Learn More
-          </button> --}}
+          </button> }}
         </div>
       </div>
       <img
@@ -52,7 +51,7 @@
       {{#each products}}
         {{#if featured}}
           <div
-            class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
           >
             <img
               src="{{getFirstValidThumbnail thumbnails}}"
@@ -62,24 +61,24 @@
               class="rounded-t-lg object-cover w-full h-56"
               style="aspect-ratio: 400 / 400; object-fit: cover;"
             />
-            <div class="p-4">
+            <div class="p-4 flex flex-col flex-grow">
               <h3
                 class="text-lg font-semibold text-gray-900 dark:text-gray-50"
               >{{title}}</h3>
               <p
-                class="text-gray-500 dark:text-gray-400 mb-4"
+                class="text-gray-500 dark:text-gray-400 mb-4 flex-grow"
               >{{description}}</p>
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between mt-auto">
                 <span
                   class="text-xl font-bold text-gray-900 dark:text-gray-50"
                 >{{formatPrice price}}</span>
-                  <button
-                    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
-                    type="button"
-                    onclick="addProductToCart(event, '{{_id}}')"
-                  >
-                    Add to Cart
-                  </button>
+                <button
+                  class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 bg-gray-400 text-gray-50 hover:bg-gray-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-500"
+                  type="button"
+                  onclick="addProductToCart(event, '{{_id}}')"
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
