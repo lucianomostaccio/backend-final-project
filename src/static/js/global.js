@@ -26,41 +26,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //update cart in real time
 document.addEventListener("DOMContentLoaded", () => {
-  const addToCartForms = document.querySelectorAll(".addToCartButton");
-  const cartQuantityElement = document.getElementById("cartQuantity");
-
-  addToCartForms.forEach((form) => {
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      console.log("addtocart selected");
-
-      const actionUrl = form.getAttribute("action");
-
-      try {
-        const response = await fetch(actionUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Incluir las cookies en la solicitud
-        });
-
-        if (response.ok) {
-          const updatedCart = await response.json();
-          const newQuantity = updatedCart.products.reduce(
-            (sum, item) => sum + item.quantity,
-            0
-          );
-          cartQuantityElement.textContent = newQuantity;
-        } else {
-          console.error("Error updating cart:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    });
-  });
+  const cartCountElement = document.getElementById("cart-count");
 });
+
+function addProductToCart(event, productId) {
+  event.preventDefault();
+  console.log("addtocart selected");
+
+  fetch(`/api/carts/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      action: "addProduct",
+      productId: productId,
+    }),
+    credentials: "include", // Incluir las cookies en la solicitud
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Response data:", data);
+      if (data && data.payload && data.payload.products) {
+        const newQuantity = data.payload.products.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        document.getElementById("cart-count").textContent = newQuantity;
+      } else {
+        console.error("Invalid data format:", data);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 
 //dark mode toggle
 function toggleDarkMode(initialCheck = false) {

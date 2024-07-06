@@ -1,25 +1,25 @@
 // @ts-nocheck
-function addProductToCart(event, productId) {
-  event.preventDefault();
+// function addProductToCart(event, productId) {
+//   event.preventDefault();
 
-  fetch(`/api/carts/`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      action: "addProduct",
-      productId: productId,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      window.location.reload();
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
+//   fetch(`/api/carts/`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       action: "addProduct",
+//       productId: productId,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       window.location.reload();
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// }
 
 function removeProductFromCart(event, productId) {
   event.preventDefault();
