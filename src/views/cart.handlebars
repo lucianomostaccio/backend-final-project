@@ -14,7 +14,7 @@
           {{#each products}}
 
             <div
-              class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
             >
               <img
                 src="{{getFirstValidThumbnail thumbnails}}"
@@ -24,14 +24,14 @@
                 class="rounded-t-lg object-cover w-full"
                 style="aspect-ratio: 200 / 100; object-fit: cover;"
               />
-              <div class="p-4">
+              <div class="p-4 flex flex-col flex-grow">
                 <h3
                   class="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2"
                 >{{productId.title}}</h3>
                 <p
-                  class="text-gray-500 dark:text-gray-400 mb-4"
+                  class="text-gray-500 dark:text-gray-400 mb-4 flex-grow"
                 >{{productId.description}}</p>
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between mt-auto">
                   <div class="flex items-center gap-2">
                     {{#if (quantityGreaterThanOne quantity)}}
 
