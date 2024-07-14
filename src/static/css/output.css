@@ -662,6 +662,10 @@ video {
   margin-left: 1rem;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -688,14 +692,6 @@ video {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.ml-auto {
-  margin-left: auto;
-}
-
-.mt-0 {
-  margin-top: 0px;
 }
 
 .block {
@@ -842,10 +838,6 @@ video {
 
 .flex-col {
   flex-direction: column;
-}
-
-.items-start {
-  align-items: flex-start;
 }
 
 .items-center {
@@ -1571,9 +1563,12 @@ input {
   position: absolute;
   max-width: 8rem;
   text-align: left;
-  box-shadow: 0px 3px 5px -1px #ccc;
-  padding: 17px;
-  gap: 15px;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.1);
+  /* lighter shadow for a subtle effect */
+  padding: 10px;
+  gap: 10px;
+  z-index: 2;
+  border-radius: 0.5rem;
 }
 
 #profileDataNav {
@@ -1883,6 +1878,11 @@ input {
 .dark\:text-gray-900:where(.dark, .dark *) {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.dark\:text-white:where(.dark, .dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .dark\:hover\:bg-gray-200:hover:where(.dark, .dark *) {
