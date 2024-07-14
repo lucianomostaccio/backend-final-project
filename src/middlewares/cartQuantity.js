@@ -5,7 +5,7 @@ export const addCartQuantityToLocals = async (req, res, next) => {
     console.log("req.user exists in cart quantity middleware", req.user);
     const daoCarts = getDaoCarts();
     const cart = await daoCarts.readOne({ userId: req.user._id });
-    console.log("cart found", cart);
+    console.log("cart found addCartQuantityToLocals", cart);
     res.locals.cartQuantity = cart
       ? cart.products.reduce((sum, item) => sum + item.quantity, 0)
       : 0;

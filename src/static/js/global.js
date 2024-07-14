@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //update cart in real time
 document.addEventListener("DOMContentLoaded", () => {
-  const cartCountElement = document.getElementById("cart-count");
+  const cartCountElement = document.querySelectorAll(".cart-count");
 });
 
 function addProductToCart(event, productId) {
@@ -52,7 +52,10 @@ function addProductToCart(event, productId) {
           (sum, item) => sum + item.quantity,
           0
         );
-        document.getElementById("cart-count").textContent = newQuantity;
+        const cartCountElements = document.querySelectorAll(".cart-count");
+        cartCountElements.forEach((element) => {
+          element.textContent = newQuantity;
+        });
       } else {
         console.error("Invalid data format:", data);
       }
