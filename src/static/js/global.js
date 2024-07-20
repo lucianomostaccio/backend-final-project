@@ -25,10 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //update cart in real time
-document.addEventListener("DOMContentLoaded", () => {
-  const cartCountElement = document.querySelectorAll(".cart-count");
-});
-
 function addProductToCart(event, productId) {
   event.preventDefault();
   console.log("addtocart selected");
@@ -42,20 +38,87 @@ function addProductToCart(event, productId) {
       action: "addProduct",
       productId: productId,
     }),
-    credentials: "include", // Incluir las cookies en la solicitud
+    credentials: "include", // Include cookies in the request
   })
     .then((response) => response.json())
     .then((data) => {
       console.log("Response data:", data);
       if (data && data.payload && data.payload.products) {
-        const newQuantity = data.payload.products.reduce(
-          (sum, item) => sum + item.quantity,
-          0
+        const product = data.payload.products.find(
+          (item) => item.productId === productId
         );
-        const cartCountElements = document.querySelectorAll(".cart-count");
-        cartCountElements.forEach((element) => {
-          element.textContent = newQuantity;
-        });
+        if (product) {
+          const quantityDisplay = document.querySelector(
+            `#quantity-${productId}`
+          );
+          console.log("adding product to navbar icon");
+          let cartCountElement = document.querySelector(".cart-count");
+          let cartCount = Number(cartCountElement.textContent);
+          console.log("cartCount:", cartCount);
+          cartCount++;
+          cartCountElement.textContent = cartCount;
+
+          if (quantityDisplay) {
+            quantityDisplay.textContent = product.quantity;
+            const removeBtn = document.querySelector(
+              `#remove-btn-${productId}`
+            );
+            if (product.quantity > 1) {
+              removeBtn.removeAttribute("disabled");
+            } else {
+              removeBtn.setAttribute("disabled", "disabled");
+            }
+          }
+        }
+      } else {
+        console.error("Invalid data format:", data);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function removeProductFromCart(event, productId) {
+  event.preventDefault();
+  console.log("remove unit from cart selected");
+
+  fetch(`/api/carts/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      action: "removeProduct",
+      productId: productId,
+    }),
+    credentials: "include", // Include cookies in the request
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Response data:", data);
+      if (data && data.payload && data.payload.products) {
+        const product = data.payload.products.find(
+          (item) => item.productId === productId
+        );
+        if (product) {
+          const quantityDisplay = document.querySelector(
+            `#quantity-${productId}`
+          );
+          quantityDisplay.textContent = product.quantity;
+
+          let cartCountElement = document.querySelector(".cart-count");
+          let cartCount = Number(cartCountElement.textContent);
+          cartCount--;
+          cartCountElement.textContent = cartCount;
+
+          const removeBtn = document.querySelector(`#remove-btn-${productId}`);
+          if (product.quantity > 1) {
+            removeBtn.removeAttribute("disabled");
+          } else {
+            removeBtn.setAttribute("disabled", "disabled");
+          }
+        }
       } else {
         console.error("Invalid data format:", data);
       }

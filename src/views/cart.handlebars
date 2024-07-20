@@ -33,9 +33,11 @@
                 >{{productId.description}}</p>
                 <div class="flex items-center justify-between mt-auto">
                   <div class="flex items-center gap-2">
+                    {{! -button }}
                     {{#if (quantityGreaterThanOne quantity)}}
 
                       <button
+                        id="remove-btn-{{this.productId._id}}"
                         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full hover:border-red-700"
                         type="button"
                         onclick="removeProductFromCart(event, '{{this.productId._id}}')"
@@ -57,8 +59,11 @@
                       </button>
                     {{else}}
                       <button
+                        id="remove-btn-{{this.productId._id}}"
                         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full hover:border-red-700"
                         disabled=""
+                        type="button"
+                        onclick="removeProductFromCart(event, '{{this.productId._id}}')"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -78,10 +83,13 @@
                     {{/if}}
 
                     <span
-                      class="text-gray-900 dark:text-gray-50 font-medium quantity-display-{{this.productId._id}}"
+                      class="text-gray-900 dark:text-gray-50 font-medium"
+                      id="quantity-{{this.productId._id}}"
                     >{{quantity}}</span>
+                    {{!+ button: }}
                     <button
                       class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full hover:border-green-700"
+                      id="add-btn-{{this.productId._id}}"
                       type="button"
                       onclick="addProductToCart(event, '{{this.productId._id}}')"
                     >
