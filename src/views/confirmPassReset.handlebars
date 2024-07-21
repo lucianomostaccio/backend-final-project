@@ -1,5 +1,62 @@
-<h1>Reset password</h1>
-<form id="resetPassForm">
+<section class="w-full flex justify-center dark:bg-gray-800">
+  <div
+    class="max-w-md w-full space-y-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md my-12"
+  >
+    <div>
+      <h2
+        class="text-center text-3xl font-bold text-gray-900 dark:text-gray-50"
+      >Update password</h2>
+    </div>
+    <form id="confirmResetPassForm" class="space-y-6">
+      <div>
+        <label
+          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          for="new_password"
+        >
+          Enter new password
+        </label>
+        <div class="mt-1">
+          <input
+            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm active-focus:border-primary active-focus:outline active-focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+            name="new_password"
+            id="new_password"
+            required
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <div>
+        <label
+          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          for="repeat_password"
+        >
+          Repeat New Password
+        </label>
+        <div class="mt-1">
+          <input
+            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm active-focus:border-primary active-focus:outline active-focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
+            id="repeat_password"
+            name="repeat_password"
+            required
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+
+        <button
+          class="items-center whitespace-nowrap ring-offset-background transition-colors focus:outline focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 flex w-full justify-center rounded-md border border-transparent bg-black hover:bg-gray-800 py-2 px-4 text-sm font-medium text-gray-50 shadow-sm active-focus:outline active-focus:ring-2 focus:ring-primary active-focus:ring-offset-2 dark:bg-black dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+          type="submit"
+        >Update password</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src="/js/login.js"></script>
+
+{{!-- <form id="resetPassForm">
   <label for="password">Enter new password:</label>
   <input type="password" name="new_password" required ><br />
   <br>
@@ -7,6 +64,6 @@
   <input type="password" name="repeat_password" required ><br />
   <button type="submit" class="greenButton">Send Reset Email</button>
 </form>
-<br>
+<br> --}}
 
 <script src="/js/confirmresetpass.js"></script>
