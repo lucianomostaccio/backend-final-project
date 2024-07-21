@@ -68,56 +68,6 @@ class ProductsService {
       throw error;
     }
   }
-
-  // async getFilteredAndSortedProducts(filters = {}, sort = "") {
-  //   try {
-  //     let query = {};
-
-  //     if (filters.categories && filters.categories.length > 0) {
-  //       query.category = { $in: filters.categories };
-  //     }
-  //     if (filters.featured) {
-  //       query.featured = true;
-  //     }
-  //     if (filters.trending) {
-  //       query.trending = true;
-  //     }
-
-  //     let sortOption = {};
-  //     if (sort) {
-  //       switch (sort) {
-  //         case "price-asc":
-  //           sortOption = { price: 1 };
-  //           break;
-  //         case "price-desc":
-  //           sortOption = { price: -1 };
-  //           break;
-  //         case "name-asc":
-  //           sortOption = { title: 1 };
-  //           break;
-  //         case "name-desc":
-  //           sortOption = { title: -1 };
-  //           break;
-  //       }
-  //     }
-
-  //     const products = await productsDao.readMany(query, {}, sortOption);
-  //     return products;
-  //   } catch (error) {
-  //     Logger.error("Error fetching filtered and sorted products:", error);
-  //     throw error;
-  //   }
-  // }
-
-  // async getCategories() {
-  //   try {
-  //     const categories = await productsDao.distinct("category");
-  //     return categories;
-  //   } catch (error) {
-  //     Logger.error("Error fetching categories:", error);
-  //     throw error;
-  //   }
-  // }
 }
 
 export const productsService = new ProductsService();

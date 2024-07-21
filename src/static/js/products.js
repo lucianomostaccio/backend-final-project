@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   main.classList.remove("flex", "items-center", "justify-center");
   loadProducts();
   closeMenus();
+  applyUrlFilters();
 });
 
 //filter and sort products:
@@ -26,27 +27,27 @@ let currentSort = "";
 // Load products
 async function loadProducts() {
   try {
-    const response = await fetch("/api/products");
+    const url = new URL(window.location.href);
+    const category = url.searchParams.get('category');
+    const apiUrl = category ? `/api/products?category=${encodeURIComponent(category)}` : '/api/products';
+
+    const response = await fetch(apiUrl);
     const data = await response.json();
 
-    // Verificar la estructura de la respuesta y extraer los productos
     if (data && data.payload && Array.isArray(data.payload)) {
       products = data.payload;
     } else {
-      console.error(
-        "El formato de los datos de productos es inesperado:",
-        data
-      );
+      console.error("El formato de los datos de productos es inesperado:", data);
       products = [];
     }
 
     renderProducts(products);
   } catch (error) {
     console.error("Error al cargar los productos:", error);
-    productGrid.innerHTML =
-      "<p>Error al cargar los productos. Por favor, intenta de nuevo más tarde.</p>";
+    productGrid.innerHTML = "<p>Error al cargar los productos. Por favor, intenta de nuevo más tarde.</p>";
   }
 }
+
 
 // Render products
 function renderProducts(productsToRender) {
@@ -217,4 +218,23 @@ function getFirstValidThumbnail(thumbnails) {
 
 function formatPrice(price) {
   return `$${Number(price).toFixed(2)}`;
+}
+
+// Function to apply filters from URL
+function applyUrlFilters() {
+  const url = new URL(window.location.href);
+  const category = url.searchParams.get('category');
+  
+  if (category) {
+    const checkbox = document.querySelector(`input[name="category"][value="${category}"]`);
+    const pageTitleCategory = document.querySelector("#titleProductsPage");
+    pageTitleCategory.textContent = category;
+    const filterButtonProducts = document.querySelector("#filter-button");
+    filterButtonProducts.style = "display: none";
+    if (checkbox) {
+      checkbox.checked = true;
+      filters.categories = [category];
+      applyFilters();
+    }
+  }
 }

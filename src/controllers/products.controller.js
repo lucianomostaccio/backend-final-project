@@ -7,22 +7,27 @@ export async function getController(req, res, next) {
       "Accessed get products controller, req.params.pid is:",
       req.params.pid
     );
+
     if (req.params.pid) {
-      // If a pid is provided in the parameters, search for a specific product where _id field is equal to req.params.pid
+      // If a pid is provided in the parameters, search for a specific product
       const product = await productsService.readOne({ _id: req.params.pid });
       if (!product) {
-        // If the product is not found, return a 404 error
         return res.status(404).json({ error: "Product not found" });
       }
-      // If the product is found, return it in the response
       return res.jsonOk(product);
     } else {
-      // If no pid is provided in the parameters, get all products
-      const products = await productsService.readMany({});
+      // If no pid is provided, get all products
+      let query = {};
+
+      // Check if a category is provided in the query parameters
+      if (req.query.category) {
+        query.category = req.query.category;
+      }
+
+      const products = await productsService.readMany(query);
       return res.jsonOk(products);
     }
   } catch (error) {
-    // Handle errors
     next(error);
   }
 }
