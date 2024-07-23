@@ -36,7 +36,7 @@
           {{!-- {{#each (uniqBy products "category") as |product|}} --}}
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
-                href="/products?category=Tech%20%26%20Gadgets"
+              href="/products?category=Tech%20%26%20Gadgets"
             >Tech & Gadgets</a>
           </li>
           <li><a
@@ -92,18 +92,20 @@
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-            class="absolute left-2 top-1/4 text-gray-500 dark:text-gray-400"
+          class="absolute left-2 top-1/4 text-gray-500 dark:text-gray-400"
         >
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </svg>
-        <input
-          class="flex h-8 border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100 dark:bg-gray-800 pl-8 pr-4 py-1.5 rounded-md w-56 active-focus:outline-none active-focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary dark:text-white"
-          placeholder="Search products..."
-          type="search"
-          spellcheck="false"
-          data-ms-editor="true"
-        />
+        <form class="search-form">
+          <input
+            class="flex h-8 border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100 dark:bg-gray-800 pl-8 pr-4 py-1.5 rounded-md w-56 active-focus:outline-none active-focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary dark:text-white search-input"
+            placeholder="Search products..."
+            type="search"
+            spellcheck="false"
+            data-ms-editor="true"
+          />
+        </form>
       </div>
       <a href="/cart">
         <button
@@ -215,7 +217,7 @@
               {{#if last_name}}
                 <div class="flex flex-row items-center justify-center ml-3">
                   <span
-                    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full" 
+                    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
                   >
                     <img
                       class="aspect-square h-full w-full modal-trigger"

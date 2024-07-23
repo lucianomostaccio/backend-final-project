@@ -24,6 +24,14 @@ export async function getController(req, res, next) {
         query.category = req.query.category;
       }
 
+      // Check if a search query is provided in the query parameters
+      if (req.query.search) {
+        query.$or = [
+          { title: { $regex: req.query.search, $options: "i" } },
+          { description: { $regex: req.query.search, $options: "i" } },
+        ];
+      }
+
       const products = await productsService.readMany(query);
       return res.jsonOk(products);
     }

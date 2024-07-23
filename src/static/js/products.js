@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadProducts();
   closeMenus();
   applyUrlFilters();
+  setupClearSearchButton();
 });
 
 //filter and sort products:
@@ -23,13 +24,24 @@ let filters = {
   trending: false,
 };
 let currentSort = "";
+let currentSearch = "";
 
 // Load products
 async function loadProducts() {
   try {
     const url = new URL(window.location.href);
-    const category = url.searchParams.get('category');
-    const apiUrl = category ? `/api/products?category=${encodeURIComponent(category)}` : '/api/products';
+    const category = url.searchParams.get("category");
+    const search = url.searchParams.get("search");
+    let apiUrl = "/api/products";
+
+    if (category) {
+      apiUrl += `?category=${encodeURIComponent(category)}`;
+    }
+    if (search) {
+      apiUrl += category ? "&" : "?";
+      apiUrl += `search=${encodeURIComponent(search)}`;
+      currentSearch = search;
+    }
 
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -37,17 +49,21 @@ async function loadProducts() {
     if (data && data.payload && Array.isArray(data.payload)) {
       products = data.payload;
     } else {
-      console.error("El formato de los datos de productos es inesperado:", data);
+      console.error(
+        "El formato de los datos de productos es inesperado:",
+        data
+      );
       products = [];
     }
 
     renderProducts(products);
+    updateClearSearchButtonVisibility();
   } catch (error) {
     console.error("Error al cargar los productos:", error);
-    productGrid.innerHTML = "<p>Error al cargar los productos. Por favor, intenta de nuevo más tarde.</p>";
+    productGrid.innerHTML =
+      "<p>Error al cargar los productos. Por favor, intenta de nuevo más tarde.</p>";
   }
 }
-
 
 // Render products
 function renderProducts(productsToRender) {
@@ -58,6 +74,12 @@ function renderProducts(productsToRender) {
     );
     productGrid.innerHTML =
       "<p>Error al mostrar los productos. Por favor, intenta de nuevo más tarde.</p>";
+    return;
+  }
+
+  if (productsToRender.length === 0) {
+    productGrid.innerHTML =
+      "<p>No se encontraron productos que coincidan con tu búsqueda.</p>";
     return;
   }
 
@@ -223,18 +245,75 @@ function formatPrice(price) {
 // Function to apply filters from URL
 function applyUrlFilters() {
   const url = new URL(window.location.href);
-  const category = url.searchParams.get('category');
-  
+  const category = url.searchParams.get("category");
+  const search = url.searchParams.get("search");
+
   if (category) {
-    const checkbox = document.querySelector(`input[name="category"][value="${category}"]`);
+    const checkbox = document.querySelector(
+      `input[name="category"][value="${category}"]`
+    );
     const pageTitleCategory = document.querySelector("#titleProductsPage");
-    pageTitleCategory.textContent = category;
+    if (pageTitleCategory) {
+      pageTitleCategory.textContent = category;
+    }
     const filterButtonProducts = document.querySelector("#filter-button");
-    filterButtonProducts.style = "display: none";
+    if (filterButtonProducts) {
+      filterButtonProducts.style.display = "none";
+    }
     if (checkbox) {
       checkbox.checked = true;
       filters.categories = [category];
-      applyFilters();
     }
+  }
+
+  if (search) {
+    currentSearch = search;
+    const searchInput = document.querySelector(".search-input");
+    if (searchInput) {
+      searchInput.value = search;
+    }
+  }
+
+  applyFilters();
+  updateClearSearchButtonVisibility();
+}
+
+// Function to setup Clear Search button
+function setupClearSearchButton() {
+  const filterButton = document.querySelector("#filter-button");
+  if (filterButton) {
+    const clearSearchButton = document.createElement("button");
+    clearSearchButton.id = "clear-search-button";
+    clearSearchButton.className = filterButton.className; // use same classes as filter button
+    clearSearchButton.classList.add(
+      "dark:text-gray-300",
+      "hover:border-red-500"
+    );
+    clearSearchButton.textContent = "Clear Search";
+    clearSearchButton.style.display = "none";
+    filterButton.parentNode.insertBefore(clearSearchButton, filterButton);
+
+    clearSearchButton.addEventListener("click", clearSearch);
+  }
+}
+
+// Function to clear search
+function clearSearch() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("search");
+  window.history.pushState({}, "", url);
+  currentSearch = "";
+  const searchInput = document.querySelector(".search-input");
+  if (searchInput) {
+    searchInput.value = "";
+  }
+  loadProducts();
+}
+
+// Function to update Clear Search button visibility
+function updateClearSearchButtonVisibility() {
+  const clearSearchButton = document.querySelector("#clear-search-button");
+  if (clearSearchButton) {
+    clearSearchButton.style.display = currentSearch ? "inline-flex" : "none";
   }
 }

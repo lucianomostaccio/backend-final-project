@@ -22,6 +22,10 @@ class ProductsService {
   }
   // Load products from the database
   async readMany(criteria) {
+    console.log(
+      "accesed readMany products service. criteria passed:",
+      criteria
+    );
     return await productsDao.readMany(criteria);
   }
 
