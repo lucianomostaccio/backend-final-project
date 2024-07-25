@@ -14,6 +14,7 @@ import { addCartQuantityToLocals } from "../middlewares/cartQuantity.js";
 import { authenticateWithJwt } from "../middlewares/authentication.js";
 import { addImagePathToLocals } from "../middlewares/imagePath.js";
 import { errorsHandler } from "../middlewares/errorsHandler.js";
+import { handlebarsPagesError } from "../middlewares/handlebarsError.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -47,3 +48,6 @@ app.use(errorsHandler);
 // routers
 app.use("/", webRouter);
 app.use("/api", apiRouter);
+
+// 404 error handler
+app.use(handlebarsPagesError);

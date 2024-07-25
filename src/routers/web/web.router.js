@@ -9,6 +9,7 @@ import { webCartsRouter } from "./cart.router.js";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 import { SWAGGER_CONFIG } from "../../config/config.js";
+import { contactRouter } from "./contact.router.js";
 
 export const webRouter = Router();
 
@@ -18,18 +19,11 @@ webRouter.use(webUsersRouter);
 webRouter.use(sessionsRouter);
 webRouter.use(webCartsRouter);
 webRouter.use(adminRouter);
-
+webRouter.use(contactRouter);
 
 webRouter.get("/", (req, res) => {
   Logger.debug("Root route accessed");
   res.redirect("/home");
-  // if (req.user) {
-  //   Logger.debug("User is logged in, redirecting to /profile");
-  //   res.redirect("/profile"); // If the user is logged in, redirect to /profile
-  // } else {
-  //   Logger.debug("User not logged in, redirecting to /login");
-  //   res.redirect("/login"); // If the user is not logged in, redirect to /login
-  // }
 });
 
 const spec = swaggerJsdoc(SWAGGER_CONFIG);
