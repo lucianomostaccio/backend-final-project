@@ -7,12 +7,13 @@ import * as handlebarsHelpers from "../helpers/handlebarsHelpers.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import errorMiddleware from "../middlewares/errorMiddleware.js";
+// import errorMiddleware from "../middlewares/errorMiddleware.js";
 import { cookies } from "../middlewares/cookies.js";
 
 import { addCartQuantityToLocals } from "../middlewares/cartQuantity.js";
 import { authenticateWithJwt } from "../middlewares/authentication.js";
 import { addImagePathToLocals } from "../middlewares/imagePath.js";
+import { errorsHandler } from "../middlewares/errorsHandler.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -37,9 +38,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "static")));
 app.use(authenticateWithJwt);
-app.use(errorMiddleware);
 app.use(addCartQuantityToLocals);
 app.use(addImagePathToLocals);
+
+app.use(errorsHandler);
+// app.use(errorMiddleware);
 
 // routers
 app.use("/", webRouter);

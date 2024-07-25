@@ -50,7 +50,7 @@ async function loadProducts() {
       products = data.payload;
     } else {
       console.error(
-        "El formato de los datos de productos es inesperado:",
+        "data format is not valid. Expected an array in payload:",
         data
       );
       products = [];
@@ -59,27 +59,24 @@ async function loadProducts() {
     renderProducts(products);
     updateClearSearchButtonVisibility();
   } catch (error) {
-    console.error("Error al cargar los productos:", error);
+    console.error("Error loading products:", error);
     productGrid.innerHTML =
-      "<p>Error al cargar los productos. Por favor, intenta de nuevo más tarde.</p>";
+      "<p class=dark:text-gray-300>Error loading products.</p>";
   }
 }
 
 // Render products
 function renderProducts(productsToRender) {
   if (!Array.isArray(productsToRender)) {
-    console.error(
-      "renderProducts recibió un argumento no válido:",
-      productsToRender
-    );
+    console.error("renderProducts got an invalid argument:", productsToRender);
     productGrid.innerHTML =
-      "<p>Error al mostrar los productos. Por favor, intenta de nuevo más tarde.</p>";
+      "<p class=dark:text-gray-300>Error rendering products.</p>";
     return;
   }
 
   if (productsToRender.length === 0) {
     productGrid.innerHTML =
-      "<p>No se encontraron productos que coincidan con tu búsqueda.</p>";
+      "<p class=dark:text-gray-300> No products were found.</p>";
     return;
   }
 
@@ -117,7 +114,7 @@ function renderProducts(productsToRender) {
 // Apply filters
 function applyFilters() {
   if (!Array.isArray(products)) {
-    console.error("Los productos no son un array válido:", products);
+    console.error("products are not a valid array", products);
     return;
   }
 
@@ -140,10 +137,7 @@ function applyFilters() {
 // Order products
 function sortProducts(productsToSort, sortOption) {
   if (!Array.isArray(productsToSort)) {
-    console.error(
-      "sortProducts recibió un argumento no válido:",
-      productsToSort
-    );
+    console.error("sortProducts got an invalid argument:", productsToSort);
     return productsToSort;
   }
 

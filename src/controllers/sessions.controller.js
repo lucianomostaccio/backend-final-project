@@ -12,6 +12,7 @@ export const sessionsPost = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    console.log("error in sessionsPost:", error);
     next(error);
   }
 };

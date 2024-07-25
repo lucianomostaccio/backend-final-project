@@ -19,20 +19,24 @@ export class UsersService {
       console.log("user obtained by authenticate in users.service:", user);
       if (!user) {
         console.log("user not found");
-        const typedError = new Error("Auth error");
+        const typedError = new Error("Auth error, user email not found");
         typedError["type"] = "FAILED_AUTHENTICATION";
         throw typedError;
       }
       if (!this.hashing.isValidPassword(password, user.password)) {
         console.log("invalid password");
-        const typedError = new Error("Auth error");
+        const typedError = new Error("Auth error, invalid password");
         typedError["type"] = "FAILED_AUTHENTICATION";
         throw typedError;
       }
       console.log("authenticated successfully");
       return user;
     } catch (error) {
-      throw new Error(`Auth error: ${error.message}`);
+      if (!error["type"]) {
+        console.log("error type not found");
+        error["type"] = "UNKNOWN_ERROR";
+      }
+      throw error;
     }
   }
 

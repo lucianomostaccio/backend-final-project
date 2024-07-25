@@ -47,7 +47,8 @@ export async function authenticateWithJwt(req, res, next) {
 
   if (!token) {
     // If there is no token, the user is not authenticated
-    // Perform an action here, such as redirecting the user to the login page or pass it to the next middleware
+    // Pass it to the next middleware
+    console.log("no token found in authenticateWithJwt");
     return next();
   } else {
     // If there is a token, proceed with authentication
@@ -59,6 +60,7 @@ export async function authenticateWithJwt(req, res, next) {
           // If there is an error during authentication, pass it to the next middleware
           const typedError = new Error("authentication error");
           typedError["type"] = "FAILED_AUTHENTICATION";
+          console.log("error in authentication.js, error with token:", error);
           return next(typedError);
         } else {
           // If authentication is successful, pass to the next middleware
