@@ -5,6 +5,7 @@
     <div>
       <h2
         class="text-center text-3xl font-bold text-gray-900 dark:text-gray-50"
+        id="contactUsTitle"
       >Contact Us</h2>
     </div>
     <form id="contactForm" class="space-y-6">
@@ -51,7 +52,7 @@
           Message
         </label>
         <textarea
-          class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700"
+          class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
           spellcheck="false"
           data-ms-editor="true"
           name="messageContact"
@@ -68,6 +69,12 @@
         </button>
       </div>
     </form>
+    <div
+      id="successMessage"
+      class="hidden mt-4 text-green-600 text-center font-bold"
+    >
+      Thank you for your message!
+    </div>
   </div>
 </section>
 

@@ -10,7 +10,9 @@ export class Form {
   constructor({ _id = randomUUID(), name, email, text }) {
     this.#_id = _id;
     this.#name = name;
-    this.#date = new Date();
+    this.#date = new Date().toLocaleString("en-US", {
+      timeZone: "America/Argentina/Buenos_Aires",
+    });
     this.#email = email;
     this.#text = text;
   }
