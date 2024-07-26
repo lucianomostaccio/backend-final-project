@@ -8,6 +8,7 @@ import { cartsRouter } from "./cart.router.js";
 import { errorsHandler } from "../../middlewares/errorsHandler.js";
 import { adminRouter } from "./admin.router.js";
 import { ticketsRouter } from "./tickets.router.js";
+import { contactRouter } from "./contact.router.js";
 
 export const apiRouter = Router();
 
@@ -24,3 +25,4 @@ apiRouter.use("/users", usersRouter);
 apiRouter.use("/loggerTest", loggerRouter);
 apiRouter.use("/admin", adminRouter);
 apiRouter.use("/tickets", ticketsRouter);
+apiRouter.use("/contact", contactRouter);
