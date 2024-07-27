@@ -263,11 +263,12 @@ function applyUrlFilters() {
   if (search) {
     currentSearch = search;
     const searchInput = document.querySelector(".search-input");
+    const pageTitleCategory = document.querySelector("#titleProductsPage");
+    pageTitleCategory.textContent = `Search: ${search}`;
     if (searchInput) {
       searchInput.value = search;
     }
   }
-
   applyFilters();
   updateClearSearchButtonVisibility();
 }
@@ -298,6 +299,8 @@ function clearSearch() {
   window.history.pushState({}, "", url);
   currentSearch = "";
   const searchInput = document.querySelector(".search-input");
+  const pageTitleCategory = document.querySelector("#titleProductsPage");
+  pageTitleCategory.textContent = "All Products";
   if (searchInput) {
     searchInput.value = "";
   }
