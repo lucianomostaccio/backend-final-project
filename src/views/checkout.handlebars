@@ -1,0 +1,178 @@
+<!-- checkout.handlebars -->
+<section class="py-12 md:py-20 dark:bg-gray-800">
+  <div class="container mx-auto px-4 md:px-6" id="main-content">
+     <!-- Main content will be dynamically replaced after purchase -->
+    <h2
+      class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-8"
+    >Checkout</h2>
+
+    {{#if products}}
+      <div class="container mx-auto mb-8">
+        <div class="flex items-center justify-between">
+          <h2
+            class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-8"
+            data-id="32"
+          >Your Cart</h2>
+          <div>
+            <span
+              class="text-gray-900 dark:text-gray-50 font-semibold text-xl mt-4"
+            >Total: <span id="total-price">{{formatPrice total}}</span></span>
+          </div>
+        </div>
+        <div
+          class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {{#each products}}
+
+            <div
+              class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-row"
+            >
+              <img
+                src="{{getFirstValidThumbnail thumbnails}}"
+                alt="product thumbnail"
+                width="80"
+                height="50"
+                class="rounded-tl-lg rounded-bl-lg object-cover"
+                style="aspect-ratio: 80 / 50; object-fit: cover;"
+              />
+              <div class="p-4 flex flex-col flex-grow">
+                <h3
+                  class="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2"
+                >{{productId.title}}</h3>
+                <div class="flex items-center justify-between mt-auto">
+                  <div
+                    class="text-gray-900 dark:text-gray-50 font-semibold"
+                  >{{formatPrice productId.price}}</div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+    <form id="checkout-form" class="space-y-8">
+      <!-- Billing Information -->
+      <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-6">
+        <h3
+          class="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-4"
+        >Billing Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="billing_name"
+            placeholder="Full Name"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="email"
+            name="billing_email"
+            placeholder="Email Address"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="tel"
+            name="billing_phone"
+            placeholder="Phone Number"
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-6">
+        <h3
+          class="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-4"
+        >Shipping Address</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="shipping_address"
+            placeholder="Street Address"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="shipping_city"
+            placeholder="City"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="shipping_state"
+            placeholder="State/Province"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="shipping_zip"
+            placeholder="Zip/Postal Code"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="shipping_country"
+            placeholder="Country"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+        </div>
+      </div>
+
+      <!-- Payment Information -->
+      <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-6">
+        <h3
+          class="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-4"
+        >Payment Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="card_number"
+            placeholder="Card Number"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="card_name"
+            placeholder="Name on Card"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="card_expiry"
+            placeholder="MM/YY"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+          <input
+            type="text"
+            name="card_cvv"
+            placeholder="CVV"
+            required
+            class="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-gray-100"
+          />
+        </div>
+      </div>
+
+      <!-- Complete Purchase Button -->
+      <div class="text-right">
+        <button
+          type="submit"
+          onclick="buyCart(event, '{{cartId}}')"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-black text-gray-50 hover:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-900 buyCart"
+        >
+          Complete Purchase
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src="/js/checkout.js"></script>

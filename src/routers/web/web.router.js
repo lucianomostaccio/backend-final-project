@@ -10,6 +10,7 @@ import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 import { SWAGGER_CONFIG } from "../../config/config.js";
 import { contactRouter } from "./contact.router.js";
+import { webCheckoutRouter } from "./tickets.router.js";
 
 export const webRouter = Router();
 
@@ -20,6 +21,7 @@ webRouter.use(sessionsRouter);
 webRouter.use(webCartsRouter);
 webRouter.use(adminRouter);
 webRouter.use(contactRouter);
+webRouter.use(webCheckoutRouter)
 
 webRouter.get("/", (req, res) => {
   Logger.debug("Root route accessed");

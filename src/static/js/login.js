@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const data = await response.json();
-      console.log(respone.status)
+      console.log(response.status)
 
       if (response.status === 201) {
         console.log("response successful");
