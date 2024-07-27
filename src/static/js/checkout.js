@@ -1,3 +1,4 @@
+// @ts-nocheck
 function buyCart(event, cartId) {
   event.preventDefault();
   console.log("Purchasing items in cart:", cartId);
@@ -23,8 +24,9 @@ function buyCart(event, cartId) {
       console.log("Purchase successful, redirecting:", data);
       // Clear the main container and show a thank you message
       const mainContainer = document.querySelector("#main-content");
-      // @ts-ignore
-      mainContainer.innerHTML = `<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-8">Thank you for your purchase! You will receive a confirmation email and order summary shortly.</h2>`;
+      const cartCount = document.querySelector(".cart-count");
+      mainContainer.innerHTML = `<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4">Thank you for your purchase!</h2> <br> <p class="text-gray-500 dark:text-gray-400 mb-8">You will receive a confirmation email and order summary shortly.</p>`;
+      cartCount.textContent = "0";
     })
     .catch((error) => {
       console.error("Error during purchase:", error);
