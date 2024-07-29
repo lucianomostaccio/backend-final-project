@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 //modal for images
 document.addEventListener("DOMContentLoaded", () => {
   // Check the dark mode status from localStorage on DOMContentLoaded
@@ -60,6 +59,15 @@ function addProductToCart(event, productId) {
           (item) => item.productId === productId
         );
         if (product) {
+          // Use Toastify to show a success message
+          Toastify({
+            text: "Product added to cart",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#4fbe87",
+          }).showToast();
           const quantityDisplay = document.querySelector(
             `#quantity-${productId}`
           );
@@ -114,6 +122,14 @@ function removeProductFromCart(event, productId) {
           (item) => item.productId === productId
         );
         if (product) {
+          Toastify({
+            text: "Product removed from cart",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#9f0808",
+          }).showToast();
           const quantityDisplay = document.querySelector(
             `#quantity-${productId}`
           );
