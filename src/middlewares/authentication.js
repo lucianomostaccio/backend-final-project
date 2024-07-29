@@ -1,6 +1,12 @@
 import passport from "passport";
 import { Strategy as JwtStrategy } from "passport-jwt";
-import { JWT_PRIVATE_KEY } from "../config/config.js";
+import { Strategy as GitHubStrategy } from "passport-github2";
+import {
+  JWT_PRIVATE_KEY,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  GITHUB_CALLBACK_URL,
+} from "../config/config.js";
 import { getDaoUsers } from "../daos/users/users.dao.js";
 
 passport.use(
@@ -37,6 +43,35 @@ passport.use(
         .catch((error) => {
           done(error);
         });
+    }
+  )
+);
+
+passport.use(
+  // @ts-ignore
+  new GitHubStrategy(
+    {
+      clientID: GITHUB_CLIENT_ID,
+      clientSecret: GITHUB_CLIENT_SECRET,
+      callbackURL: GITHUB_CALLBACK_URL,
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      const daoUsers = getDaoUsers();
+      try {
+        let user = await daoUsers.readOne({ email: profile.emails[0].value });
+        if (!user) {
+          // Create a new user if not found
+          user = await daoUsers.create({
+            email: profile.emails[0].value,
+            firstName: profile.displayName || profile.username,
+            lastName: "",
+            // Add any other fields you need
+          });
+        }
+        done(null, user);
+      } catch (error) {
+        done(error);
+      }
     }
   )
 );

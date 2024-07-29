@@ -4,8 +4,9 @@ import {
   deleteTokenFromCookie,
   tokenizeUserInCookie,
 } from "../../middlewares/tokens.js";
-import { sessionsPost } from "../../controllers/sessions.controller.js";
+import { githubSessionsPost, sessionsPost } from "../../controllers/sessions.controller.js";
 import Logger from "../../utils/logger.js";
+import passport from "passport";
 
 export const sessionsRouter = Router();
 
@@ -16,7 +17,7 @@ sessionsRouter.post(
   async (req, res) => {
     try {
       // @ts-ignore
-      console.log("session created", req.user)
+      console.log("session created", req.user);
       res["created"](req.user);
       Logger.info("Session created for", req.user);
     } catch (error) {
@@ -24,6 +25,20 @@ sessionsRouter.post(
       console.error("Error creating session:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
+  }
+);
+
+sessionsRouter.get(
+  "/auth/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+
+sessionsRouter.get(
+  "/auth/github/callback",
+  githubSessionsPost,
+  tokenizeUserInCookie,
+  (req, res) => {
+    res.redirect("/"); // Redirect to home page after successful login
   }
 );
 

@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const formLogin = document.querySelector("#loginForm");
   const emailInput = document.querySelector('input[name="email"]');
   const passwordInput = document.querySelector('input[name="password"]');
-  const rememberCheckbox = document.getElementById("remember");
-  const passwordError = document.getElementById("passwordError");
+  const rememberCheckbox = document.querySelector("#remember");
+  const passwordError = document.querySelector("#passwordError");
+  const githubLogin = document.querySelector("#githubLogin");
 
   // Load saved data when the page loads
   emailInput.value = localStorage.getItem("email") || "";
@@ -23,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (rememberCheckbox.checked) {
       console.log("remembered, saving to localstorage");
       localStorage.setItem("email", emailInput.value);
-      // localStorage.setItem("password", passwordInput.value);
       localStorage.setItem("remember", "true");
     } else {
       localStorage.removeItem("email");
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const data = await response.json();
-      console.log(response.status)
+      console.log(response.status);
 
       if (response.status === 201) {
         console.log("response successful");
@@ -48,12 +48,21 @@ document.addEventListener("DOMContentLoaded", function () {
         passwordError.textContent = data.message;
         passwordError.classList.remove("hidden");
         passwordInput.value = ""; // Clear the password field
-      } 
+      }
     } catch (error) {
       console.error("Error during login:", error);
-      passwordError.textContent = "Email or password incorrect. Please try again."; 
+      passwordError.textContent =
+        "Email or password incorrect. Please try again.";
       passwordError.classList.remove("hidden");
       passwordInput.value = ""; // Clear the password field
     }
+  });
+
+  githubLogin.addEventListener("click", (event) => {
+    console.log("github login clicked");
+    event.preventDefault();
+
+    // Redirect to GitHub auth route
+    window.location.href = "/api/sessions/auth/github";
   });
 });
