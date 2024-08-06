@@ -9,7 +9,7 @@
         id="titleProductsPage"
       >All Products</h2>
       <div class="flex items-center gap-4 relative"><button
-          class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary"
+          class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary hover:border-green-500"
           type="button"
           id="filter-button"
           aria-haspopup="menu"
@@ -87,7 +87,7 @@
           </div>
         </div>
         <button
-          class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary"
+          class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary hover:border-green-500"
           type="button"
           id="sort-button"
           aria-haspopup="menu"
@@ -170,7 +170,7 @@
     >
       {{#each products}}
         <div
-          class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
+          class="product-card bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
         >
           <img
             src="{{getFirstValidThumbnail thumbnails}}"

@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   closeMenus();
   applyUrlFilters();
   setupClearSearchButton();
+  setupViewAllProductsButton();
 });
 
 //filter and sort products:
@@ -83,7 +84,7 @@ function renderProducts(productsToRender) {
   productGrid.innerHTML = productsToRender
     .map(
       (product) => `
-    <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+    <div class="product-card file:bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
       <img src="${getFirstValidThumbnail(
         product.thumbnails
       )}" alt="Product image" width="400" height="400" class="rounded-t-lg object-cover w-full h-56" style="aspect-ratio: 400 / 400; object-fit: cover;">
@@ -312,5 +313,52 @@ function updateClearSearchButtonVisibility() {
   const clearSearchButton = document.querySelector("#clear-search-button");
   if (clearSearchButton) {
     clearSearchButton.style.display = currentSearch ? "inline-flex" : "none";
+  }
+}
+
+// Function to setup View All Products button
+function setupViewAllProductsButton() {
+  const filterButton = document.querySelector("#filter-button");
+  const url = new URL(window.location.href);
+  const category = url.searchParams.get("category");
+
+  if (filterButton && category) {
+    const viewAllProductsButton = document.createElement("button");
+    viewAllProductsButton.id = "view-all-products-button";
+    viewAllProductsButton.className = filterButton.className; // use same classes as filter button
+    viewAllProductsButton.classList.remove(
+      "hover:border-green-500"
+    );
+    viewAllProductsButton.classList.add(
+      "dark:text-gray-300",
+      "hover:border-red-500"
+    );
+    viewAllProductsButton.textContent = "Clear - View All";
+    filterButton.parentNode.insertBefore(viewAllProductsButton, filterButton);
+
+    viewAllProductsButton.addEventListener("click", viewAllProducts);
+    filterButton.style.display = "none"; // Hide filter button initially
+  }
+}
+
+// Function to view all products
+function viewAllProducts() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("category");
+  window.history.pushState({}, "", url);
+  const pageTitleCategory = document.querySelector("#titleProductsPage");
+  pageTitleCategory.textContent = "All Products";
+  loadProducts();
+
+  // Hide the View All Products button and show the filter button
+  const viewAllProductsButton = document.querySelector(
+    "#view-all-products-button"
+  );
+  const filterButton = document.querySelector("#filter-button");
+  if (viewAllProductsButton) {
+    viewAllProductsButton.style.display = "none";
+  }
+  if (filterButton) {
+    filterButton.style.display = "flex";
   }
 }

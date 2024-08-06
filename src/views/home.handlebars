@@ -51,7 +51,7 @@
       {{#each products}}
         {{#if featured}}
           <div
-            class="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
+            class="bg-white product-card dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
           >
             <img
               src="{{getFirstValidThumbnail thumbnails}}"
@@ -99,7 +99,7 @@
     >
       {{#each (uniqBy products "category") as |product|}}
         <a
-          class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4"
+          class="bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-4 product-card"
           href="#"
         >
           <img
@@ -134,7 +134,7 @@
       {{#each products}}
         {{#if trending}}
           <div
-            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            class="product-card bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
           >
             <img
               src="{{getFirstValidThumbnail thumbnails}}"

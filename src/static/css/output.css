@@ -1634,12 +1634,26 @@ input {
   }
 }
 
+.product-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 .file\:border-0::file-selector-button {
   border-width: 0px;
 }
 
 .file\:bg-transparent::file-selector-button {
   background-color: transparent;
+}
+
+.file\:bg-white::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .file\:text-sm::file-selector-button {
@@ -1649,6 +1663,11 @@ input {
 
 .file\:font-medium::file-selector-button {
   font-weight: 500;
+}
+
+.hover\:border-green-500:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
 }
 
 .hover\:border-green-700:hover {
