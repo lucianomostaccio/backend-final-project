@@ -54,6 +54,16 @@ function addProductToCart(event, productId) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Response data:", data);
+      if (data.showToast) {
+        Toastify({
+          text: data.message,
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "red",
+        }).showToast();
+      }
       if (data && data.payload && data.payload.products) {
         const product = data.payload.products.find(
           (item) => item.productId === productId
