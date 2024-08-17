@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   applyUrlFilters();
   setupClearSearchButton();
   setupViewAllProductsButton();
+  const searchInput = document.querySelector(".search-input");
+  searchInput.value = "";
 });
 
 //filter and sort products:
@@ -326,9 +328,7 @@ function setupViewAllProductsButton() {
     const viewAllProductsButton = document.createElement("button");
     viewAllProductsButton.id = "view-all-products-button";
     viewAllProductsButton.className = filterButton.className; // use same classes as filter button
-    viewAllProductsButton.classList.remove(
-      "hover:border-green-500"
-    );
+    viewAllProductsButton.classList.remove("hover:border-green-500");
     viewAllProductsButton.classList.add(
       "dark:text-gray-300",
       "hover:border-red-500"
