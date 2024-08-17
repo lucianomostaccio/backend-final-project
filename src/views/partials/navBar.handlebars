@@ -1,8 +1,25 @@
-<header class="bg-white shadow-sm dark:bg-gray-950">
-  <div
-    class="container mx-auto px-4 md:px-6 flex items-center justify-between h-16"
-  >
-    <a class="flex items-center gap-2" href="/home">
+<header class="bg-white shadow-sm dark:bg-gray-950 sticky top-0 z-10">
+  <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+    <!-- Mobile menu button -->
+    <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 dark:text-gray-300"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"
+        />
+      </svg>
+    </button>
+
+    {{! logo }}
+    <a class="flex items-center gap-2 md:mr-0" href="/home">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -21,67 +38,59 @@
         class="font-semibold text-lg dark:text-gray-400 dark:hover:text-blue-400"
       >LDM Store</span>
     </a>
-    <nav class="hidden md:flex items-center gap-12">
+
+    <!-- Navigation menu (hidden on mobile) -->
+    <nav class="hidden md:flex items-center gap-6 lg:gap-12">
       <a
-        class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+        class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
         href="/home"
-      >
-        Home
-      </a>
+      >Home</a>
       <li
-        class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 categoryDropdown"
+        class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50 categoryDropdown"
         href=""
-      >Categories ▾
+      >
+        Categories ▾
         <ul class="navCategories dark:bg-gray-600">
-          {{!-- {{#each (uniqBy products "category") as |product|}} --}}
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
               href="/products?category=Tech%20%26%20Gadgets"
-            >Tech & Gadgets</a>
-          </li>
+            >Tech & Gadgets</a></li>
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
               href="/products?category=Hobbies%20%26%20Leisure"
-            >Hobbies & Leisure</a>
-          </li>
+            >Hobbies & Leisure</a></li>
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
               href="/products?category=Food%20%26%20Drink"
-            >Food & Drink</a>
-          </li>
+            >Food & Drink</a></li>
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
               href="/products?category=Home%20%26%20Living"
-            >Home & Living</a>
-          </li>
+            >Home & Living</a></li>
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
               href="/products?category=Health%20%26%20Wellness"
-            >Health & Wellness</a>
-          </li>
+            >Health & Wellness</a></li>
           <li><a
               class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
               href="/products?category=Fashion%20%26%20Accessories"
-            >Fashion & Accessories</a>
-          </li>
-
-          {{!-- {{/each}} --}}
-        </ul></li>
+            >Fashion & Accessories</a></li>
+        </ul>
+      </li>
       <a
-        class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+        class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
         href="/products"
-      >
-        Products
-      </a>
+      >All products</a>
       <a
-        class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+        class="text-gray-500 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
         href="/contact"
-      >
-        Contact Us
-      </a>
+      >Contact Us</a>
     </nav>
+
+    <!-- Right side icons -->
     <div class="flex items-center gap-4">
-      <div class="relative ml-2 dark:text-white">
+      <!-- Search input (visible only on desktop) -->
+      <div class="relative hidden sm:block">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -92,22 +101,22 @@
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="absolute left-2 top-1/4 text-gray-500 dark:text-gray-400"
+          class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300"
         >
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </svg>
         <form class="search-form">
           <input
-            class="flex h-8 border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100 dark:bg-gray-800 pl-8 pr-4 py-1.5 rounded-md w-56 active-focus:outline-none active-focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary dark:focus:border-primary dark:text-white search-input"
+            class="w-full sm:w-56 h-8 pl-8 pr-4 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 dark:text-white"
             placeholder="Search products..."
             type="search"
-            spellcheck="false"
-            data-ms-editor="true"
           />
         </form>
       </div>
-      <a href="/cart">
+
+      <!-- Cart button -->
+      <a href="/cart" class="relative">
         <button
           class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
         >
@@ -121,7 +130,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="h-6 w-6 dark:text-gray-400"
+            class="h-6 w-6 dark:text-gray-300"
           >
             <circle cx="8" cy="21" r="1"></circle>
             <circle cx="19" cy="21" r="1"></circle>
@@ -131,11 +140,12 @@
           </svg>
           <span class="sr-only">Cart</span>
           <span
-            class="dark:text-gray-400 cart-count"
-            id=""
+            class="absolute top-0 right-0 -mt-1 -mr-1 px-2 py-1 text-xs font-bold text-white bg-red-500 rounded-full dark:text-gray-100 dark:bg-slate-700 cart-count"
           >{{cartQuantity}}</span>
         </button>
       </a>
+
+      <!-- Dark mode toggle -->
       <button
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
         id="dark-mode-toggle"
@@ -151,11 +161,10 @@
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="h-6 w-6 dark:text-gray-400"
+          class="h-6 w-6 dark:text-gray-300"
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
-        {{! sun icon for when on dark mode: }}
         <svg
           id="dark-mode-icon"
           style="display: none;"
@@ -181,93 +190,194 @@
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
         <span class="sr-only">Toggle dark mode</span>
-
       </button>
-      {{! Profile dropdown }}
-      <div>
-        <div id="profileNavContainer" class="relative">
-          <button
-            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full md-hidden"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="h-6 w-6 dark:text-gray-400"
-            >
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span class="sr-only">Toggle profile menu</span>
-          </button>
 
-          <div
-            id="profileDataNav"
-            class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-md shadow-lg z-10 hidden"
+      <!-- Profile dropdown -->
+      <div class="relative hidden md:block" id="profileNavContainer">
+        <button
+          class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 dark:text-gray-300"
           >
-            <div
-              class="flex flex-col items-center border-b dark:border-gray-800"
-            >
-              {{#if last_name}}
-                <div class="flex flex-row items-center justify-center ml-3">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="sr-only">Toggle profile menu</span>
+        </button>
+
+        <div
+          id="profileDataNav"
+          class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-md shadow-lg z-10 hidden"
+        >
+          <div class="p-4 border-b dark:border-gray-800">
+            {{#if last_name}}
+              <div class="flex items-center">
+                <img
+                  class="h-10 w-10 rounded-full mr-3 modal-trigger"
+                  src="{{fullImageUrl}}"
+                  alt="Profile picture"
+                />
+                <div>
+                  <h2
+                    class="text-lg font-bold text-gray-900 dark:text-gray-50"
+                  >{{last_name}}, {{first_name}}</h2>
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400"
+                  >{{role}}</p>
+                </div>
+              </div>
+              <div class="mt-4 space-y-2">
+                <p class="text-sm"><span
+                    class="text-gray-500 dark:text-gray-400"
+                  >Email:</span>
                   <span
-                    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
-                  >
-                    <img
-                      class="aspect-square h-full w-full modal-trigger"
-                      src="{{fullImageUrl}}"
-                    />
-                  </span>
-
-                  <div class="ml-3">
-                    <h2
-                      class="text-lg font-bold text-gray-900 dark:text-gray-50"
-                    >{{last_name}}, {{first_name}}</h2>
-                    <p class="text-gray-500 dark:text-gray-400">{{role}}</p>
-                  </div>
-                </div>
-                <div class="p-4 grid w-full">
-                  <div>
-                    <p class="text-gray-500 dark:text-gray-400">Email</p>
-                    <p class="text-gray-900 dark:text-gray-50">{{email}}</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500 dark:text-gray-400">Age</p>
-                    <p class="text-gray-900 dark:text-gray-50">{{age}}</p>
-                  </div>
-                  <a
-                    class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-200 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
-                    href="/edit"
-                  >Edit Profile</a>
-                  <form
-                    class="formButton"
-                    id="form-logout"
-                    action="/api/sessions/current"
-                    method="DELETE"
-                  >
-                    <button
-                      class="redButton text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-200 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center mt-2"
-                      type="submit"
-                    >Log out
-
-                    </button>
-                  </form>
-                </div>
-              {{else}}
-                <a href="/login"><button
-                    class="bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-gray-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
-                  >Login</button>
-                </a>
-              {{/if}}
-            </div>
+                    class="text-gray-900 dark:text-gray-50"
+                  >{{email}}</span></p>
+                <p class="text-sm"><span
+                    class="text-gray-500 dark:text-gray-400"
+                  >Age:</span>
+                  <span
+                    class="text-gray-900 dark:text-gray-50"
+                  >{{age}}</span></p>
+              </div>
+              <div class="mt-4 space-y-2">
+                <a
+                  href="/edit"
+                  class="block w-full bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-200 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
+                >Edit Profile</a>
+                <form
+                  id="form-logout"
+                  action="/api/sessions/current"
+                  method="DELETE"
+                >
+                  <button
+                    type="submit"
+                    class="block w-full redButton text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary-400 dark:text-gray-200 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center mt-2"
+                  >Log out</button>
+                </form>
+              </div>
+            {{else}}
+              <a
+                href="/login"
+                class="block w-full bg-black text-gray-50 hover:bg-primary-600 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-gray-400 dark:text-gray-900 dark:hover:bg-primary-500 rounded-md px-4 py-2 font-medium text-center"
+              >Login</a>
+            {{/if}}
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile navigation menu (hidden by default) -->
+  <div
+    class="md:hidden hidden bg-white dark:bg-gray-800 shadow-lg"
+    id="mobile-menu"
+  >
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+        href="/home"
+      >Home</a>
+      <div class="relative">
+        <button
+          onclick="toggleDropdown()"
+          class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 flex justify-between items-center"
+        >
+          Categories
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 ml-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+        <div id="dropdownMenu" class="hidden mt-2 space-y-1">
+          <a
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            href="/products?category=Tech%20%26%20Gadgets"
+          >Tech & Gadgets</a>
+          <a
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            href="/products?category=Hobbies%20%26%20Leisure"
+          >Hobbies & Leisure</a>
+          <a
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            href="/products?category=Food%20%26%20Drink"
+          >Food & Drink</a>
+          <a
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            href="/products?category=Home%20%26%20Living"
+          >Home & Living</a>
+          <a
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            href="/products?category=Health%20%26%20Wellness"
+          >Health & Wellness</a>
+          <a
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            href="/products?category=Fashion%20%26%20Accessories"
+          >Fashion & Accessories</a>
+        </div>
+      </div>
+      <a
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+        href="/products"
+      >All Products</a>
+      <a
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+        href="/contact"
+      >Contact Us</a>
+    </div>
+    <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <img
+            class="h-10 w-10 rounded-full"
+            src="{{fullImageUrl}}"
+            alt="Profile picture"
+          />
+        </div>
+        <div class="ml-3">
+          <div
+            class="text-base font-medium text-gray-800 dark:text-gray-200"
+          >{{first_name}} {{last_name}}</div>
+          <div
+            class="text-sm font-medium text-gray-500 dark:text-gray-400"
+          >{{email}}</div>
+        </div>
+      </div>
+      <div class="mt-3 space-y-1">
+        <a
+          href="/edit"
+          class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+        >Edit Profile</a>
+        <form
+          id="mobile-form-logout"
+          action="/api/sessions/current"
+          method="DELETE"
+        >
+          <button
+            type="submit"
+            class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+          >Log out</button>
+        </form>
       </div>
     </div>
   </div>

@@ -195,3 +195,27 @@ document
   .addEventListener("click", function () {
     toggleDarkMode();
   });
+
+// JavaScript to toggle the mobile menu on navbar
+document
+  .getElementById("mobile-menu-button")
+  .addEventListener("click", function () {
+    document.getElementById("mobile-menu").classList.toggle("hidden");
+  });
+
+// Close mobile menu when clicking outside
+document.addEventListener("click", function (event) {
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  if (
+    !mobileMenu.contains(event.target) &&
+    !mobileMenuButton.contains(event.target)
+  ) {
+    mobileMenu.classList.add("hidden");
+  }
+});
+
+function toggleDropdown() {
+  const menu = document.getElementById("dropdownMenu");
+  menu.classList.toggle("hidden");
+}
