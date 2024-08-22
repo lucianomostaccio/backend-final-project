@@ -6,8 +6,11 @@ import {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
   GITHUB_CALLBACK_URL,
+  DEFAULT_USER_AVATAR_PATH,
+  DEFAULT_ROLE,
 } from "../config/config.js";
 import { getDaoUsers } from "../daos/users/users.dao.js";
+import { encrypt } from "../utils/hashing.js";
 
 passport.use(
   "jwt",
@@ -56,6 +59,7 @@ passport.use(
       callbackURL: GITHUB_CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
+      console.log("github profile data:", profile);
       const daoUsers = getDaoUsers();
       try {
         let user = await daoUsers.readOne({ email: profile.emails[0].value });
@@ -63,12 +67,19 @@ passport.use(
           // Create a new user if not found
           user = await daoUsers.create({
             email: profile.emails[0].value,
-            firstName: profile.displayName || profile.username,
-            lastName: "",
-            // Add any other fields you need
+            password: "",
+            first_name: profile.displayName || profile.username,
+            last_name: "", 
+            age: "", 
+            profile_picture: profile.photos[0]?.value || DEFAULT_USER_AVATAR_PATH,
+            role: DEFAULT_ROLE, 
+            tickets: [], 
+            last_login: new Date(),
           });
         }
-        done(null, user);
+        // Generate token
+        const token = await encrypt(user);
+        done(null, { user, token });
       } catch (error) {
         done(error);
       }

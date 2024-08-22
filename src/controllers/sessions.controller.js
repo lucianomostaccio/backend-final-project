@@ -21,7 +21,7 @@ export const sessionsPost = async (req, res, next) => {
 export const githubSessionsPost = (req, res, next) => {
   passport.authenticate(
     "github",
-    { failureRedirect: "/login" },
+    { session: false, failureRedirect: "/login" },
     (err, user, info) => {
       if (err) {
         return next(err);
@@ -29,12 +29,9 @@ export const githubSessionsPost = (req, res, next) => {
       if (!user) {
         return res.redirect("/login");
       }
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        return next(); // Continue to tokenizeUserInCookie middleware
-      });
+     
+      req.user = user;
+      return next(); // Continue to tokenizeUserInCookie middleware
     }
   )(req, res, next);
 };

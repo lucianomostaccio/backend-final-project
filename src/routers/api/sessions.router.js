@@ -7,6 +7,7 @@ import {
 import { githubSessionsPost, sessionsPost } from "../../controllers/sessions.controller.js";
 import Logger from "../../utils/logger.js";
 import passport from "passport";
+import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const sessionsRouter = Router();
 
@@ -42,6 +43,6 @@ sessionsRouter.get(
   }
 );
 
-sessionsRouter.delete("/current", deleteTokenFromCookie, (req, res) => {
+sessionsRouter.delete("/current", authenticateWithJwt, deleteTokenFromCookie, (req, res) => {
   res["ok"]();
 });
