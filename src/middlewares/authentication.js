@@ -29,17 +29,17 @@ passport.use(
       },
       secretOrKey: JWT_PRIVATE_KEY,
     },
-    // Searchs for the user in the database and passes it to the next middleware,
+    // Searchs for the user in the database and passes it updated to the next middleware,
     // in every request
     async (user, done) => {
       const daoUsers = getDaoUsers();
       console.log(
-        "searching for authentication the user in the DB:",
-        user.email
+        "searching for authentication the user in the DB:",user, user.user._id,
+        user.user.email
       );
       await daoUsers
         //convert the email to an object for mongoose to search
-        .readOne({ email: user.email })
+        .readOne({ email: user.user.email })
         .then((user) => {
           done(null, user);
         })
