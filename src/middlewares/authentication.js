@@ -34,12 +34,12 @@ passport.use(
     async (user, done) => {
       const daoUsers = getDaoUsers();
       console.log(
-        "searching for authentication the user in the DB:",user, user.user._id,
-        user.user.email
+        "searching for authentication the user in the DB:",user, user._id,
+        user.email
       );
       await daoUsers
         //convert the email to an object for mongoose to search
-        .readOne({ email: user.user.email })
+        .readOne({ email: user.email })
         .then((user) => {
           done(null, user);
         })

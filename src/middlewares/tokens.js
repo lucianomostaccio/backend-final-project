@@ -19,7 +19,6 @@ export async function tokenizeUserInCookie(req, res, next) {
     Logger.info("token:", token);
     res.cookie("authorization", token, cookieOpts);
     res["created"](req.user);
-    next();
   } catch (error) {
     next(error);
   }
