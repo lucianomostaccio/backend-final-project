@@ -2,6 +2,19 @@
 const formEditProfile = document.querySelector("#form-edit-profile");
 const inputs = document.querySelectorAll(".profileInput");
 
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.getElementById("profilePicture");
+  const fileChosen = document.getElementById("file-chosen");
+
+  fileInput.addEventListener("change", function (e) {
+    if (this.files && this.files[0]) {
+      fileChosen.textContent = this.files[0].name;
+    } else {
+      fileChosen.textContent = "No file chosen";
+    }
+  });
+});
+
 //first, we load current profile data
 window.addEventListener("load", async (event) => {
   const response = await fetch("/api/users/current");
@@ -57,21 +70,28 @@ formEditProfile?.addEventListener("submit", async (event) => {
 
 function previewImage() {
   let preview = document.querySelector("#imagePreview");
-  let fileInput = document.querySelector("#newProfilePicture");
-  let file = fileInput.files[0];
-  let reader = new FileReader();
+  let fileInput = document.querySelector("#profilePicture");
+  let fileChosen = document.querySelector("#file-chosen");
 
-  reader.onloadend = function () {
-    preview.innerHTML =
-      '<img class="profile_picture modal-trigger" src="' +
-      reader.result +
-      '" alt="Profile picture preview">';
-  };
+  if (fileInput.files && fileInput.files[0]) {
+    let file = fileInput.files[0];
+    fileChosen.textContent = file.name;
 
-  if (file) {
+    let reader = new FileReader();
+
+    reader.onloadend = function () {
+      preview.innerHTML =
+        '<img class="profile_picture modal-trigger rounded-full w-12 h-12 object-cover" src="' +
+        reader.result +
+        '" alt="Preview Profile Picture">';
+      preview.style.display = "block";
+    };
+
     reader.readAsDataURL(file);
   } else {
     preview.innerHTML = "";
+    preview.style.display = "none";
+    fileChosen.textContent = "No file chosen";
   }
 }
 

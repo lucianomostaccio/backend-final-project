@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showModal(src) {
     modal.style.display = "flex";
+    modal.style.marginTop = "2rem";
     modalImg.src = src;
   }
 

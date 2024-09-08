@@ -1,3 +1,17 @@
+// @ts-nocheck
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.getElementById("profilePicture");
+  const fileChosen = document.getElementById("file-chosen");
+
+  fileInput.addEventListener("change", function (e) {
+    if (this.files && this.files[0]) {
+      fileChosen.textContent = this.files[0].name;
+    } else {
+      fileChosen.textContent = "No file chosen";
+    }
+  });
+});
+
 // @ts-ignore
 const formRegister = document.querySelector("form");
 
@@ -25,29 +39,27 @@ formRegister?.addEventListener("submit", async (event) => {
 
 function previewImage() {
   let preview = document.querySelector("#imagePreview");
-  let fileInput = document.querySelector(".profile_picture");
-  // let footer = document.querySelector("#footer");
-  // @ts-ignore
-  // footer.style.position = "static";
-  // @ts-ignore
-  // footer.style.bottom = " ";
-  // @ts-ignore
-  let file = fileInput.files[0];
+  let fileInput = document.querySelector("#profilePicture");
+  let fileChosen = document.querySelector("#file-chosen");
 
-  let reader = new FileReader();
+  if (fileInput.files && fileInput.files[0]) {
+    let file = fileInput.files[0];
+    fileChosen.textContent = file.name;
 
-  reader.onloadend = function () {
-    // @ts-ignore
-    preview.innerHTML =
-      '<img class="profile_picture modal-trigger rounded-full" src="' +
-      reader.result +
-      '" alt="Preview Profile Picture">';
-  };
+    let reader = new FileReader();
 
-  if (file) {
+    reader.onloadend = function () {
+      preview.innerHTML =
+        '<img class="profile_picture modal-trigger rounded-full w-12 h-12 object-cover" src="' +
+        reader.result +
+        '" alt="Preview Profile Picture">';
+      preview.style.display = "block";
+    };
+
     reader.readAsDataURL(file);
   } else {
-    // @ts-ignore
     preview.innerHTML = "";
+    preview.style.display = "none";
+    fileChosen.textContent = "No file chosen";
   }
 }

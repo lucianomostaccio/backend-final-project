@@ -141,29 +141,44 @@
         </div>
       </div>
       <div>
-        <li class="profileItem dark:text-gray-50">Profile picture:
-          <img
-            class="profile_picture modal-trigger"
-            src="{{fullImageUrl}}"
-          /></li>
-        <label
-          class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
-          for="profilePicture"
-        >
-          Profile Picture
-        </label>
-        <div class="mt-1 flex items-center">
-          <input
-            class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary active-focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50"
-            type="file"
-            id="profilePicture"
-            name="profile_picture"
-            accept="image/*"
-          />
-          <div id="imagePreview" class="image-preview"></div>
-          <br />
+        <li class="profileItem dark:text-gray-50">Current profile picture
+            <div class="flex justify-center">
+            <img
+              class="profile_picture modal-trigger rounded-full"
+              src="{{fullImageUrl}}"
+            />
+            </div>
+        </li>
+        <div>
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 dark:text-gray-300"
+            for="profilePicture"
+          >
+            Change profile picture
+          </label>
+          <div class="mt-1 flex items-center">
+            <input
+              type="file"
+              id="profilePicture"
+              name="profile_picture"
+              accept="image/*"
+              class="hidden"
+              onchange="previewImage()"
+            />
+            <label
+              for="profilePicture"
+              class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700"
+            >
+              Choose File
+            </label>
+            <span
+              id="file-chosen"
+              class="ml-3 text-sm text-gray-600 dark:text-gray-400"
+            >No file chosen</span>
+            <div id="imagePreview" class="image-preview ml-3"></div>
+          </div>
         </div>
-
+        <br />
       </div>
       <div>
         <button
