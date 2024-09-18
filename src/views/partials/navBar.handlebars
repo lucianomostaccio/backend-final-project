@@ -230,7 +230,11 @@
                 <div>
                   <h2
                     class="text-lg font-bold text-gray-900 dark:text-gray-50"
-                  >{{last_name}}, {{first_name}}</h2>
+                  >{{#if last_name}}
+                    {{last_name}}, {{first_name}}
+                    {{else}}
+                      {{first_name}}
+                  {{/if}}
                   <p
                     class="text-sm text-gray-500 dark:text-gray-400"
                   >{{role}}</p>
