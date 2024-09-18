@@ -7,12 +7,20 @@ export const addImagePathToLocals = async (req, res, next) => {
     const user = await usersDao.readOne({ email }, { password: 0 });
 
     if (user.profile_picture) {
-      const basePath = process.env.BASE_URL || "http://localhost:8080";
-      const normalizedImagePath = user.profile_picture.replace(/\\/g, "/");
-      const imageUrlPath = normalizedImagePath.replace("src/static/", "");
-      user.fullImageUrl = `${basePath}/${imageUrlPath}`;
+      let fullImageUrl;
 
-      res.locals.fullImageUrl = user.fullImageUrl;
+      // Verify if the image path is an absolute URL (starts with http:// or https://)
+      if (/^https?:\/\//.test(user.profile_picture)) {
+        fullImageUrl = user.profile_picture; // absolute URL, do not modify
+      } else {
+        // URL is relative, so we need to prepend the base URL
+        const basePath = process.env.BASE_URL || "http://localhost:8080";
+        const normalizedImagePath = user.profile_picture.replace(/\\/g, "/");
+        const imageUrlPath = normalizedImagePath.replace("src/static/", "");
+        fullImageUrl = `${basePath}/${imageUrlPath}`;
+      }
+
+      res.locals.fullImageUrl = fullImageUrl;
     }
   }
   next();

@@ -10,15 +10,32 @@ const cookieOpts = {
 
 export async function tokenizeUserInCookie(req, res, next) {
   try {
-    Logger.debug("req.user obtained in tokenize user:", req.user);
+    console.log("Starting tokenizeUserInCookie");
+    console.log("req.user:", req.user);
+
+    if (!req.user) {
+      console.log("No user found in request");
+      return next(new Error("No user found in request"));
+    }
 
     req.user = toPOJO(req.user);
-    Logger.debug("req.user after toPOJO", req.user);
+    console.log("req.user after toPOJO", req.user);
 
+    // const userData = {
+    //   _id: req.user.user._id,
+    //   email: req.user.user.email,
+    //   first_name: req.user.user.first_name,
+    //   last_name: req.user.user.last_name,
+    //   role: req.user.user.role,
+    //   last_login: req.user.user.last_login
+    // };
     const token = await encrypt(req.user);
-    Logger.info("token:", token);
+    console.log("Token generated:", token);
+
     res.cookie("authorization", token, cookieOpts);
-    res["created"](req.user);
+    console.log("Cookie set");
+    // res["created"]();
+    next();
   } catch (error) {
     next(error);
   }

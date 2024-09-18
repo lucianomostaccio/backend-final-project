@@ -33,19 +33,29 @@ passport.use(
     // in every request
     async (user, done) => {
       const daoUsers = getDaoUsers();
-      console.log(
-        "searching for authentication the user in the DB:",user, user._id,
-        user.email
-      );
-      await daoUsers
-        //convert the email to an object for mongoose to search
-        .readOne({ email: user.email })
-        .then((user) => {
-          done(null, user);
-        })
-        .catch((error) => {
-          done(error);
-        });
+      console.log("searching for authentication the user in the DB:", user);
+      if (user.email !== undefined) {
+        await daoUsers
+          //convert the email to an object for mongoose to search
+          .readOne({ email: user.email })
+          .then((user) => {
+            // req.user = user;
+            done(null, user);
+          })
+          .catch((error) => {
+            done(error);
+          });
+      } else {
+        await daoUsers
+          .readOne({ email: user.user.email })
+          .then((user) => {
+            // req.user = user;
+            done(null, user);
+          })
+          .catch((error) => {
+            done(error);
+          });
+      }
     }
   )
 );
@@ -69,18 +79,21 @@ passport.use(
             email: profile.emails[0].value,
             password: "",
             first_name: profile.displayName || profile.username,
-            last_name: "", 
-            age: "", 
-            profile_picture: profile.photos[0]?.value || DEFAULT_USER_AVATAR_PATH,
-            role: DEFAULT_ROLE, 
-            tickets: [], 
+            last_name: "",
+            age: "",
+            profile_picture:
+              profile.photos[0]?.value || DEFAULT_USER_AVATAR_PATH,
+            role: DEFAULT_ROLE,
+            tickets: [],
             last_login: new Date(),
           });
         }
         // Generate token
+        console.log("User found/created:", user);
         const token = await encrypt(user);
         done(null, { user, token });
       } catch (error) {
+        console.error("Error in GitHub strategy:", error);
         done(error);
       }
     }
@@ -110,6 +123,7 @@ export async function authenticateWithJwt(req, res, next) {
           return next(typedError);
         } else {
           // If authentication is successful, pass to the next middleware
+          // req.user = res;
           return next();
         }
       }
