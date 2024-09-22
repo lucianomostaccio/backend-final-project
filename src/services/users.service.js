@@ -11,6 +11,7 @@ export class UsersService {
     this.emailService = emailService;
     this.smsService = smsService;
     this.hashing = hashing;
+    console.log("Users service email service injected:", this.emailService);
   }
 
   async authenticate({ email, password }) {

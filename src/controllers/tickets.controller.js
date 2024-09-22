@@ -1,5 +1,5 @@
-import { ticketsService } from "../services/tickets.service.js";
 import { cartsService } from "../services/carts.service.js";
+import { ticketsService } from "../services/index.js";
 
 export async function postController(req, res, next) {
   console.log("Received request to create a ticket for user:", req.user?._id);

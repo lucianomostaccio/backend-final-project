@@ -13,7 +13,6 @@ import {
 import { extractFile } from "../../middlewares/multer.js";
 import Logger from "../../utils/logger.js";
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
-import { tokenizeUserInCookie } from "../../middlewares/tokens.js";
 
 // Create the router
 export const usersRouter = Router();
