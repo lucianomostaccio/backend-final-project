@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { matches } from "../../utils.js";
+import { matches, toPOJO } from "../../utils.js";
 
 export class UsersDaoFiles {
   constructor(path) {
@@ -7,7 +7,7 @@ export class UsersDaoFiles {
   }
 
   async #readUsers() {
-    return JSON.parse(await fs.readFile(this.path, "utf-8"));
+    return toPOJO(await fs.readFile(this.path, "utf-8"));
   }
 
   async #writeUsers(users) {

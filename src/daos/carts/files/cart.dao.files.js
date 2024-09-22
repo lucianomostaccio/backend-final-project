@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import Logger from "../../../utils/logger.js";
+import { toPOJO } from "../../utils.js";
 
 export class CartDaoFiles {
   constructor(path) {
@@ -9,7 +10,7 @@ export class CartDaoFiles {
   async #readCarts() {
     try {
       const data = await fs.readFile(this.path, "utf-8");
-      return JSON.parse(data);
+      return toPOJO(data);
     } catch (err) {
       Logger.error("Error reading carts from file:", err);
       return [];
@@ -27,7 +28,7 @@ export class CartDaoFiles {
 
   async create(cartData) {
     const carts = await this.#readCarts();
-    const newCart = { ...cartData, id: Date.now() }; // Utiliza el timestamp como ID para simplicidad
+    const newCart = { ...cartData, id: Date.now() };
     carts.push(newCart);
     await this.#writeCarts(carts);
     Logger.info("Cart created:", newCart);

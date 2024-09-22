@@ -1,4 +1,4 @@
-//creates crud user async functions, using user.model
+//crud user async functions, using user.model
 import { User } from "../models/users.model.js";
 import Logger from "../utils/logger.js";
 import { ADMIN_SMS_NUMBER } from "../config/config.js";

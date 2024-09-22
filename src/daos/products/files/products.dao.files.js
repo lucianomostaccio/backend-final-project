@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import { matches } from "../../utils.js";
 import Logger from "../../../utils/logger.js";
+import { toPOJO } from "../../utils.js";
 
 export class ProductsDaoFiles {
   constructor(path) {
@@ -8,7 +9,7 @@ export class ProductsDaoFiles {
   }
 
   async #readProducts() {
-    return JSON.parse(await fs.readFile(this.path, "utf-8"));
+    return toPOJO(await fs.readFile(this.path, "utf-8"));
   }
 
   async #writeProducts(products) {

@@ -1,22 +1,59 @@
 import { Ticket } from "../models/tickets.model.js";
 import { getDaoTickets } from "../daos/tickets/tickets.dao.js";
+import { getDaoUsers } from "../daos/users/users.dao.js";
 import Logger from "../utils/logger.js";
-
+import { getEmailService } from "./email/email.service.js";
+const emailService = getEmailService();
 const ticketsDao = getDaoTickets();
+const usersDao = getDaoUsers();
 
 class TicketsService {
+  constructor(emailService) {
+    this.emailService = emailService;
+  }
+
   // Add a new ticket to the database
   async addTicket(ticketData) {
     try {
       console.log("Adding ticketData:", ticketData);
-      const ticket = new Ticket(ticketData);
-      console.log('Generated ticket _id:', ticket._id);
-      console.log("Ticket created in addTicket:", ticket);
-      const savedTicket = await ticketsDao.create(ticket.toPOJO());
+
+      // 1. Retrieve the purchaser's details by purchaser ID
+      const purchaserId = ticketData.purchaser;
+      let user;
+      try {
+        // Fetch user details from the database based on purchaser ID
+        user = await usersDao.readOne({ _id: purchaserId });
+        if (!user || !user.email) {
+          throw new Error("Email not found for purchaser");
+        }
+        console.log(`Email for purchaser ${purchaserId}:`, user.email);
+      } catch (error) {
+        Logger.error("Error fetching purchaser details:", error);
+        throw new Error("Failed to fetch purchaser email");
+      }
+
+      // 2. Send an email to the purchaser before proceeding with ticket creation
+      try {
+        console.log("Sending ticket creation email to:", user.email);
+        await this.emailService.send(
+          user.email,
+          "Ticket Created Successfully",
+          `Your ticket with code ${ticketData.code} is being processed.`
+        );
+        console.log("Ticket creation email sent successfully to:", user.email);
+      } catch (error) {
+        Logger.error("Failed to send ticket creation email:", error);
+      }
+
+      // 3. Create the ticket in the database after sending the email
+      const ticket = new Ticket(ticketData); // Create a new Ticket instance
+      console.log("Generated ticket _id:", ticket._id);
+      const savedTicket = await ticketsDao.create(ticket.toPOJO()); // Save the ticket in the DB
       console.log("Ticket created successfully:", savedTicket);
-      return savedTicket;
+
+      return savedTicket; // Return the newly created ticket
     } catch (error) {
-      console.log("Error adding ticket:", error);
+      Logger.error("Error adding ticket:", error);
       throw new Error("Failed to add ticket");
     }
   }
@@ -74,4 +111,5 @@ class TicketsService {
     }
   }
 }
-export const ticketsService = new TicketsService();
+
+export const ticketsService = new TicketsService({ emailService });

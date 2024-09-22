@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { matches } from "../../utils.js";
+import { matches, toPOJO } from "../../utils.js";
 
 export class TicketsDaoFiles {
   constructor(path) {
@@ -8,7 +8,7 @@ export class TicketsDaoFiles {
 
   async #readTickets() {
     try {
-      return JSON.parse(await fs.readFile(this.path, "utf-8"));
+      return toPOJO(await fs.readFile(this.path, "utf-8"));
     } catch (error) {
       console.error("Error reading tickets from file:", error);
       return [];

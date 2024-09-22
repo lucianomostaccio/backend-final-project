@@ -24,15 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
   span.onclick = () => (modal.style.display = "none");
 
   //searchbar
-  const searchForm = document.querySelector(".search-form");
-  const searchInput = document.querySelector(".search-input");
+  const searchForms = document.querySelectorAll(".search-form");
+  const searchInputs = document.querySelectorAll(".search-input");
 
-  searchForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const query = searchInput.value.trim();
-    if (query) {
-      window.location.href = `/products?search=${encodeURIComponent(query)}`;
-    }
+  searchForms.forEach((searchForm, index) => {
+    searchForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const query = searchInputs[index].value.trim();
+      if (query) {
+        window.location.href = `/products?search=${encodeURIComponent(query)}`;
+      }
+    });
   });
 });
 

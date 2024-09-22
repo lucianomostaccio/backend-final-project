@@ -77,7 +77,7 @@ function renderEmptyCart() {
       <p class="text-gray-500 dark:text-gray-400 mb-8">Start shopping to add items to your cart</p>
       <a class="bg-black text-gray-50 hover:bg-gray-800 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-900 px-6 py-3 rounded-md font-medium" href="/products" rel="ugc">Continue Shopping</a>
     </div>`;
-    cartContent.remove()
-    cartContentTotal.remove()
-    mainCartContainer.insertAdjacentHTML('afterend', emptyCartHTML);
+  cartContent.remove();
+  cartContentTotal.remove();
+  mainCartContainer.insertAdjacentHTML("afterend", emptyCartHTML);
 }
