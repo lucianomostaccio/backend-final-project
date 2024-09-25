@@ -14,16 +14,16 @@ let emailService;
 if (EXECUTION_MODE === "online" && NODE_ENV === "prod") {
   if (!emailService) {
     emailService = new EmailServiceNodemailer(NODEMAILER_GMAIL_OPTIONS);
-    Logger.info("sending emails using gmail");
+    console.log("sending emails using gmail");
   }
   // @ts-ignore
 } else if (EXECUTION_MODE === "offline" && NODE_ENV === "dev") {
   emailService = new EmailServiceConsole();
-  Logger.info("sending emails using console");
+  console.log("sending emails using console");
   // @ts-ignore
 } else {
   emailService = fakeEmailService;
-  Logger.info("Sending EMAIL using fake service");
+  console.log("Sending EMAIL using fake service");
 }
 
 export function getEmailService() {

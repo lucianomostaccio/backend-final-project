@@ -9,16 +9,6 @@ const usersDao = getDaoUsers();
 export class TicketsService {
   constructor(emailService) {
     this.emailService = emailService;
-    console.log("tickets service email service injected:", this.emailService);
-
-    // Verify transport
-    // this.emailService.transport.verify(function (error, success) {
-    //   if (error) {
-    //     console.log("Error verifying email transport:", error);
-    //   } else {
-    //     console.log("Email transport is ready to send messages:", success);
-    //   }
-    // });
   }
 
   // Add a new ticket to the database
@@ -43,14 +33,11 @@ export class TicketsService {
 
       // 2. Send an email to the purchaser before proceeding with ticket creation
       try {
-        if (!this.emailService || typeof this.emailService.send !== 'function') {
-          throw new Error("Email service is not available or 'send' method is missing");
-        }
-        console.log("Sending ticket creation email to:", user.email);
+        console.log("Sending ticket creation email");
         await this.emailService.send(
           user.email,
           "Ticket Created Successfully",
-          `Your ticket with code ${ticketData.code} is being processed.`
+          `Your ticket with code ${ticketData.code} is being processed. Thanks for your purchase!`
         );
         console.log("Ticket creation email sent successfully to:", user.email);
       } catch (error) {

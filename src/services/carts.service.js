@@ -19,7 +19,6 @@ class CartsService {
   }
 
   async addProductToCart(userId, productId) {
-    console.log(`Adding product to cart for user: ${userId}, Product: ${productId}`);
 
     let cart = await this.readOne(userId);
     if (!cart) {
@@ -39,12 +38,10 @@ class CartsService {
       { _id: cart._id },
       { $set: { products: cart.products } }
     );
-    console.log("Product added to the cart");
     return updatedCart;
   }
 
   async updateProductQuantity(userId, productId, change) {
-    console.log(`Modifying product quantity in cart for user: ${userId}, Product: ${productId}`);
     const cart = await this.readOne(userId);
 
     if (!cart) {
@@ -72,7 +69,6 @@ class CartsService {
       throw new Error("Failed to update cart");
     }
 
-    console.log("Product quantity updated in cart");
     return updatedCart;
   }
 
@@ -85,7 +81,6 @@ class CartsService {
   }
 
   async updateCart(userId, updatedCartData) {
-    console.log(`Updating cart for user: ${userId}`);
     try {
       const cartToUpdate = await cartsDao.readOne({ userId });
 
@@ -94,7 +89,6 @@ class CartsService {
       }
 
       const updatedCart = await cartsDao.updateOne({ userId }, { $set: updatedCartData });
-      console.log("Cart updated");
       return updatedCart;
     } catch (error) {
       console.error("Error updating cart:", error);

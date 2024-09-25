@@ -1,5 +1,4 @@
 import { Router } from "express";
-// import { rolesOnly } from "../../middlewares/authorization.js";
 import { getDaoCarts } from "../../daos/carts/cart.dao.js";
 import { getDaoProducts } from "../../daos/products/products.dao.js";
 import { authenticateWithJwt } from "../../middlewares/authentication.js";
@@ -13,17 +12,12 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
     res.redirect("/login");
   } else {
     Logger.debug("req.user exists in carts web router");
-    // webCartsRouter.get("/cart", rolesOnly, async (req, res) => {
 
     // Load carts directly, or change it to use a database
     const daoCarts = getDaoCarts();
     const daoProducts = getDaoProducts();
     // @ts-ignore
     const productsInCart = await daoCarts.readOne({ userId: req.user._id });
-
-    console.log("req.user detected in cart", req.user);
-    // @ts-ignore
-    console.log("req.user._id detected in cart", req.user._id);
 
     let total = 0;
     let cartId = null;
@@ -44,10 +38,9 @@ webCartsRouter.get("/cart", authenticateWithJwt, async (req, res) => {
       }
       cartId = productsInCart._id;
     } else {
-      console.log("No cart found for user:", req.user);
+      Logger.error("No cart found for user");
     }
 
-    console.log(JSON.stringify(productsInCart, null, 2));
     res.render("cart.handlebars", {
       ...req.user,
       pageTitle: "Cart",

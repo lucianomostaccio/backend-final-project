@@ -8,15 +8,13 @@ class FormService {
   // Add a new ticket to the database
   async addContactForm(formData) {
     try {
-      console.log("Adding contactFormData:", formData);
       const form = new Form(formData);
-      console.log("Generated Form _id:", form._id);
-      console.log("Form created in addTicket:", form);
+      Logger.debug("Generated Form _id:", form._id);
       const savedForm = await formDao.create(form.toPOJO());
-      console.log("Form created successfully:", savedForm);
+      Logger.debug("Form created successfully");
       return savedForm;
     } catch (error) {
-      console.log("Error adding form:", error);
+      Logger.error("Error adding form:", error);
       throw new Error("Failed to add form");
     }
   }

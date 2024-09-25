@@ -5,7 +5,13 @@ export class EmailServiceNodemailer {
   constructor(options) {
     this.origin = options.auth.user;
     console.log("Origin set to:", this.origin); // Log the origin email address
-    this.transport = nodemailer.createTransport(options);
+
+    // Añadir logger y debug para mayor visibilidad
+    this.transport = nodemailer.createTransport({
+      ...options,
+      logger: true,
+      debug: true,
+    });
   }
 
   async send(to, subject, text, attachments = []) {
@@ -20,7 +26,11 @@ export class EmailServiceNodemailer {
       emailOptions.attachments = attachments;
     }
 
-    await this.transport.sendMail(emailOptions);
-    console.log(emailOptions);
+    try {
+      await this.transport.sendMail(emailOptions);
+      console.log("Email sent successfully:", emailOptions);
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   }
 }

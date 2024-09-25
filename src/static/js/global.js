@@ -56,7 +56,6 @@ function addProductToCart(event, productId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Response data:", data);
       if (data.showToast) {
         Toastify({
           text: data.message,
@@ -129,7 +128,6 @@ function removeProductFromCart(event, productId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Response data:", data);
       if (data && data.payload && data.payload.products) {
         const product = data.payload.products.find(
           (item) => item.productId === productId

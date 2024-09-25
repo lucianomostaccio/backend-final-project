@@ -46,7 +46,6 @@ formEditProfile?.addEventListener("submit", async (event) => {
   try {
     const formData = new FormData(formEditProfile);
     formData.append("email", inputs[2].value);
-    console.log("Form data:", formData);
 
     const body = formData;
 

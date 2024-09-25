@@ -11,6 +11,7 @@ import {
 } from "../config/config.js";
 import { getDaoUsers } from "../daos/users/users.dao.js";
 import { encrypt } from "../utils/hashing.js";
+import Logger from "../utils/logger.js";
 
 passport.use(
   "jwt",
@@ -33,7 +34,7 @@ passport.use(
     // in every request
     async (user, done) => {
       const daoUsers = getDaoUsers();
-      console.log("searching for authentication the user in the DB:", user);
+      Logger.debug("searching for authentication the user in the DB");
       if (user.email !== undefined) {
         await daoUsers
           //convert the email to an object for mongoose to search
@@ -69,7 +70,6 @@ passport.use(
       callbackURL: GITHUB_CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("github profile data:", profile);
       const daoUsers = getDaoUsers();
       try {
         let user = await daoUsers.readOne({ email: profile.emails[0].value });
@@ -89,7 +89,6 @@ passport.use(
           });
         }
         // Generate token
-        console.log("User found/created:", user);
         const token = await encrypt(user);
         done(null, { user, token });
       } catch (error) {

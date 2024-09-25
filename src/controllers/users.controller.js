@@ -139,16 +139,14 @@ export const inactiveController = async (req, res, next) => {
 
 export const resetPasswordController = async (req, res, next) => {
   try {
-    console.log("req.body", req.body);
     const { email } = req.body;
     console.log(email)
     const user = await usersService.getUserByEmail(email);
-    console.log("user found by email in controller:", user);
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
-    Logger.debug("user found by email:", user);
+    Logger.debug("user found by email");
     await usersService.resetPassword(user);
     res.ok();
   } catch (error) {
@@ -159,9 +157,7 @@ export const resetPasswordController = async (req, res, next) => {
 
 export const confirmPasswordResetController = async (req, res, next) => {
   try {
-    console.log(req.params)
     const { token }= req.params;
-    console.log("token got from req.params", token);
     const { newPassword } = req.body;
     const user = await usersService.updatePassword(null, newPassword, token);
     if (!user) {

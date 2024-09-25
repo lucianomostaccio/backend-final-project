@@ -11,7 +11,6 @@ export async function getController(req, res, next) {
 
     const userId = req.user._id;
     const cart = await cartsService.readOne(userId);
-    // console.log("cart", cart)
     res.jsonOk(cart);
   } catch (error) {
     next(error);
@@ -29,7 +28,6 @@ export async function postController(req, res, next) {
 
 export async function putController(req, res, next) {
   try {
-    console.log("accesed putController", req.body,"req.user:", req.user);
     const { action, productId } = req.body;
     if (!req.user) {
       return res.status(401).json({
@@ -39,15 +37,6 @@ export async function putController(req, res, next) {
       });
     } else {
       const userId = req.user._id;
-
-      console.log(
-        "Action:",
-        action,
-        "ProductId:",
-        productId,
-        "UserId:",
-        userId
-      );
 
       let updatedCart;
 

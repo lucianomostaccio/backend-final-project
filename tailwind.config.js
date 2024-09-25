@@ -4,7 +4,7 @@ export default {
     './src/static/js/**/*.js',
     './src/views/**/*.handlebars'
   ],
-  darkMode: 'selector',
+  darkMode: 'class',
   theme: {
     extend: {},
   },

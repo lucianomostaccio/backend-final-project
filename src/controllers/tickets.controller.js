@@ -37,7 +37,6 @@ export async function postController(req, res, next) {
     console.log("Ticket Data:", ticketData);
 
     const ticket = await ticketsService.addTicket(ticketData);
-    console.log("Ticket created successfully:", ticket);
 
     console.log("Clearing cart post-ticket creation:", cart._id);
     const deleteResult = await cartsService.deleteCart(cart._id);

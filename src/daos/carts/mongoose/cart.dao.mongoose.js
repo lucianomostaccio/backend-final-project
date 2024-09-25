@@ -17,7 +17,6 @@ export class CartDaoMongoose {
 
   async readOne(query) {
     // Logger.debug("query obtained in cartsDaoMongoose read", query);
-    console.log("query obtained in cartsDaoMongoose read", query);
     const cart = await this.cartModel
       .findOne(query)
       .populate({

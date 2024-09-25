@@ -1,7 +1,6 @@
 // @ts-nocheck
 function buyCart(event, cartId) {
   event.preventDefault();
-  console.log("Purchasing items in cart:", cartId);
 
   fetch(`/api/tickets`, {
     method: "POST",
@@ -13,7 +12,6 @@ function buyCart(event, cartId) {
     }),
   })
     .then((response) => {
-      console.log("Purchase response status:", response.status);
       if (response.ok) {
         return response.json();
       } else {
@@ -21,7 +19,7 @@ function buyCart(event, cartId) {
       }
     })
     .then((data) => {
-      console.log("Purchase successful, redirecting:", data);
+      console.log("Purchase successful, redirecting");
       // Clear the main container and show a thank you message
       const mainContainer = document.querySelector("#main-content");
       const cartCount = document.querySelector(".cart-count");

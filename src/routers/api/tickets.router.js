@@ -5,5 +5,4 @@ import { authenticateWithJwt } from "../../middlewares/authentication.js";
 
 export const ticketsRouter = Router();
 
-ticketsRouter.post('/',authenticateWithJwt, postController);
-
+ticketsRouter.post("/", authenticateWithJwt, postController);

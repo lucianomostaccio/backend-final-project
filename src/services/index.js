@@ -10,7 +10,6 @@ const usersDao = getDaoUsers();
 const productsDao = getDaoProducts();
 const emailService = getEmailService();
 
-
 export const usersService = new UsersService({
   usersDao,
   productsDao,
@@ -19,4 +18,4 @@ export const usersService = new UsersService({
   hashing: { isValidPassword, createHash },
 });
 
-export const ticketsService = new TicketsService({emailService});
+export const ticketsService = new TicketsService(emailService);
