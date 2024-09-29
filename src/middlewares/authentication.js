@@ -106,7 +106,6 @@ export async function authenticateWithJwt(req, res, next) {
   if (!token) {
     // If there is no token, the user is not authenticated
     // Pass it to the next middleware
-    console.log("no token found in authenticateWithJwt");
     return next();
   } else {
     // If there is a token, proceed with authentication
