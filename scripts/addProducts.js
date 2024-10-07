@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
+import { connect } from "../src/database/database.js";
 import { getDaoProducts } from "../src/daos/products/products.dao.js";
 import Logger from "../src/utils/logger.js";
-import { MONGO_URL } from "../src/config/config.js";
 
 const daoProducts = getDaoProducts();
-mongoose
-  .connect(MONGO_URL)
+await connect()
   .then(() => {
-    Logger.debug("connected to db");
+    Logger.debug("connected,adding products");
     return insertProducts();
   })
 
