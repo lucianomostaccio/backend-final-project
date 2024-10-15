@@ -12,8 +12,7 @@ export async function connect() {
     try {
       // @ts-ignore
       await connectToMongoose(MONGO_URL);
-      // await connectToMongoose(MONGODB_CNX_STR)
-      Logger.info(`connected to DB: "${MONGO_URL}"`);
+      console.log(`connected to DB: "${MONGO_URL}"`);
       Logger.debug(`connected to DB: "${MONGO_URL}"`);
     } catch (error) {
       Logger.error("Error connecting to DB:", error);

@@ -11,11 +11,12 @@ let daoUsers;
 
 // @ts-ignore
 if (EXECUTION_MODE === "online") {
+  console.log("EXECUTION_MODE", EXECUTION_MODE);
   if (!daoUsers) {
     const usersModel = model("users", usersSchema);
     daoUsers = new UsersDaoMongoose(usersModel);
     Logger.info("using mongodb persistence - users");
-    Logger.debug("using mongodb persistence - users");
+    console.log("using mongodb persistence - users");
   }
 } else {
   daoUsers = new UsersDaoFiles(PATH_USERS_FILE);

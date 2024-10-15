@@ -13,7 +13,7 @@ export const usersSchema = new Schema(
     password: { type: String, default: "(not applicable)" },
     first_name: { type: String, required: true },
     last_name: { type: String, default: "(not specified)" },
-    age: { type: Number, default: "(not specified)" },
+    age: { type: Number, default: null },
     profile_picture: { type: String, default: DEFAULT_USER_AVATAR_PATH },
     role: { type: String, required: true, default: DEFAULT_ROLE },
     tickets: {

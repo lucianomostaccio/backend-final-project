@@ -7,16 +7,23 @@ export class UsersDaoMongoose {
   }
 
   async create(data) {
-    const user = await this.usersModel.create(data);
-    return toPOJO(user);
+    try {
+      Logger.debug("Attempting to create user with data:", data);
+      const user = await this.usersModel.create(data);
+      Logger.debug("User created successfully:", user);
+      return toPOJO(user);
+    } catch (error) {
+      Logger.error("Error creating user:", error);
+      throw error; 
+    }
   }
 
   async readOne(email) {
     Logger.debug("accessed readOne with email:", email);
-    console.log("accessed readOne with email:", email)
+    console.log("accessed readOne with email:", email);
     const userDoc = await this.usersModel.findOne(email).lean();
     Logger.debug("readOne userDoc", userDoc);
-    console.log("readOne userDoc", userDoc)
+    console.log("readOne userDoc", userDoc);
     return toPOJO(userDoc); // Apply toPOJO and return in a single step
   }
 

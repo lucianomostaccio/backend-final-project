@@ -2,11 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const PORT = process.env.PORT;
-export const MONGODB_CNX_STR =
-  process.env.MONGODB_CNX_STR || "mongodb://127.0.0.1/luciano_14";
 export const MONGO_URL =
-  process.env.MONGO_URL || "mongodb://127.0.0.1/luciano_14";
-export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@admin.com";
+  process.env.MONGO_URL 
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "luciano.m.lp@gmail.com";
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 export const DEFAULT_USER_AVATAR_PATH = process.env.DEFAULT_USER_AVATAR_PATH;
 export const DEFAULT_ROLE = "user";
