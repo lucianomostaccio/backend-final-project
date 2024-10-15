@@ -22,6 +22,7 @@ async function registerAdmin() {
       email: ADMIN_EMAIL,
       password: admingHashedPassword,
       role: "admin",
+      profile_picture: "",
     };
 
     console.log("final step adding admin user");
