@@ -1,29 +1,58 @@
-<section class="profileSection">
-  <ul class="userProfile" id="products-home">
-    <li class="profileItem">{{first_name}}</li>
-  </ul>
+<section class="py-12 md:py-20 dark:bg-gray-800">
+  <div class="container mx-auto px-4 md:px-6" id="main-content">
+    <h1 class="text-2xl font-bold text-white my-4">List of users and their roles:</h1>
+
+    <!-- Insert user selection toggle -->
+    <div class="userToggle mb-4">
+      <label for="userSelect" class="text-white">Select User:</label>
+      <select id="userSelect" class="bg-gray-600 text-white p-2 rounded">
+        <option value="">All Users</option>
+        {{#each allUsers}}
+          <option value="{{_id}}">{{first_name}} {{last_name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <ul class="productList flex flex-wrap -mx-2 items-stretch">
+      {{!-- Show selected user or all users --}}
+      {{#if selectedUser}}
+        <li class="productTitle bg-gray-700 p-4 rounded-lg shadow flex flex-col space-y-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 m-2 min-h-54" data-user-id="{{_id}}">
+          <div class="flex justify-between items-center">
+            <span class="text-white">USER: {{first_name}} {{last_name}} <br> ROLE: {{role}}</span>
+          </div>
+          <form action="/api/admin/{{_id}}" class="editForm mt-2 flex items-center space-x-2 pr-8">
+            <select name="role" required class="bg-gray-600 text-white p-2 rounded w-24">
+              <option value="">Select New Role</option>
+              <option value="user" {{#if_eq role 'user'}}selected{{/if_eq}}>User</option>
+              <option value="admin" {{#if_eq role 'admin'}}selected{{/if_eq}}>Admin</option>
+            </select>
+            <button class="greenButton bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded" type="submit">Edit Role</button>
+          </form>
+          <form action="/api/admin/{{_id}}" method="post" class="removeForm mt-auto justify-center flex">
+            <button class="smallRedButton bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded w-full" type="submit">Remove User</button>
+          </form>
+        </li>
+      {{else}}
+        {{#each allUsers}}
+          <li class="productTitle bg-gray-700 p-4 rounded-lg shadow flex flex-col justify-around space-y-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 m-2 min-h-54" data-user-id="{{_id}}">
+            <div class="flex justify-between items-center">
+              <span class="text-white">USER: {{first_name}} {{last_name}} <br> ROLE: {{role}}</span>
+            </div>
+            <form action="/api/admin/{{_id}}" class="editForm mt-2 flex items-center space-x-2 pr-8">
+              <select name="role" required class="bg-gray-600 text-white p-2 rounded w-24">
+                <option value="">Select New Role</option>
+                <option value="user" {{#if_eq role 'user'}}selected{{/if_eq}}>User</option>
+                <option value="admin" {{#if_eq role 'admin'}}selected{{/if_eq}}>Admin</option>
+              </select>
+              <button class="greenButton bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded" type="submit">Edit Role</button>
+            </form>
+            <form action="/api/admin/{{_id}}" method="post" class="removeForm mt-auto flex justify-center">
+              <button class="smallRedButton bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded w-full" type="submit">Remove User</button>
+            </form>
+          </li>
+        {{/each}}
+      {{/if}}
+    </ul>
+  </div>
 </section>
-
-<h1 class="pageTitle">List of users and their roles:</h1>
-
-<ul class="productList">
-  {{#each allUsers}}
-    <li class="productTitle">
-      USER: {{first_name}} {{last_name}} - ROLE:{{role}}
-      <form action="api/admin/{{_id}}" class="editForm">
-        <select name="role" required>
-          <option value="">Select New Role</option>
-          <option value="user" {{#if_eq role 'user'}}selected{{/if_eq}}>User</option>
-          <option value="admin" {{#if_eq role 'admin'}}selected{{/if_eq}}>Admin</option>
-        </select>
-        <button class="greenButton" type="submit">Edit Role</button>
-      </form>
-      <form action="api/admin/{{_id}}" method="post" class="removeForm">
-        <button class="smallRedButton" type="submit">Remove User</button>
-      </form>
-      <br><br><br>
-    </li>
-  {{/each}}
-</ul>
-
 <script src="/js/admin.js"></script>

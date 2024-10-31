@@ -165,10 +165,9 @@ p {
 .greenButton {
   background-color: #28a745;
   color: #fff;
-  padding: 10px 15px;
+  padding: 10px 25px;
   border: none;
   cursor: pointer;
-  width: 10vw;
   border-radius: 0.5rem;
   line-height: 1;
   /* border: 2px solid var(--clr-main); */

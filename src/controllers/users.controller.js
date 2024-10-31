@@ -51,32 +51,41 @@ export async function postController(req, res, next) {
 /**
  * This function handles the PUT request to update the user's profile.
  * It first extracts the user ID from the request object, then extracts the
- * fields to be updated from the request body. It also checks if a profile 
+ * fields to be updated from the request body. It also checks if a profile
  * picture is included in the request, and if so, it extracts its path.
- * 
- * If a current password and new password are included in the request, it 
+ *
+ * If a current password and new password are included in the request, it
  * authenticates the user with the current password and hashes the new password.
- * 
+ *
  * Finally, it updates the user's profile with the extracted fields and sends a
  * response containing the updated user object.
- * 
+ *
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
  * @param {Function} next - The next middleware function.
  */
 export async function putController(req, res, next) {
   try {
-    // Extract user ID from request object
-    const userId = req.user._id;
+    // Extract user ID from route parameters
+    const userId = req.params.id;
 
     // Extract fields from request body
-    const { first_name, last_name, age, currentPassword, newPassword, repeatNewPassword } = req.body;
+    const {
+      first_name,
+      last_name,
+      age,
+      role,
+      currentPassword,
+      newPassword,
+      repeatNewPassword,
+    } = req.body;
 
     // Create an object to hold the fields to be updated
     const updateFields = {
       first_name,
       last_name,
       age,
+      role, // Ensure 'role' is included
     };
 
     // If a profile picture is included in the request, extract its path
@@ -104,13 +113,14 @@ export async function putController(req, res, next) {
     }
 
     // Update the user's profile with the extracted fields
-    const updatedUser = await usersService.updateUser(userId, updateFields);
+    const updatedUser = await usersService.updateUser(userId, updateFields); // Uses userId from params
 
-    // Update the request object with the updated user object
-    req.user = updatedUser;
-
-    // Send a response containing the updated user object
-    res.jsonOk(updatedUser);
+    // Respond with the updated user's relevant fields
+    res.status(200).json({
+      first_name: updatedUser.first_name,
+      last_name: updatedUser.last_name,
+      role: updatedUser.role,
+    });
   } catch (error) {
     // If an error occurs, pass it to the next middleware function
     next(error);
@@ -140,7 +150,7 @@ export const inactiveController = async (req, res, next) => {
 export const resetPasswordController = async (req, res, next) => {
   try {
     const { email } = req.body;
-    console.log(email)
+    console.log(email);
     const user = await usersService.getUserByEmail(email);
     if (!user) {
       res.status(404).json({ message: "User not found" });
@@ -157,15 +167,17 @@ export const resetPasswordController = async (req, res, next) => {
 
 export const confirmPasswordResetController = async (req, res, next) => {
   try {
-    const { token }= req.params;
+    const { token } = req.params;
     const { newPassword } = req.body;
     const user = await usersService.updatePassword(null, newPassword, token);
     if (!user) {
-      return res.status(400).json({ message: "Password reset token is invalid or has expired." });
+      return res
+        .status(400)
+        .json({ message: "Password reset token is invalid or has expired." });
     }
     console.log("password reset confirmed");
     res.ok();
   } catch (error) {
     next(error);
   }
-}
+};
