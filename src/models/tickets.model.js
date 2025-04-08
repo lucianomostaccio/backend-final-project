@@ -7,9 +7,10 @@ export class Ticket {
   #amount;
   #purchaser;
 
-  constructor({ _id = randomUUID(), code = [], amount, purchaser }) {
+  constructor({ _id = randomUUID(), code = "", amount, purchaser }) {
     this.#_id = _id;
-    this.#code = code;
+    // Ensure code is always a string, not an array
+    this.#code = typeof code === "string" ? code : "";
     this.#ticketDate = new Date();
     this.#amount = amount;
     this.#purchaser = purchaser;

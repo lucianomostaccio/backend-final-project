@@ -1,4 +1,104 @@
 // @ts-nocheck
+// Función para calcular el total basado en los productos visibles en el DOM
+function updateCartTotal() {
+  // Seleccionar específicamente los elementos del carrito (contenedores de productos)
+  // que están dentro del contenedor principal del carrito
+  const cartContent = document.querySelector(".cartContent");
+  if (!cartContent) {
+    console.log("No se encontró el contenedor del carrito");
+    return 0;
+  }
+
+  // Seleccionar solo los productos dentro del contenedor del carrito
+  const productElements = cartContent.querySelectorAll(
+    ".bg-white.dark\\:bg-gray-900"
+  );
+  let total = 0;
+
+  console.log(`Encontrados ${productElements.length} productos en el carrito`);
+
+  productElements.forEach((product, index) => {
+    try {
+      // Obtener el elemento del precio usando la clase personalizada
+      const priceElement = product.querySelector(".product-price");
+      if (!priceElement) {
+        console.log(`Producto ${index + 1}: Elemento de precio no encontrado`);
+        return; // Saltar este producto
+      }
+
+      // Obtener el texto del precio
+      const priceText = priceElement.innerText;
+      if (!priceText) {
+        console.log(`Producto ${index + 1}: Texto de precio no encontrado`);
+        return; // Saltar este producto
+      }
+
+      // Eliminar el símbolo de la moneda y cualquier espacio
+      let cleanPriceText = priceText.replace(/[$€£¥]/g, "").trim();
+
+      // Normalizar el formato del número: reemplazar coma por punto para decimales
+      // Si el formato es 199,00 -> convertir a 199.00 para el parseFloat
+      cleanPriceText = cleanPriceText.replace(/,/g, ".");
+
+      // Convertir el texto del precio a un número
+      const price = parseFloat(cleanPriceText);
+
+      // Obtener el elemento de cantidad
+      const quantityElement = product.querySelector('[id^="quantity-"]');
+      if (!quantityElement) {
+        console.log(
+          `Producto ${index + 1}: Elemento de cantidad no encontrado`
+        );
+        return; // Saltar este producto
+      }
+
+      // Obtener la cantidad
+      const quantity = parseInt(quantityElement.innerText, 10);
+
+      // Añadir al total si los valores son válidos
+      if (!isNaN(price) && !isNaN(quantity)) {
+        const subtotal = price * quantity;
+        total += subtotal;
+        console.log(
+          `Producto ${
+            index + 1
+          }: precio ${price} x cantidad ${quantity} = ${subtotal}`
+        );
+      } else {
+        console.log(
+          `Producto ${
+            index + 1
+          }: Valores inválidos - precio: ${price}, cantidad: ${quantity}`
+        );
+      }
+    } catch (error) {
+      console.error(`Error al procesar producto ${index + 1}:`, error);
+    }
+  });
+
+  // Actualizar el elemento del total en la página
+  const cartTotalElement = document.querySelector(
+    ".cartContentTotal .text-gray-900"
+  );
+  if (cartTotalElement) {
+    cartTotalElement.innerHTML = `Total: ${formatPrice(total)}`;
+    console.log("Total del carrito actualizado: " + formatPrice(total));
+  } else {
+    console.log("Elemento del total del carrito no encontrado");
+  }
+
+  return total;
+}
+
+// Hacer la función disponible globalmente para que pueda ser usada en global.js
+window.updateCartTotal = updateCartTotal;
+
+// Evento que se ejecuta cuando el DOM está completamente cargado
+document.addEventListener("DOMContentLoaded", function () {
+  // Calcular el total inicial
+  updateCartTotal();
+});
+
 function removeWholeProductFromCart(event, productId) {
   event.preventDefault();
 
@@ -14,11 +114,74 @@ function removeWholeProductFromCart(event, productId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      window.location.reload();
+      // Remove the product card from the DOM
+      const productCard =
+        document.getElementById(`product-${productId}`) ||
+        event.target.closest(".bg-white.dark\\:bg-gray-900");
+      if (productCard) {
+        productCard.remove();
+      }
+
+      // Calcular y actualizar el total del carrito
+      updateCartTotal();
+
+      // Update the cart total if it exists on the page
+      if (data.payload && data.payload.total !== undefined) {
+        const cartTotalElement = document.querySelector(
+          ".cartContentTotal .text-gray-900"
+        );
+        if (cartTotalElement) {
+          cartTotalElement.innerHTML = `Total: ${formatPrice(
+            data.payload.total
+          )}`;
+        }
+      }
+
+      // If no more products in cart, show empty cart
+      if (
+        data.payload &&
+        data.payload.products &&
+        data.payload.products.length === 0
+      ) {
+        renderEmptyCart();
+      }
+
+      // Show notification
+      Toastify({
+        text: "Product removed from cart",
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#9f0808",
+      }).showToast();
+
+      // Update the cart count in navbar
+      let cartCountElement = document.querySelector(".cart-count");
+      if (cartCountElement) {
+        let cartCount = Number(cartCountElement.textContent);
+        // Decrease by the product quantity (if we knew it)
+        // For simplicity, just setting it to match the new products length
+        if (data.payload && data.payload.productsCount !== undefined) {
+          cartCountElement.textContent = data.payload.productsCount;
+        } else {
+          cartCount--;
+          cartCountElement.textContent = cartCount > 0 ? cartCount : 0;
+        }
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+// Import the formatPrice function from global.js
+function formatPrice(price) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(price);
 }
 
 function removeCart(event, cartId) {

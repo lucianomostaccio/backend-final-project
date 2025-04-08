@@ -1,4 +1,4 @@
-//crud user async functions, using user.model
+// User service implementation with CRUD operations
 import { User } from "../models/users.model.js";
 import Logger from "../utils/logger.js";
 import { ADMIN_SMS_NUMBER } from "../config/config.js";
@@ -16,24 +16,30 @@ export class UsersService {
   async authenticate({ email, password }) {
     try {
       const user = await this.usersDao.readOne({ email });
-      console.log("user obtained by authenticate in users.service:", user);
+      Logger.debug("Authentication attempt for user:", email);
+
       if (!user) {
-        console.log("user not found");
-        const typedError = new Error("Auth error, user email not found");
+        Logger.warning("Authentication failed: User email not found");
+        const typedError = new Error("Authentication error: User not found");
         typedError["type"] = "FAILED_AUTHENTICATION";
         throw typedError;
       }
+
       if (!this.hashing.isValidPassword(password, user.password)) {
-        console.log("invalid password");
-        const typedError = new Error("Auth error, invalid password");
+        Logger.warning(
+          "Authentication failed: Invalid password for user:",
+          email
+        );
+        const typedError = new Error("Authentication error: Invalid password");
         typedError["type"] = "FAILED_AUTHENTICATION";
         throw typedError;
       }
-      console.log("authenticated successfully");
+
+      Logger.info("User authenticated successfully:", email);
       return user;
     } catch (error) {
       if (!error["type"]) {
-        console.log("error type not found");
+        Logger.error("Untyped error in authentication:", error);
         error["type"] = "UNKNOWN_ERROR";
       }
       throw error;
@@ -41,32 +47,44 @@ export class UsersService {
   }
 
   async addUser(userData) {
-    console.log("entered addUser in users.service");
+    Logger.debug("Creating new user");
     try {
       if (userData.password) {
         userData.password = await this.hashing.createHash(userData.password);
       }
+      // Remove role for security - prevent role escalation
       delete userData.role;
+
       const user = new User(userData);
-      console.log("user (before toPOJO):", user); // Inspect directly
-      console.log("Data to be saved:", user.toPOJO()); // Examine after toPOJO
+      Logger.debug("User model created, saving to database");
+
       await this.usersDao.create(user.toPOJO());
 
-      console.log(
-        "ADMIN SMS NUMBER RECEIVED AT USERS.SERVICE:",
-        ADMIN_SMS_NUMBER
-      ),
+      // Send notification emails and SMS
+      try {
         await this.emailService.send(
           user.email,
-          "welcome",
-          "thanks for registering!"
+          "Welcome to Our Platform",
+          "Thank you for registering with our service!"
         );
-      await this.smsService.send({
-        to: ADMIN_SMS_NUMBER,
-        body: `new user: ${user.first_name} (${user.email})`,
-      });
+        Logger.info("Welcome email sent successfully to:", user.email);
+
+        await this.smsService.send({
+          to: ADMIN_SMS_NUMBER,
+          body: `New user registered: ${user.first_name} (${user.email})`,
+        });
+        Logger.info("Admin notification sent via SMS");
+      } catch (notificationError) {
+        // Don't fail the registration if notifications fail
+        Logger.error(
+          "Failed to send registration notifications:",
+          notificationError
+        );
+      }
+
       return user;
     } catch (error) {
+      Logger.error("Error creating user:", error);
       const typedError = new Error(error.message);
       typedError["type"] = "INVALID_ARGUMENT";
       throw typedError;
@@ -78,13 +96,18 @@ export class UsersService {
     try {
       const user = await this.usersDao.readOne({ email });
       if (!user) {
-        console.log("user not found in users.service");
-        throw new Error("User not found");
+        Logger.warning("User not found with email:", email);
+        const error = new Error("User not found");
+        error.type = "NOT_FOUND";
+        throw error;
       }
-      return await user;
+      return user;
     } catch (error) {
-      Logger.error(`Error retrieving user by email: ${error.message}`);
-      throw new Error(`Error retrieving user: ${error.message}`);
+      Logger.error("Error retrieving user by email:", error);
+      if (!error.type) {
+        error.type = "INTERNAL_ERROR";
+      }
+      throw error;
     }
   }
 
@@ -92,92 +115,128 @@ export class UsersService {
   async getUserById(_id) {
     try {
       const user = await this.usersDao.readOne({ _id });
-      console.log("user obtained by getUserById in users.service:", user);
+      Logger.debug("User retrieval by ID:", _id);
+
       if (!user) {
-        throw new Error("User not found");
+        Logger.warning("User not found with ID:", _id);
+        const error = new Error("User not found");
+        error.type = "NOT_FOUND";
+        throw error;
       }
-      return await user;
+      return user;
     } catch (error) {
-      throw new Error(`Error retrieving user: ${error.message}`);
+      Logger.error("Error retrieving user by ID:", error);
+      if (!error.type) {
+        error.type = "INTERNAL_ERROR";
+      }
+      throw error;
     }
   }
 
   async getAllUsers() {
-    return await this.usersDao.readMany({});
+    try {
+      const users = await this.usersDao.readMany({});
+      Logger.info(`Retrieved ${users.length} users`);
+      return users;
+    } catch (error) {
+      Logger.error("Error retrieving all users:", error);
+      throw error;
+    }
   }
 
   // Update user by ID
   async updateUser(_id, updateFields) {
-    console.log("user id obtained in updateUser in users.service", _id);
+    Logger.debug("Updating user with ID:", _id);
     try {
       const userToUpdate = await this.usersDao.readOne({ _id });
-      console.log("user found to be updated:", userToUpdate);
 
       if (!userToUpdate) {
-        Logger.warning("User not found for update");
-        throw new Error("User not found");
+        Logger.warning("User not found for update with ID:", _id);
+        const error = new Error("User not found");
+        error.type = "NOT_FOUND";
+        throw error;
       }
-
-      // Ensure 'role' is included in updateFields and allowed to be updated
-      // No changes needed if 'role' is already included
 
       const updatedUser = await this.usersDao.updateOne(
         { _id },
         { $set: updateFields },
         { new: true }
       );
-      console.log("updated user fields in users.service:");
-      console.log("User information updated");
 
-      console.log("User information updated for user id:", {
-        userId: updatedUser._id,
-      });
-      return await updatedUser;
+      Logger.info("User information updated successfully for ID:", _id);
+      return updatedUser;
     } catch (error) {
       Logger.error("Error updating user:", error);
+      if (!error.type) {
+        error.type = "INTERNAL_ERROR";
+      }
       throw error;
     }
   }
 
   async updatePassword(userId, newPassword, token) {
-    // Determine the correct user ID.
-    let effectiveUserId = userId;
-    if (token && !userId) {
-      const decryptedData = await decrypt(token);
-      effectiveUserId = decryptedData._id;
+    try {
+      // Determine the correct user ID
+      let effectiveUserId = userId;
+      if (token && !userId) {
+        const decryptedData = await decrypt(token);
+        effectiveUserId = decryptedData._id;
+      }
+
+      // If no userId could be determined, throw an error
+      if (!effectiveUserId) {
+        const error = new Error("User ID is not available");
+        error.type = "INVALID_ARGUMENT";
+        throw error;
+      }
+
+      // Hash the new password
+      const hashedPassword = await createHash(newPassword);
+
+      // Update the user's password
+      const updatedUser = await this.usersDao.updateOne(
+        { _id: effectiveUserId },
+        { $set: { password: hashedPassword } },
+        { new: true }
+      );
+
+      // Handle case where user is not found
+      if (!updatedUser) {
+        const error = new Error("User not found");
+        error.type = "NOT_FOUND";
+        throw error;
+      }
+
+      Logger.info(
+        "Password updated successfully for user ID:",
+        effectiveUserId
+      );
+      return updatedUser;
+    } catch (error) {
+      Logger.error("Error updating password:", error);
+      if (!error.type) {
+        error.type = "INTERNAL_ERROR";
+      }
+      throw error;
     }
-
-    // If no userId could be determined, throw an error.
-    if (!effectiveUserId) {
-      throw new Error("User ID is not available");
-    }
-
-    // Hash the new password.
-    const hashedPassword = await createHash(newPassword);
-
-    // Update the user's password.
-    const updatedUser = await this.usersDao.updateOne(
-      { _id: effectiveUserId },
-      { $set: { password: hashedPassword } },
-      { new: true }
-    );
-
-    // Handle case where user is not found.
-    if (!updatedUser) {
-      throw new Error("User not found");
-    }
-
-    return updatedUser;
   }
 
   async resetPassword(user) {
-    const token = await encrypt({ _id: user._id });
+    try {
+      const token = await encrypt({ _id: user._id });
 
-    await this.emailService.send(
-      user.email,
-      "Reset Password", // Subject
-      `Please click the following link to reset your password: http://localhost:8080/confirmresetpass/${token}` // Message
-    );
+      await this.emailService.send(
+        user.email,
+        "Password Reset Request",
+        `Please click the following link to reset your password: http://localhost:8080/confirmresetpass/${token}`
+      );
+
+      Logger.info("Password reset email sent to:", user.email);
+      return true;
+    } catch (error) {
+      Logger.error("Error sending password reset email:", error);
+      throw error;
+    }
   }
 
   // Delete user by ID
@@ -186,10 +245,10 @@ export class UsersService {
       const deletedUser = await this.usersDao.deleteOne({ _id });
 
       if (deletedUser) {
-        console.log("User deleted:", deletedUser);
+        Logger.info("User deleted successfully with ID:", _id);
         return deletedUser;
       } else {
-        Logger.warning("User not found for deletion");
+        Logger.warning("User not found for deletion with ID:", _id);
         return null;
       }
     } catch (error) {
@@ -205,33 +264,46 @@ export class UsersService {
         { $set: { last_login: new Date() } },
         { new: true }
       );
+      Logger.debug("Updated last login timestamp for user:", userId);
       return updatedUser;
     } catch (error) {
+      Logger.error("Error updating last login timestamp:", error);
       throw new Error(`Error updating last login: ${error.message}`);
     }
   }
 
   async clearInactiveUsers() {
     try {
+      const inactiveThreshold = new Date(Date.now() - 48 * 60 * 60 * 1000);
       const inactiveUsers = await this.usersDao.readMany({
-        last_login: { $lt: new Date(Date.now() - 48 * 60 * 60 * 1000) },
+        last_login: { $lt: inactiveThreshold },
       });
-      console.log("accounts with no login in last 48 hours:", inactiveUsers);
+
+      Logger.info(
+        `Found ${inactiveUsers.length} inactive users without login in the last 48 hours`
+      );
       const deletedUsers = [];
 
       for (const user of inactiveUsers) {
         await this.usersDao.deleteOne({ _id: user._id });
-        console.log("deleted user:", user);
-        await this.emailService.send(
-          user.email,
-          "inactive accout",
-          "your account has been removed due to inactivity that lasted more than 48 hours"
-        );
+        Logger.info("Deleted inactive user:", user.email);
+
+        try {
+          await this.emailService.send(
+            user.email,
+            "Account Deactivated",
+            "Your account has been removed due to inactivity that lasted more than 48 hours. Please register again if you wish to use our services."
+          );
+        } catch (emailError) {
+          Logger.error("Failed to send account deletion email:", emailError);
+        }
+
         deletedUsers.push(user);
       }
 
       return deletedUsers;
     } catch (error) {
+      Logger.error("Error clearing inactive users:", error);
       throw new Error(`Error clearing inactive users: ${error.message}`);
     }
   }

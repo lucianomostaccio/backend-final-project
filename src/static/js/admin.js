@@ -13,11 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ role: newRole }), // Ensure 'role' is sent
-        credentials: "include", // if needed
+        body: JSON.stringify({ role: newRole }),
+        credentials: "include",
       })
         .then((response) => {
-          if (!response.ok) throw new Error("Failed to update role");
+          if (!response.ok) {
+            throw new Error(`Failed to update role: ${response.status}`);
+          }
           return response.json();
         })
         .then((data) => {
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             position: "right",
             backgroundColor: "#28a745",
           }).showToast();
+
           // Update role in the DOM
           const userCard = document.querySelector(`[data-user-id="${userId}"]`);
           if (userCard) {
@@ -38,7 +41,17 @@ document.addEventListener("DOMContentLoaded", function () {
             roleSpan.textContent = `USER: ${data.first_name} ${data.last_name} <br>ROLE: ${data.role}`;
           }
         })
-        .catch((error) => console.error("Error updating role:", error));
+        .catch((error) => {
+          console.error("Error updating role:", error);
+          // @ts-ignore
+          Toastify({
+            text: "Failed to update role. Please try again.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545",
+          }).showToast();
+        });
     });
   });
 
@@ -51,10 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       fetch(`/api/admin/${userId}`, {
         method: "DELETE",
-        credentials: "include", // if needed
+        credentials: "include",
       })
         .then((response) => {
-          if (!response.ok) throw new Error("Failed to remove user");
+          if (!response.ok) {
+            throw new Error(`Failed to remove user: ${response.status}`);
+          }
           // @ts-ignore
           Toastify({
             text: "User removed successfully!",
@@ -63,13 +78,24 @@ document.addEventListener("DOMContentLoaded", function () {
             position: "right",
             backgroundColor: "#dc3545",
           }).showToast();
+
           // Remove user card from the DOM
           const userCard = document.querySelector(`[data-user-id="${userId}"]`);
           if (userCard) {
             userCard.remove();
           }
         })
-        .catch((error) => console.error("Error removing user:", error));
+        .catch((error) => {
+          console.error("Error removing user:", error);
+          // @ts-ignore
+          Toastify({
+            text: "Failed to remove user. Please try again.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545",
+          }).showToast();
+        });
     });
   });
 
@@ -81,24 +107,22 @@ document.addEventListener("DOMContentLoaded", function () {
   userSelect.addEventListener("change", function () {
     // @ts-ignore
     const selectedId = this.value;
-  
+
     userCards.forEach((card) => {
-      // Verifica si se selecciona "all users" (value == "") o un usuario específico
+      // Check if "all users" (value == "") is selected or a specific user
       if (selectedId === "") {
-        // Muestra todas las tarjetas y restablece las clases responsivas
+        // Show all cards and reset responsive classes
         card.classList.remove("hidden", "w-full");
         card.classList.add("sm:w-1/2", "md:w-1/3", "lg:w-1/4");
       } else if (card.getAttribute("data-user-id") === selectedId) {
-        // Solo muestra la tarjeta del usuario seleccionado con ancho completo
+        // Only show the selected user's card with full width
         card.classList.remove("hidden", "sm:w-1/2", "md:w-1/3", "lg:w-1/4");
         card.classList.add("w-full");
       } else {
-        // Oculta las tarjetas que no coinciden con el usuario seleccionado
+        // Hide cards that don't match the selected user
         card.classList.add("hidden");
         card.classList.remove("w-full", "sm:w-1/2", "md:w-1/3", "lg:w-1/4");
       }
     });
   });
-  
 });
-

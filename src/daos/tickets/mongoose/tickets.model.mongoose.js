@@ -3,9 +3,9 @@ import { randomUUID } from "node:crypto";
 
 export const ticketsSchema = new Schema(
   {
-    _id: { type: String, default: randomUUID},
+    _id: { type: String, default: randomUUID },
     code: {
-      type: [String],
+      type: String,
       unique: true,
     },
     ticketDate: {

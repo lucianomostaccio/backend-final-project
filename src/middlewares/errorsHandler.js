@@ -4,27 +4,41 @@ export function errorsHandler(error, req, res, next) {
   Logger.warning("Error type:", error["type"]);
   Logger.error("Error message:", error.message);
 
-  switch (error["type"]) {
+  // Set default values
+  let statusCode = 500;
+  let errorMessage = error.message || "Internal Server Error";
+  let errorType = error["type"] || "INTERNAL_ERROR";
+
+  switch (errorType) {
     case "INVALID_ARGUMENT":
-      res.status(400);
+      statusCode = 400;
       break;
     case "FAILED_AUTHENTICATION":
-      Logger.error("failed authentication errorsHandler");
-      res.status(401);
+      Logger.error("Authentication failed:", errorMessage);
+      statusCode = 401;
       break;
     case "FAILED_AUTHORIZATION":
-      res.status(403);
+      statusCode = 403;
+      break;
+    case "NOT_FOUND":
+      statusCode = 404;
+      break;
+    case "VALIDATION_ERROR":
+      statusCode = 422;
       break;
     case "INTERNAL_ERROR":
-      Logger.error("internal error");
-      res
-        .status(500)
-        .json({ error: "Internal Server Error", message: error.message });
+      Logger.error("Internal server error:", error);
+      statusCode = 500;
       break;
     default:
-      Logger.error("unexpected error!");
+      Logger.error("Unexpected error!", error);
       Logger.debug(JSON.stringify(error, null, 2));
-      res.status(500);
+      statusCode = 500;
   }
-  res.json({ status: "error", message: error.message });
+
+  res.status(statusCode).json({
+    status: "error",
+    message: errorMessage,
+    code: statusCode,
+  });
 }

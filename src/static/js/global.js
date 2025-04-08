@@ -38,6 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Function to format price with currency symbol
+function formatPrice(price) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(price);
+}
+
 //update cart in real time
 function addProductToCart(event, productId) {
   event.preventDefault();
@@ -100,6 +109,11 @@ function addProductToCart(event, productId) {
             } else {
               removeBtn.setAttribute("disabled", "disabled");
             }
+
+            // Calcular y actualizar el total del carrito localmente
+            if (typeof updateCartTotal === "function") {
+              updateCartTotal();
+            }
           }
         }
       } else {
@@ -156,6 +170,11 @@ function removeProductFromCart(event, productId) {
             removeBtn.removeAttribute("disabled");
           } else {
             removeBtn.setAttribute("disabled", "disabled");
+          }
+
+          // Calcular y actualizar el total del carrito localmente
+          if (typeof updateCartTotal === "function") {
+            updateCartTotal();
           }
         }
       } else {
